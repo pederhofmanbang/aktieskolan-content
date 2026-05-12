@@ -1,4 +1,5 @@
 import data from "@/data/prices.json";
+import { VOLUMES } from "@/data/volumes";
 
 export type InstrumentType = "stock" | "fund";
 
@@ -11,6 +12,7 @@ export type Instrument = {
   fee?: number;
   currentPrice: number;
   asOf: string;
+  avgDailyVolume?: number;
 };
 
 type RawPrice = { date: string; close: number };
@@ -41,6 +43,7 @@ function toInstrument(r: RawInstrument): Instrument {
     fee: r.fee,
     currentPrice: last.close,
     asOf: last.date,
+    avgDailyVolume: VOLUMES[r.ticker]?.avgDailyVolume,
   };
 }
 

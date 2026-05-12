@@ -31,7 +31,7 @@ export default function LessonPage({ params }: { params: Params }) {
     : null;
 
   return (
-    <main className="mx-auto max-w-3xl px-6 py-12 sm:py-16">
+    <main className="mx-auto max-w-5xl px-6 py-12 sm:py-16">
       <Link
         href="/lektioner"
         className="text-sm text-neutral-500 transition-colors hover:text-neutral-900"

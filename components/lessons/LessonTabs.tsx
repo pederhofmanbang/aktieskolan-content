@@ -73,7 +73,7 @@ export function LessonTabs({ media, flashcards, code }: Props) {
 
       <div className="mt-8">
         <TabPanel id="las" active={active}>
-          <article className="prose prose-neutral max-w-none prose-headings:tracking-tight prose-h1:hidden prose-a:text-primary-dark prose-strong:text-neutral-900">
+          <article className="prose prose-neutral mx-auto max-w-3xl prose-headings:tracking-tight prose-h1:hidden prose-a:text-primary-dark prose-strong:text-neutral-900">
             <MDXContent code={code} components={mdxComponentsWithoutQuiz} />
           </article>
         </TabPanel>

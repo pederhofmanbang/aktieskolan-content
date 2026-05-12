@@ -10,7 +10,7 @@ export default function LektionerPage() {
   const lessons = [...allLessons].sort((a, b) => a.nummer - b.nummer);
 
   return (
-    <main className="mx-auto max-w-4xl px-6 py-12 sm:py-16">
+    <main className="mx-auto max-w-5xl px-6 py-12 sm:py-16">
       <header className="mb-10 sm:mb-12">
         <Link
           href="/"

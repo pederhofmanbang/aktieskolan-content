@@ -3,7 +3,9 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { allLessons } from "contentlayer/generated";
 
-import { MDXContent } from "@/components/lessons/MDXContent";
+import { LessonTabs } from "@/components/lessons/LessonTabs";
+import { lessonFlashcards } from "@/data/lesson-flashcards";
+import { lessonMedia } from "@/data/lesson-media";
 
 type Params = { slug: string };
 
@@ -29,7 +31,7 @@ export default function LessonPage({ params }: { params: Params }) {
     : null;
 
   return (
-    <main className="mx-auto max-w-3xl px-6 py-12 sm:py-16">
+    <main className="mx-auto max-w-5xl px-6 py-12 sm:py-16">
       <Link
         href="/lektioner"
         className="text-sm text-neutral-500 transition-colors hover:text-neutral-900"
@@ -66,9 +68,11 @@ export default function LessonPage({ params }: { params: Params }) {
         </ul>
       </aside>
 
-      <article className="prose prose-neutral mt-12 max-w-none prose-headings:tracking-tight prose-h1:hidden prose-a:text-primary-dark prose-strong:text-neutral-900">
-        <MDXContent code={lesson.body.code} />
-      </article>
+      <LessonTabs
+        media={lessonMedia[lesson.slug] ?? {}}
+        flashcards={lessonFlashcards[lesson.slug]}
+        code={lesson.body.code}
+      />
 
       <nav className="mt-12">
         {next ? (

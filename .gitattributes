@@ -1,0 +1,12 @@
+# Force LF line endings for text source files so YAML/MDX parsers
+# don't choke on CR characters on Windows checkouts.
+* text=auto eol=lf
+
+# Binary files (just in case any get added later)
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.woff binary
+*.woff2 binary

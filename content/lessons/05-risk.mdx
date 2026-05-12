@@ -1,0 +1,194 @@
+---
+slug: "05-risk"
+nummer: 5
+titel: "Risk — priset för avkastning"
+underrubrik: "Varför börsen svänger — och varför det är okej"
+metafor: "Bergsklättring"
+mal:
+  - "Förstå att risk och avkastning hänger ihop"
+  - "Veta vad standardavvikelse, Sharpe-kvot och drawdown är"
+  - "Bygga magkänsla för hur mycket ner det faktiskt kan gå"
+beraknad_tid_minuter: 8
+unlocks: "simulator.riskmatt_kraschlage"
+nasta_lektion: "06-diversifiering"
+---
+
+# Risk — priset för avkastning
+
+Om du har följt med så långt undrar du kanske: *"Om en globalfond bara ger 7 % om året och tiden ordnar resten — varför är inte alla rika?"*
+
+Svaret är ett ord: **risk**. Eller mer exakt: **rörelse**. Börsen ger inte 7 % varje år som ett urverk. Den ger +25 % ena året, -18 % nästa, +12 % därefter. På lång sikt blir snittet 7 %, men resan dit är skakig.
+
+Och det är **resan** — inte slutpunkten — som får folk att sälja på fel ställe och bli besvikna.
+
+<Metafor titel="Bergsklättring">
+
+Tänk på att investera som att klättra:
+
+**Räntefond = vandring i Skåne.** Lätt terräng, knappt några höjdmeter. Litet är spännande. Du kommer fram, men utsikten är blygsam.
+
+**Globalfond = Kebnekaise.** En riktig topp. Du kommer att svettas, kanske få blåst i ansiktet, kanske behöva vända en gång. Men utsikten på toppen är värd det.
+
+**Enskild First North-aktie = Mount Everest.** Fantastisk utsikt — om du kommer fram. Men en av fyra som ger sig upp dit kommer aldrig hem.
+
+**Hävstångsprodukter = Everest utan syrgas.** Roligt att läsa om i tidningen. Du ska inte vara där.
+
+</Metafor>
+
+**Det viktiga med metaforen:** ingen klättrar Kebnekaise och säger "vad orättvist att det blåste". Vinden är inte ett misstag — den är *en del av paketet*. Det är samma sak på börsen. Svängningarna är inte en bugg. De är priset.
+
+## Hur mycket har börsen rört sig historiskt?
+
+Här är några siffror från Stockholmsbörsen (OMXSGI, inkl. utdelning) för att kalibrera magkänslan:
+
+<NyckeltalsTabell>
+
+| Period | Vad hände | Bredd nedgång (max drawdown) |
+|---|---|---|
+| **2000–2002 (Dotcom-kraschen)** | Tech-bubblan sprack | **−65 %** |
+| **2007–2009 (Finanskrisen)** | Banker kollapsade globalt | **−55 %** |
+| **2020 (Coronakraschen)** | Pandemin slog till på 4 veckor | **−30 %** |
+| **2022 (Inflations- och räntekrisen)** | Räntor upp, tech ner | **−25 %** |
+| **Genomsnittligt år** | Normala svängningar | **−10 till −15 %** intra-year |
+
+</NyckeltalsTabell>
+
+Lägg märke till: i **2008** halverades nästan svenska börsen. Hade du haft 1 miljon kr i januari, hade du haft ~450 000 kr i mars 2009. Sjutton månader. 550 000 kr "borta".
+
+**De som sålde då blev fattigare.** De som satt kvar (eller bättre: köpte mer) såg sina pengar mer än fyrdubblas under det följande decenniet.
+
+<Varning>
+
+**Det här är hjärtat i investerande:** den största förlusten är inte en kraschad portfölj. Det är **du själv som säljer på botten**. Lektion 9 ägnas helt åt det här, men sätt frön nu.
+
+</Varning>
+
+## Standardavvikelse — hur mycket svänger det?
+
+När man pratar om risk används ofta ordet **standardavvikelse** (eller "volatilitet"). Det är ett mått på hur mycket en investering har svängt historiskt.
+
+<Faktaruta>
+
+**Typiska standardavvikelser per år:**
+
+- Sparkonto: **0 %** (ingen svängning, men ingen avkastning över inflation heller)
+- Korträntefond: **1–3 %**
+- Blandfond 50/50: **8–10 %**
+- Bred globalfond: **13–16 %**
+- Sverigefond: **15–20 %**
+- Enskild Large Cap-aktie: **20–30 %**
+- Småbolagsaktie/First North: **30–50 %+**
+
+</Faktaruta>
+
+**Tolkning:** vid 15 % standardavvikelse rör sig avkastningen +/- 15 % från snittet under ett typiskt år. Vid 7 % förväntad avkastning betyder det att 2/3 av åren ligger mellan -8 % och +22 %. Det resterande 1/3 går utanför — uppåt eller nedåt.
+
+## Sharpe-kvot — riskjusterad avkastning
+
+Två fonder gav 10 % per år. Är de lika bra? Inte nödvändigtvis. Om Fond A nådde dit med jämna 10 % och Fond B med vilda berg-och-dalbana mellan -30 % och +50 %, är Fond A objektivt bättre — du fick samma resultat med mindre sjösjuka.
+
+**Sharpe-kvot** mäter det här. Förenklat: överavkastning ÷ standardavvikelse.
+
+- **Sharpe < 1:** vanligt, okej
+- **Sharpe 1–2:** bra
+- **Sharpe > 2:** mycket bra, sällsynt över tid
+
+Höga avkastningssiffror är imponerande. Höga **Sharpe-siffror** över lång tid är **vad du faktiskt vill ha**.
+
+## Max drawdown — hur långt ner kan det gå?
+
+**Drawdown** är hur mycket en investering har tappat från sin senaste topp. En **max drawdown** är det värsta som hänt historiskt.
+
+Det här är ett ärligare riskmått än standardavvikelse, för det säger något om **smärtan** du måste tåla. En 50 % drawdown betyder att din miljon blev 500 000 kr. Vill du verkligen sitta still och äta lunch som vanligt då?
+
+För svenska börsen historiskt: max drawdown ligger runt **-65 %** (dotcom). För globalfonder: ungefär **-55 %**. För räntefonder: sällan över **-15 %**.
+
+<Försökssjälv>
+
+Gå till **simulatorn → Krasch-läge** och applicera **2008-scenariot** på din nuvarande portfölj. Se vad som händer med ditt portföljvärde över 17 månader. Notera vad du *känner*. Är det panik? Lättnad att det är fake? Skriv ner det — vi använder den känslan i lektion 9.
+
+</Försökssjälv>
+
+## Riskklasser — den officiella skalan
+
+Alla fonder i EU är klassade på en skala **1–7** (där 1 = lägst risk, 7 = högst):
+
+<NyckeltalsTabell>
+
+| Klass | Standardavvikelse | Typiska exempel |
+|---|---|---|
+| 1 | 0–0,5 % | Penningmarknadsfonder |
+| 2 | 0,5–2 % | Korta räntefonder |
+| 3 | 2–5 % | Långa räntefonder |
+| 4 | 5–10 % | Blandfonder |
+| 5 | 10–15 % | Vissa globalfonder |
+| 6 | 15–25 % | De flesta aktiefonder |
+| 7 | > 25 % | Småbolag, enskilda branscher |
+
+</NyckeltalsTabell>
+
+För en 23-åring som sparar långsiktigt är **klass 6** absolut normalt och rationellt. Det är inte "för risk-fyllt" — det är vad som ger bäst förväntad avkastning på 30+ år.
+
+## Risk minskar med tid (för aktier)
+
+Här är en av de mest tröstande sanningarna om börsen:
+
+<Faktaruta>
+
+**Sannolikhet för negativ avkastning (svenska börsen historiskt):**
+
+- Efter **1 dag:** ~46 %
+- Efter **1 år:** ~25 %
+- Efter **5 år:** ~10 %
+- Efter **15 år:** **~0 %** (har aldrig hänt)
+
+</Faktaruta>
+
+På kort sikt är aktier ett skämt — en slumpgenerator. På lång sikt är de en pålitlig kraft. Det är därför hela strategin "investera långsiktigt och låt vara" fungerar — och varför du absolut **inte** ska ha pengar du behöver inom 5 år på börsen.
+
+<Varning>
+
+**Disclaimer:** Historisk avkastning är ingen garanti för framtida resultat. Den här statistiken är bra för att kalibrera magkänsla, men framtiden kan se annorlunda ut. Det är därför vi i nästa lektion lär oss **diversifiering** — som är försäkringen mot att en enskild marknad eller period är annorlunda än historien.
+
+</Varning>
+
+## Vad du lärt dig
+
+Du förstår nu att risk inte är ett problem — det är **priset du betalar för avkastning**. Du vet att svenska börsen ramlat 50–65 % flera gånger i historien, alltid kommit tillbaka, och att de som klarat sig bäst är de som suttit still. Du har möt **standardavvikelse**, **Sharpe-kvot**, **max drawdown** och **riskklasserna 1–7**.
+
+I nästa lektion lär du dig din viktigaste försäkring mot risk: **diversifiering**. Inte att undvika risk — utan att sprida den klokt.
+
+<Quiz>
+
+**Fråga 1:** Sannolikheten att svenska börsen är NEDÅT efter 15 år (historiskt sett):
+- A) Runt 50 %
+- B) Runt 25 %
+- C) Runt 10 %
+- D) Nästan 0 % ✓
+
+**Fråga 2:** Fond A: 8 % årlig avkastning, standardavvikelse 12 %. Fond B: 8 % årlig avkastning, standardavvikelse 24 %. Vilken är bättre på riskjusterad avkastning?
+- A) Fond A — samma avkastning med hälften så stor svängning ✓
+- B) Fond B — högre standardavvikelse är alltid bättre
+- C) De är lika bra
+- D) Omöjligt att säga
+
+**Fråga 3:** Vad är "max drawdown"?
+- A) Den högsta avkastningen fonden någonsin haft
+- B) Den maximala nedgången från en tidigare topp ✓
+- C) Hur mycket fonden tar i avgift
+- D) Antalet aktier i fonden
+
+</Quiz>
+
+<SimulatorTask>
+
+**Uppdrag: Stress-testa din portfölj**
+
+1. Gå till **simulatorn → Krasch-läge**
+2. Applicera **2008-scenariot** på din portfölj
+3. Se hur portföljen tappar i värde över 17 simulerade månader
+4. **Sälj ingenting.** Låt simulatorn rulla vidare och se hur portföljen återhämtar sig under följande 36 månader
+
+Detta är en träning på vad som krävs av dig i en riktig krasch: **göra ingenting.** Skriv ner en mening till dig själv: *"När börsen är -30 % kommer jag att…"* Det är din kommande regel.
+
+</SimulatorTask>

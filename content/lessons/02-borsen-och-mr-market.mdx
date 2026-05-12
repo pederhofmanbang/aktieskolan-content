@@ -1,0 +1,176 @@
+---
+slug: "02-borsen-och-mr-market"
+nummer: 2
+titel: "Börsen och Mr Market"
+underrubrik: "Varför priset hoppar omkring — och varför du inte behöver bry dig"
+metafor: "Mr Market — den manodepressiva grannen"
+mal:
+  - "Förstå hur en aktiekurs faktiskt sätts"
+  - "Veta vad orderbok, köpkurs, säljkurs och spread är"
+  - "Känna till skillnaden mellan OMXS30, OMXSPI och First North"
+beraknad_tid_minuter: 8
+unlocks: "simulator.limitorder"
+nasta_lektion: "03-fonder-lasagne"
+---
+
+# Börsen och Mr Market
+
+Aktiekursen i Volvo gick upp 2 % igår och ner 1,5 % idag. Frågan är: hände det 2 % bra med Volvo igår och 1,5 % dåligt idag? Knappast. Volvo byggde lastbilar precis som vanligt båda dagarna.
+
+Så vad är det egentligen som rör sig? Svaret är att **priset inte är samma sak som värdet**. Och när du förstår skillnaden förändras hur du tänker om börsen för alltid.
+
+<Metafor titel="Mr Market">
+
+Den legendariske investeraren **Benjamin Graham** (Warren Buffetts mentor) bad oss tänka så här:
+
+Föreställ dig att du äger en bit av en pizzeria tillsammans med en man som heter **Mr Market**. Varje morgon knackar Mr Market på din dörr och säger:
+
+*"God morgon! Jag erbjuder mig att antingen köpa din bit av pizzerian, eller sälja min till dig. Idag är priset 100 kr per bit."*
+
+Nästa dag knackar han igen, ofta upprymd: *"Jag är fantastiskt på humör idag! 130 kr per bit!"*
+
+Dagen efter är han nedstämd: *"Allt är hopplöst. 70 kr per bit, ta det eller lämna det."*
+
+Mr Market är **manodepressiv**. Han kan ena dagen tycka att pizzerian är värd en förmögenhet och nästa dag att den är värdelös. Trots att inget har förändrats inne i pizzerian.
+
+**Det viktiga:** du måste inte göra något när han knackar. Du kan tacka nej hundra dagar i rad. Han kommer tillbaka imorgon med ett nytt humör.
+
+**Börsen är Mr Market.** Den ger dig ett pris varje sekund. Du bestämmer själv om du tycker det är rimligt eller inte.
+
+</Metafor>
+
+## Så här sätts kursen i verkligheten
+
+Föreställ dig en stor, livad fiskmarknad. Köpare ropar ut vad de är villiga att betala. Säljare ropar ut vad de vill ha. När någon köpare och någon säljare möts på samma pris — *deal*.
+
+På börsen kallas det här en **orderbok**:
+
+<Faktaruta>
+
+**Orderboken för Volvo B (förenklat exempel):**
+
+| Köpare vill betala | Antal | Säljare vill ha | Antal |
+|---|---|---|---|
+| 248,50 kr | 1 500 | 249,00 kr | 800 |
+| 248,40 kr | 3 200 | 249,20 kr | 2 100 |
+| 248,30 kr | 850 | 249,40 kr | 5 000 |
+
+**Köpkurs (bid):** högsta priset någon vill köpa för = **248,50 kr**
+**Säljkurs (ask):** lägsta priset någon vill sälja för = **249,00 kr**
+**Spread:** skillnaden = **0,50 kr** (ungefär 0,2 %)
+
+</Faktaruta>
+
+När en ny köpare kommer in och säger "jag tar 100 aktier till marknadspris" så köper hen från säljaren med lägsta pris (249,00 kr). Det blir den **senast betalt-kursen** du ser i appen. Och så går det, hela dagen, tiotusentals affärer.
+
+## Spread — den dolda avgiften
+
+Lägg märke till spreaden. Om du köper omedelbart till 249,00 kr och säljer omedelbart till 248,50 kr har du *direkt* tappat 0,2 %. Det är priset för att handla.
+
+För stora bolag som Volvo, H&M eller Investor är spreaden liten — 0,05–0,2 %. För småbolag på First North kan den vara **3–5 %**. Det betyder att du måste tjäna 3–5 % bara för att gå plus minus noll om du skulle vilja sälja direkt.
+
+<Varning>
+
+**Pedagogisk varning:** Småbolag på First North har ofta hög spread *och* låg likviditet. Det betyder att om många vill sälja samtidigt kan kursen rasa snabbt. Det är inget fel med små bolag — men förstå att risken är högre.
+
+</Varning>
+
+## Stockholmsbörsens listor — var hör aktien hemma?
+
+Alla aktier är inte lika. På Stockholmsbörsen (officiellt: **Nasdaq Stockholm**) finns flera "listor" baserat på bolagens storlek:
+
+<NyckeltalsTabell>
+
+| Lista | Storlek | Typ | Exempel |
+|---|---|---|---|
+| **Large Cap** | > 1 mdr EUR (~10 mdr SEK) | De stora, etablerade | Volvo, H&M, Investor, Ericsson |
+| **Mid Cap** | 150 mEUR – 1 mdr EUR | Medelstora | NCC, Sweco, Lindab |
+| **Small Cap** | < 150 mEUR | Mindre etablerade | Många mindre industribolag |
+| **First North** | Vilken storlek som helst | Tillväxt, lägre krav | Mindre tech-bolag, biotech |
+
+</NyckeltalsTabell>
+
+**Regel-of-thumb för nybörjare:** börja på Large Cap. Bolagen är mer transparenta, mer omsatta, och har oftast funnits så länge att du kan se hur de klarade tidigare kriser.
+
+## Index — börsens "termometer"
+
+När någon säger "börsen gick upp 1 %" menar de oftast ett **index**. Ett index är ett mått som följer många aktier samtidigt. De viktigaste svenska:
+
+<Faktaruta>
+
+- **OMXS30** — de 30 mest omsatta aktierna. Det är den som visas på nyheterna. Men: räknar **inte** med utdelning. Underskattar avkastningen.
+- **OMXS30GI** — samma 30 bolag, men inklusive utdelning. **Det här är vad du faktiskt har fått om du ägt dem.**
+- **OMXSPI** — alla ~370 aktier på Stockholmsbörsen. Brett, utan utdelning.
+- **OMXSGI / SIXRX** — alla aktier, med utdelning. Det mest "ärliga" måttet på svenska börsen.
+
+</Faktaruta>
+
+Skillnaden är inte liten: utdelningar bidrar med ~3 % per år. Över 30 år är det skillnaden mellan att fördubbla pengarna och att femdubbla dem.
+
+## Börsens öppettider
+
+Stockholmsbörsen är öppen **måndag till fredag**:
+
+- **08:45–09:00** — öppningsauktion (alla orders matchas i en stor "klumpning")
+- **09:00–17:25** — kontinuerlig handel (det vanliga flödet)
+- **17:25–17:30** — stängningsauktion
+
+Halvdagar (stänger 13:00) inkluderar trettondagsafton, dymmelonsdag (onsdagen före påsk), pingstafton och 23+31 december.
+
+## Marknadsorder vs limitorder
+
+När du köper kan du välja två huvudtyper:
+
+**Marknadsorder:** "köp till bästa pris just nu". Snabbt, garanterat avslut. Risken är att i en illikvid aktie kan priset hoppa upp innan din order matchas.
+
+**Limitorder:** "jag köper för högst X kr". Du sätter en gräns. Får du inte avslut idag ligger ordern kvar och försöker imorgon (om du inte tar bort den). Bra för att inte chocka över priset.
+
+För **stora, omsatta aktier** spelar det sällan stor roll vilken du väljer. För **småbolag eller utländska aktier** med stor spread — alltid limitorder.
+
+<Försökssjälv>
+
+Gå till simulatorn. Försök att köpa **Investor B** med en **limitorder** som ligger 1 kr *under* nuvarande kurs. Vad händer? Ordern går till "ej avslutade order" och väntar. Om kursen faller dit får du köpet — annars inte.
+
+</Försökssjälv>
+
+## Vad du lärt dig
+
+Du vet nu att börsen är en stor digital fiskmarknad. Du förstår orderboken, vad spread är, varför Large Cap är säkrare för nybörjare, och skillnaden mellan de svenska indexen. Viktigast: du har mött **Mr Market** och vet att du inte behöver svara när han knackar.
+
+Nästa lektion: vi går från att köpa enskilda aktier till att köpa **hundratals samtidigt** — med fonder.
+
+<Quiz>
+
+**Fråga 1:** Vad menas med "spread"?
+- A) Hur mycket aktien stigit den senaste månaden
+- B) Skillnaden mellan högsta köpkurs och lägsta säljkurs ✓
+- C) Bolagets utdelningstillväxt
+- D) Hur många aktier som finns i bolaget
+
+**Fråga 2:** Du vill köpa en småbolagsaktie med hög spread. Vilken ordertyp är klokare?
+- A) Marknadsorder — du vill ha det gjort snabbt
+- B) Limitorder — du kontrollerar maxpriset ✓
+- C) Spelar ingen roll
+- D) Köp aldrig småbolagsaktier
+
+**Fråga 3:** OMXS30 visar +0,5 % idag. Men din breda Sverigefond är upp 0,8 %. Hur kan det stämma?
+- A) Fonden räknar fel
+- B) OMXS30 räknar inte med utdelning, vilket fonden gör; och fonden äger fler bolag än de 30 ✓
+- C) Det är omöjligt
+- D) Avanza har en bug
+
+</Quiz>
+
+<SimulatorTask>
+
+**Uppdrag: Lägg din första limitorder**
+
+1. Gå till simulatorn och välj en aktie — t.ex. **Volvo B** eller **Atlas Copco B**.
+2. Välj **Limitorder** istället för Marknadsorder.
+3. Sätt ett pris som ligger ~1 % under aktuell kurs.
+4. Skicka ordern.
+5. Kolla under "Aktiva order" — där ligger den och väntar.
+
+Bonus: vänta några dagar (eller använd "tidsmaskinen" senare i kursen) och se om den får avslut.
+
+</SimulatorTask>

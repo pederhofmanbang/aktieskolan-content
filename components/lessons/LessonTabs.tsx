@@ -4,6 +4,8 @@ import { useState, type ReactNode } from "react";
 
 import { cn } from "@/lib/cn";
 import type { LessonMedia } from "@/data/lesson-media";
+import type { Flashcard } from "@/data/lesson-flashcards";
+import { Flashcards } from "./Flashcards";
 import { MDXContent } from "./MDXContent";
 import {
   mdxComponentsQuizOnly,
@@ -15,7 +17,6 @@ type TabId =
   | "film"
   | "podcast"
   | "presentation"
-  | "repetition"
   | "flashcards"
   | "quiz"
   | "langre-quiz";
@@ -25,7 +26,6 @@ const TABS: { id: TabId; label: string }[] = [
   { id: "film", label: "Film" },
   { id: "podcast", label: "Podcast" },
   { id: "presentation", label: "Presentation" },
-  { id: "repetition", label: "Repetition" },
   { id: "flashcards", label: "Flashcards" },
   { id: "quiz", label: "Quiz" },
   { id: "langre-quiz", label: "Längre quiz" },
@@ -33,10 +33,11 @@ const TABS: { id: TabId; label: string }[] = [
 
 type Props = {
   media: LessonMedia;
+  flashcards?: Flashcard[];
   code: string;
 };
 
-export function LessonTabs({ media, code }: Props) {
+export function LessonTabs({ media, flashcards, code }: Props) {
   const [active, setActive] = useState<TabId>("las");
 
   return (
@@ -141,7 +142,33 @@ export function LessonTabs({ media, code }: Props) {
         </TabPanel>
 
         <TabPanel id="presentation" active={active}>
-          {media.presentationSourceUrl ? (
+          {media.presentationPdfUrl ? (
+            <div>
+              <iframe
+                src={media.presentationPdfUrl}
+                title="Presentation"
+                className="w-full rounded-2xl border border-neutral-200 bg-white"
+                style={{ height: "80vh" }}
+              />
+              <div className="mt-3 flex items-center justify-end gap-4 text-sm">
+                <a
+                  href={media.presentationPdfUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-primary-dark hover:underline"
+                >
+                  Öppna i ny flik ↗
+                </a>
+                <a
+                  href={media.presentationPdfUrl}
+                  download
+                  className="text-primary-dark hover:underline"
+                >
+                  Ladda ner PDF ↓
+                </a>
+              </div>
+            </div>
+          ) : media.presentationSourceUrl ? (
             <ExternalLinkCard
               title="Presentation"
               description="Presentationen ligger i NotebookLM."
@@ -153,12 +180,10 @@ export function LessonTabs({ media, code }: Props) {
           )}
         </TabPanel>
 
-        <TabPanel id="repetition" active={active}>
-          <ComingSoon label="Repetitionsmaterialet kommer snart." />
-        </TabPanel>
-
         <TabPanel id="flashcards" active={active}>
-          {media.flashcardsSourceUrl ? (
+          {flashcards && flashcards.length > 0 ? (
+            <Flashcards cards={flashcards} />
+          ) : media.flashcardsSourceUrl ? (
             <ExternalLinkCard
               title="Flashcards"
               description="Flashcards-setet ligger i NotebookLM."

@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { allLessons } from "contentlayer/generated";
 
 import { LessonTabs } from "@/components/lessons/LessonTabs";
+import { lessonFlashcards } from "@/data/lesson-flashcards";
 import { lessonMedia } from "@/data/lesson-media";
 
 type Params = { slug: string };
@@ -67,7 +68,11 @@ export default function LessonPage({ params }: { params: Params }) {
         </ul>
       </aside>
 
-      <LessonTabs media={lessonMedia[lesson.slug] ?? {}} code={lesson.body.code} />
+      <LessonTabs
+        media={lessonMedia[lesson.slug] ?? {}}
+        flashcards={lessonFlashcards[lesson.slug]}
+        code={lesson.body.code}
+      />
 
       <nav className="mt-12">
         {next ? (

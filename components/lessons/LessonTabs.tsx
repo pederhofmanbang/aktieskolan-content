@@ -4,6 +4,11 @@ import { useState, type ReactNode } from "react";
 
 import { cn } from "@/lib/cn";
 import type { LessonMedia } from "@/data/lesson-media";
+import { MDXContent } from "./MDXContent";
+import {
+  mdxComponentsQuizOnly,
+  mdxComponentsWithoutQuiz,
+} from "./mdx-components";
 
 type TabId = "las" | "film" | "podcast" | "presentation" | "repetition" | "quiz";
 
@@ -18,10 +23,10 @@ const TABS: { id: TabId; label: string }[] = [
 
 type Props = {
   media: LessonMedia;
-  children: ReactNode;
+  code: string;
 };
 
-export function LessonTabs({ media, children }: Props) {
+export function LessonTabs({ media, code }: Props) {
   const [active, setActive] = useState<TabId>("las");
 
   return (
@@ -58,7 +63,7 @@ export function LessonTabs({ media, children }: Props) {
       <div className="mt-8">
         <TabPanel id="las" active={active}>
           <article className="prose prose-neutral max-w-none prose-headings:tracking-tight prose-h1:hidden prose-a:text-primary-dark prose-strong:text-neutral-900">
-            {children}
+            <MDXContent code={code} components={mdxComponentsWithoutQuiz} />
           </article>
         </TabPanel>
 
@@ -91,7 +96,7 @@ export function LessonTabs({ media, children }: Props) {
         </TabPanel>
 
         <TabPanel id="quiz" active={active}>
-          <ComingSoon label="Quizet för den här lektionen kommer snart." />
+          <MDXContent code={code} components={mdxComponentsQuizOnly} />
         </TabPanel>
       </div>
     </div>

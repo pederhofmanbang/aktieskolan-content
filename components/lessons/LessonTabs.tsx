@@ -84,7 +84,50 @@ export function LessonTabs({ media, code }: Props) {
         </TabPanel>
 
         <TabPanel id="podcast" active={active}>
-          <ComingSoon label="Podcasten för den här lektionen kommer snart." />
+          {media.podcastAudioUrl ? (
+            <div className="rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm sm:p-8">
+              <div className="text-xs font-semibold uppercase tracking-wider text-primary-dark">
+                Podcast
+              </div>
+              <audio
+                controls
+                preload="metadata"
+                src={media.podcastAudioUrl}
+                className="mt-4 w-full"
+              >
+                Din webbläsare stödjer inte ljuduppspelning.
+              </audio>
+              {media.podcastSourceUrl && (
+                <a
+                  href={media.podcastSourceUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-4 inline-block text-sm text-primary-dark hover:underline"
+                >
+                  Öppna i NotebookLM ↗
+                </a>
+              )}
+            </div>
+          ) : media.podcastSourceUrl ? (
+            <div className="rounded-2xl border border-neutral-200 bg-white p-6 text-center shadow-sm sm:p-8">
+              <div className="text-xs font-semibold uppercase tracking-wider text-primary-dark">
+                Podcast
+              </div>
+              <p className="mt-4 text-sm text-neutral-600">
+                Podden ligger i NotebookLM tills vi laddar upp ljudfilen här.
+              </p>
+              <a
+                href={media.podcastSourceUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="mt-4 inline-block rounded-full bg-neutral-900 px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-neutral-800"
+              >
+                Lyssna på podden ↗
+              </a>
+            </div>
+          ) : (
+            <ComingSoon label="Podcasten för den här lektionen kommer snart." />
+          )}
         </TabPanel>
 
         <TabPanel id="presentation" active={active}>

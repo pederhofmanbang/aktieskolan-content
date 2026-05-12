@@ -3,7 +3,9 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { allLessons } from "contentlayer/generated";
 
+import { LessonTabs } from "@/components/lessons/LessonTabs";
 import { MDXContent } from "@/components/lessons/MDXContent";
+import { lessonMedia } from "@/data/lesson-media";
 
 type Params = { slug: string };
 
@@ -66,9 +68,9 @@ export default function LessonPage({ params }: { params: Params }) {
         </ul>
       </aside>
 
-      <article className="prose prose-neutral mt-12 max-w-none prose-headings:tracking-tight prose-h1:hidden prose-a:text-primary-dark prose-strong:text-neutral-900">
+      <LessonTabs media={lessonMedia[lesson.slug] ?? {}}>
         <MDXContent code={lesson.body.code} />
-      </article>
+      </LessonTabs>
 
       <nav className="mt-12">
         {next ? (

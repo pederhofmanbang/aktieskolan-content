@@ -10,7 +10,15 @@ import {
   mdxComponentsWithoutQuiz,
 } from "./mdx-components";
 
-type TabId = "las" | "film" | "podcast" | "presentation" | "repetition" | "quiz";
+type TabId =
+  | "las"
+  | "film"
+  | "podcast"
+  | "presentation"
+  | "repetition"
+  | "flashcards"
+  | "quiz"
+  | "langre-quiz";
 
 const TABS: { id: TabId; label: string }[] = [
   { id: "las", label: "Läs" },
@@ -18,7 +26,9 @@ const TABS: { id: TabId; label: string }[] = [
   { id: "podcast", label: "Podcast" },
   { id: "presentation", label: "Presentation" },
   { id: "repetition", label: "Repetition" },
+  { id: "flashcards", label: "Flashcards" },
   { id: "quiz", label: "Quiz" },
+  { id: "langre-quiz", label: "Längre quiz" },
 ];
 
 type Props = {
@@ -131,17 +141,81 @@ export function LessonTabs({ media, code }: Props) {
         </TabPanel>
 
         <TabPanel id="presentation" active={active}>
-          <ComingSoon label="Presentationen för den här lektionen kommer snart." />
+          {media.presentationSourceUrl ? (
+            <ExternalLinkCard
+              title="Presentation"
+              description="Presentationen ligger i NotebookLM."
+              href={media.presentationSourceUrl}
+              cta="Öppna presentationen ↗"
+            />
+          ) : (
+            <ComingSoon label="Presentationen för den här lektionen kommer snart." />
+          )}
         </TabPanel>
 
         <TabPanel id="repetition" active={active}>
           <ComingSoon label="Repetitionsmaterialet kommer snart." />
         </TabPanel>
 
+        <TabPanel id="flashcards" active={active}>
+          {media.flashcardsSourceUrl ? (
+            <ExternalLinkCard
+              title="Flashcards"
+              description="Flashcards-setet ligger i NotebookLM."
+              href={media.flashcardsSourceUrl}
+              cta="Öppna flashcards ↗"
+            />
+          ) : (
+            <ComingSoon label="Flashcards för den här lektionen kommer snart." />
+          )}
+        </TabPanel>
+
         <TabPanel id="quiz" active={active}>
           <MDXContent code={code} components={mdxComponentsQuizOnly} />
         </TabPanel>
+
+        <TabPanel id="langre-quiz" active={active}>
+          {media.longQuizSourceUrl ? (
+            <ExternalLinkCard
+              title="Längre quiz"
+              description="Det längre quizet ligger i NotebookLM."
+              href={media.longQuizSourceUrl}
+              cta="Öppna längre quiz ↗"
+            />
+          ) : (
+            <ComingSoon label="Det längre quizet för den här lektionen kommer snart." />
+          )}
+        </TabPanel>
       </div>
+    </div>
+  );
+}
+
+function ExternalLinkCard({
+  title,
+  description,
+  href,
+  cta,
+}: {
+  title: string;
+  description: string;
+  href: string;
+  cta: string;
+}) {
+  return (
+    <div className="rounded-2xl border border-neutral-200 bg-white p-6 text-center shadow-sm sm:p-8">
+      <div className="text-xs font-semibold uppercase tracking-wider text-primary-dark">
+        {title}
+      </div>
+      <p className="mt-4 text-sm text-neutral-600">{description}</p>
+      <a
+        href={href}
+        target="_blank"
+        rel="noreferrer"
+        className="mt-4 inline-block rounded-full bg-neutral-900 px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-neutral-800"
+      >
+        {cta}
+      </a>
     </div>
   );
 }

@@ -29,7 +29,9 @@ function nodeText(node: ReactNode): string {
 }
 
 function tagOf(el: ReactElement): string {
-  return typeof el.type === "string" ? el.type : "";
+  if (typeof el.type === "string") return el.type;
+  const t = el.type as { displayName?: string } | null;
+  return t?.displayName ?? "";
 }
 
 function parseQuiz(children: ReactNode): Question[] {

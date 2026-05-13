@@ -162,9 +162,11 @@ export function SimulatorView({ instruments }: { instruments: Instrument[] }) {
           Simulator
         </h1>
         <p className="mt-2 text-neutral-600">
-          Simulerat <span className="font-semibold">ISK</span> med 100 000 kr i
-          låtsaspengar. Sparas lokalt i din webbläsare — påverkar inga riktiga
-          pengar.
+          Simulerat{" "}
+          <span className="font-semibold">ISK (Investeringssparkonto)</span> med
+          100 000 kr i låtsaspengar. Sparas lokalt i din webbläsare och påverkar
+          inga riktiga pengar. Skattereglerna för ISK gås igenom utförligt i
+          lektion 7.
         </p>
       </header>
 
@@ -183,15 +185,17 @@ export function SimulatorView({ instruments }: { instruments: Instrument[] }) {
         />
       </section>
 
-      <p className="mt-3 text-xs text-neutral-500">
-        ISK-fribelopp 2026: {formatKr(ISK_FRIBELOPP_2026)}.{" "}
+      <p className="mt-3 text-xs leading-relaxed text-neutral-500">
+        På ett riktigt ISK betalar du en liten årlig skatt (schablonskatt) på
+        kapital över <strong>fribeloppet</strong> — 2026 är fribeloppet{" "}
+        {formatKr(ISK_FRIBELOPP_2026)} per person.{" "}
         {totalValue < ISK_FRIBELOPP_2026 ? (
           <>
-            Du har{" "}
+            Du ligger just nu{" "}
             <span className="font-medium text-neutral-700">
               {formatKr(fribeloppKvar)}
             </span>{" "}
-            kvar under fribeloppet — ingen schablonskatt på dessa pengar.
+            under fribeloppet — helt skattefri. Räkneexempel i lektion 7.
           </>
         ) : (
           <>
@@ -199,7 +203,7 @@ export function SimulatorView({ instruments }: { instruments: Instrument[] }) {
             <span className="font-medium text-neutral-700">
               {formatKr(totalValue - ISK_FRIBELOPP_2026)}
             </span>{" "}
-            över fribeloppet. Skattevyn kommer i lektion 7.
+            över fribeloppet. Räkneexempel på schablonskatten i lektion 7.
           </>
         )}
       </p>
@@ -216,6 +220,11 @@ export function SimulatorView({ instruments }: { instruments: Instrument[] }) {
       {portfolio.positions.length > 0 && (
         <section className="mt-12">
           <h2 className="text-xl font-semibold text-neutral-900">Min portfölj</h2>
+          <p className="mt-1 text-sm text-neutral-500">
+            Dina nuvarande innehav. <strong>GAV</strong> = genomsnittspris per
+            aktie/andel du betalat. <strong>Resultat</strong> = dagens värde
+            minus det du satte in.
+          </p>
           <ul className="mt-4 space-y-2">
             {portfolio.positions.map((pos) => {
               const inst = instrumentByTicker[pos.ticker];
@@ -236,8 +245,15 @@ export function SimulatorView({ instruments }: { instruments: Instrument[] }) {
 
       <section className="mt-12">
         <h2 className="text-xl font-semibold text-neutral-900">Köp aktier</h2>
-        <p className="mt-1 text-sm text-neutral-500">
-          16 svenska bolag · senaste kurser från Yahoo Finance
+        <p className="mt-1 text-sm leading-relaxed text-neutral-500">
+          16 svenska bolag · senaste kurser från Yahoo Finance. Skriv ett belopp
+          i kr, eller använd snabbvalen (10 / 25 / 50 % av din kassa) för att
+          öva på <strong>positionsstorlek</strong>.{" "}
+          <span className="block sm:inline">
+            <strong>Handelsvolym</strong> visar hur många aktier som byter ägare
+            en typisk dag — låg volym = svårare att handla snabbt och större
+            spread.
+          </span>
         </p>
         <ul className="mt-4 space-y-2">
           {stocks.map((inst) => (
@@ -254,8 +270,10 @@ export function SimulatorView({ instruments }: { instruments: Instrument[] }) {
 
       <section className="mt-12">
         <h2 className="text-xl font-semibold text-neutral-900">Köp fonder</h2>
-        <p className="mt-1 text-sm text-neutral-500">
-          Fraktionella andelar · pedagogisk 10-årshistorik
+        <p className="mt-1 text-sm leading-relaxed text-neutral-500">
+          Fonder köps i kr-belopp — du får ofta del av en andel (t.ex.{" "}
+          <span className="tabular-nums">3,4521</span> andelar). Pedagogisk
+          10-årshistorik (riktiga avgifter, syntetisk kursutveckling).
         </p>
         <ul className="mt-4 space-y-2">
           {funds.map((inst) => (
@@ -404,12 +422,13 @@ function InstrumentRow({
         <div className="min-w-0">
           <div className="font-semibold text-neutral-900">{instrument.name}</div>
           <div className="text-xs text-neutral-500">
-            {instrument.sector ?? "Fond"} · {instrument.ticker.replace(".ST", "")}
+            {instrument.sector ?? "Fond"} · ticker{" "}
+            {instrument.ticker.replace(".ST", "")}
             {instrument.fee != null && (
-              <> · avgift {formatPct(instrument.fee * 100, 2)}</>
+              <> · årlig avgift {formatPct(instrument.fee * 100, 2)}</>
             )}
             {instrument.avgDailyVolume != null && (
-              <> · omsätts {formatVolume(instrument.avgDailyVolume)}</>
+              <> · handelsvolym {formatVolume(instrument.avgDailyVolume)}</>
             )}
           </div>
         </div>
@@ -436,17 +455,23 @@ function InstrumentRow({
           kr
         </label>
         <div className="flex gap-1">
-          {[0.1, 0.25, 0.5].map((p) => (
-            <button
-              key={p}
-              type="button"
-              onClick={() => handlePercent(p)}
-              disabled={cash <= 0}
-              className="rounded-md border border-neutral-200 px-2 py-1 text-xs text-neutral-600 transition-colors hover:border-neutral-400 hover:text-neutral-900 disabled:cursor-not-allowed disabled:opacity-40"
-            >
-              {Math.round(p * 100)} %
-            </button>
-          ))}
+          {[0.1, 0.25, 0.5].map((p) => {
+            const pctLabel = `${Math.round(p * 100)} %`;
+            const krValue = Math.floor(cash * p);
+            return (
+              <button
+                key={p}
+                type="button"
+                onClick={() => handlePercent(p)}
+                disabled={cash <= 0}
+                title={`${pctLabel} av din kassa = ${formatKr(krValue)}`}
+                className="rounded-md border border-neutral-200 px-2 py-1 text-xs tabular-nums text-neutral-600 transition-colors hover:border-neutral-400 hover:text-neutral-900 disabled:cursor-not-allowed disabled:opacity-40"
+              >
+                {formatKr(krValue)}
+                <span className="ml-1 text-neutral-400">({pctLabel})</span>
+              </button>
+            );
+          })}
         </div>
         <span className="text-sm text-neutral-500">
           {shares > 0 ? (

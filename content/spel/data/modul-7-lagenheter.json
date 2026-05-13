@@ -1,0 +1,77 @@
+{
+  "moduleId": "lagenheter",
+  "lessonSlug": "07-isk-vs-af-vs-kf",
+  "apartments": [
+    {
+      "id": "isk",
+      "name": "ISK",
+      "subtitle": "Investeringssparkonto",
+      "emoji": "🏠",
+      "blurb": "Schablonskatt på hela värdet, oavsett vinst. Funkar för noterade aktier och fonder. Inga K4-blanketter."
+    },
+    {
+      "id": "kf",
+      "name": "KF",
+      "subtitle": "Kapitalförsäkring",
+      "emoji": "🏢",
+      "blurb": "Samma schablonskatt som ISK, men ägs formellt av försäkringsbolaget. Källskatt på utländska utdelningar betalas tillbaka automatiskt."
+    },
+    {
+      "id": "af",
+      "name": "AF",
+      "subtitle": "Aktie- och fondkonto",
+      "emoji": "🏨",
+      "blurb": "Vanlig kapitalvinstskatt 30 %. K4-blankett varje år. Kan kvitta förluster mot vinster. Funkar för onoterat."
+    }
+  ],
+  "bags": [
+    {
+      "id": "global-fond",
+      "label": "Långsiktig globalfond, 500 000 kr",
+      "correct": "isk",
+      "explanation": "Långsiktigt aktiesparande passar perfekt i ISK. Schablonskatten är låg och kvittning av förluster spelar ingen roll när du sparar i 20 år."
+    },
+    {
+      "id": "usa-utdelning",
+      "label": "Utländska utdelningsaktier (USA), 200 000 kr",
+      "correct": "kf",
+      "explanation": "KF återbetalar källskatten på utländska utdelningar automatiskt. På ISK måste du kräva tillbaka den själv."
+    },
+    {
+      "id": "onoterat",
+      "label": "Mitt onoterade dotterbolag, 1 000 000 kr",
+      "correct": "af",
+      "explanation": "Onoterade aktier får inte ligga i ISK eller KF. AF är ditt enda alternativ."
+    },
+    {
+      "id": "kortsiktigt",
+      "label": "Pengar jag ska använda om 4 månader, 100 000 kr",
+      "correct": "af",
+      "explanation": "Schablonskatt tas oavsett om pengarna växer. Om du bara ska parkera dem 4 månader betalar du för ingenting på ISK/KF. Spara på sparkonto eller AF."
+    },
+    {
+      "id": "sverigeportfolj",
+      "label": "Mitt svenska aktiesparande, 300 000 kr",
+      "correct": "isk",
+      "explanation": "Klassisk ISK-användning. Svenska utdelningar är inte källskattepliktiga, så KF ger ingen extra fördel."
+    },
+    {
+      "id": "barnens",
+      "label": "Barnens sparande tills de fyller 25",
+      "correct": "kf",
+      "explanation": "KF kan ha förmånstagare — pengarna går automatiskt till barnen vid avtalat datum, utan bouppteckning. ISK saknar den funktionen."
+    },
+    {
+      "id": "stora-vinster",
+      "label": "Aktier jag tror jag säljer med stor vinst",
+      "correct": "isk",
+      "explanation": "Stor vinst → ISK-schablonen vinner överlägset. På AF blir det 30 % kapitalvinstskatt på hela vinsten."
+    },
+    {
+      "id": "forluster",
+      "label": "Riskabla swingtrades jag ofta förlorar på",
+      "correct": "af",
+      "explanation": "På AF kan du kvitta förluster mot vinster. På ISK kan du inte. När du oftast förlorar är AF rätt."
+    }
+  ]
+}

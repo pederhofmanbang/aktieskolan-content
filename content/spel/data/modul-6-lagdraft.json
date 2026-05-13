@@ -1,0 +1,37 @@
+{
+  "moduleId": "lagdraften",
+  "lessonSlug": "06-diversifiering",
+  "formation": {
+    "malvakt": { "label": "Målvakt", "slots": 1, "icon": "🧤" },
+    "forsvar": { "label": "Försvar", "slots": 3, "icon": "🛡️" },
+    "mittfalt": { "label": "Mittfält", "slots": 4, "icon": "⚙️" },
+    "anfall": { "label": "Anfall", "slots": 3, "icon": "🚀" }
+  },
+  "players": [
+    { "id": "shb", "name": "Handelsbanken", "sector": "Bank", "position": "malvakt", "stability": 0.9, "growth": 0.4 },
+    { "id": "axfood", "name": "Axfood", "sector": "Livsmedel", "position": "malvakt", "stability": 0.95, "growth": 0.3 },
+    { "id": "ica", "name": "ICA Gruppen", "sector": "Livsmedel", "position": "malvakt", "stability": 0.92, "growth": 0.35 },
+    { "id": "swedbank", "name": "Swedbank", "sector": "Bank", "position": "malvakt", "stability": 0.85, "growth": 0.5 },
+    { "id": "volvo", "name": "Volvo", "sector": "Industri", "position": "forsvar", "stability": 0.7, "growth": 0.7 },
+    { "id": "atlas", "name": "Atlas Copco", "sector": "Industri", "position": "forsvar", "stability": 0.75, "growth": 0.75 },
+    { "id": "sandvik", "name": "Sandvik", "sector": "Industri", "position": "forsvar", "stability": 0.7, "growth": 0.7 },
+    { "id": "skf", "name": "SKF", "sector": "Industri", "position": "forsvar", "stability": 0.7, "growth": 0.6 },
+    { "id": "alfalaval", "name": "Alfa Laval", "sector": "Industri", "position": "forsvar", "stability": 0.75, "growth": 0.75 },
+    { "id": "telia", "name": "Telia", "sector": "Telekom", "position": "mittfalt", "stability": 0.8, "growth": 0.45 },
+    { "id": "azn", "name": "AstraZeneca", "sector": "Hälsa", "position": "mittfalt", "stability": 0.85, "growth": 0.8 },
+    { "id": "elekta", "name": "Elekta", "sector": "Hälsa", "position": "mittfalt", "stability": 0.7, "growth": 0.7 },
+    { "id": "hennes", "name": "H&M", "sector": "Konsumtion", "position": "mittfalt", "stability": 0.6, "growth": 0.55 },
+    { "id": "ericsson", "name": "Ericsson", "sector": "Tech", "position": "mittfalt", "stability": 0.55, "growth": 0.65 },
+    { "id": "essity", "name": "Essity", "sector": "Konsumtion", "position": "mittfalt", "stability": 0.85, "growth": 0.55 },
+    { "id": "evolution", "name": "Evolution", "sector": "Spel", "position": "anfall", "stability": 0.45, "growth": 1.0 },
+    { "id": "spotify", "name": "Spotify", "sector": "Tech", "position": "anfall", "stability": 0.35, "growth": 1.0 },
+    { "id": "embracer", "name": "Embracer", "sector": "Spel", "position": "anfall", "stability": 0.25, "growth": 0.9 },
+    { "id": "nibe", "name": "NIBE", "sector": "Industri", "position": "anfall", "stability": 0.5, "growth": 0.85 },
+    { "id": "sinch", "name": "Sinch", "sector": "Tech", "position": "anfall", "stability": 0.3, "growth": 0.9 }
+  ],
+  "matches": [
+    { "id": "tillvaxt", "label": "Stabil tillväxtmarknad", "growthWeight": 0.7, "stabilityWeight": 0.3 },
+    { "id": "rantechock", "label": "Räntechock", "growthWeight": 0.1, "stabilityWeight": 0.9 },
+    { "id": "tech-ras", "label": "Tech-ras", "growthWeight": 0.4, "stabilityWeight": 0.6, "techPenalty": true }
+  ]
+}

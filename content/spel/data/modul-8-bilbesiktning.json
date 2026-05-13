@@ -1,0 +1,144 @@
+{
+  "moduleId": "bilbesiktning",
+  "lessonSlug": "08-nyckeltal",
+  "capital": 200000,
+  "pickCount": 3,
+  "companies": [
+    {
+      "id": "verkstad",
+      "name": "Verkstad AB",
+      "sector": "Industri",
+      "blurb": "Stabilt familjebolag, 40 års historik.",
+      "metrics": {
+        "pe": { "value": 14, "tone": "good", "note": "Rimligt prissatt." },
+        "soliditet": { "value": "52 %", "tone": "good", "note": "Stark balansräkning." },
+        "directYield": { "value": "3,2 %", "tone": "good", "note": "Hållbar utdelning." },
+        "payoutRatio": { "value": "45 %", "tone": "good", "note": "Halva vinsten delas ut." },
+        "roe": { "value": "13 %", "tone": "good", "note": "God avkastning på eget kapital." },
+        "growth3y": { "value": "+6 %/år", "tone": "good", "note": "Stabil tillväxt." }
+      },
+      "twoYearOutcome": 1.18,
+      "risk": "low"
+    },
+    {
+      "id": "drom-tech",
+      "name": "DrömTech",
+      "sector": "Tech",
+      "blurb": "AI-startup som lovar revolutionera molnet.",
+      "metrics": {
+        "pe": { "value": 120, "tone": "danger", "note": "Extrem multipel — eller en dröm." },
+        "soliditet": { "value": "18 %", "tone": "warn", "note": "Hög skuldsättning." },
+        "directYield": { "value": "0 %", "tone": "warn", "note": "Inga vinster att dela ut." },
+        "payoutRatio": { "value": "—", "tone": "warn", "note": "Ej tillämpligt." },
+        "roe": { "value": "-22 %", "tone": "danger", "note": "Förlust på eget kapital." },
+        "growth3y": { "value": "+85 %/år", "tone": "good", "note": "Hög omsättningstillväxt." }
+      },
+      "twoYearOutcome": 0.4,
+      "risk": "high"
+    },
+    {
+      "id": "vardefalla",
+      "name": "Bruksbolaget",
+      "sector": "Råvaror",
+      "blurb": "Hög utdelning, lågt P/E. Verkar för billigt.",
+      "metrics": {
+        "pe": { "value": 4, "tone": "warn", "note": "Extremt lågt — varningsflagga." },
+        "soliditet": { "value": "21 %", "tone": "warn", "note": "Tunn kassa." },
+        "directYield": { "value": "11 %", "tone": "danger", "note": "Ohållbart hög — varningsflagga." },
+        "payoutRatio": { "value": "115 %", "tone": "danger", "note": "Delar ut MER än vinsten." },
+        "roe": { "value": "6 %", "tone": "warn", "note": "Mediokert." },
+        "growth3y": { "value": "-3 %/år", "tone": "danger", "note": "Krymper." }
+      },
+      "twoYearOutcome": 0.65,
+      "risk": "high"
+    },
+    {
+      "id": "hellbank",
+      "name": "Hellbank",
+      "sector": "Bank",
+      "blurb": "Stor svensk bank.",
+      "metrics": {
+        "pe": { "value": 9, "tone": "good", "note": "Lågt för en bank." },
+        "soliditet": { "value": "8 %", "tone": "warn", "note": "Normalt för banker (regleras)." },
+        "directYield": { "value": "5,8 %", "tone": "good", "note": "Stadig utdelning." },
+        "payoutRatio": { "value": "60 %", "tone": "good", "note": "Hållbart." },
+        "roe": { "value": "12 %", "tone": "good", "note": "God effektivitet." },
+        "growth3y": { "value": "+3 %/år", "tone": "good", "note": "Långsam men stabil." }
+      },
+      "twoYearOutcome": 1.12,
+      "risk": "low"
+    },
+    {
+      "id": "kromsmide",
+      "name": "Kromsmide Holding",
+      "sector": "Industri",
+      "blurb": "Underleverantör till fordonsindustrin.",
+      "metrics": {
+        "pe": { "value": 22, "tone": "warn", "note": "Något dyrt." },
+        "soliditet": { "value": "35 %", "tone": "good", "note": "Hyfsad balansräkning." },
+        "directYield": { "value": "2,1 %", "tone": "good", "note": "Modest utdelning." },
+        "payoutRatio": { "value": "55 %", "tone": "good", "note": "Hållbart." },
+        "roe": { "value": "9 %", "tone": "warn", "note": "OK, inte mer." },
+        "growth3y": { "value": "+1 %/år", "tone": "warn", "note": "I stort sett stilla." }
+      },
+      "twoYearOutcome": 1.04,
+      "risk": "medium"
+    },
+    {
+      "id": "global-hem",
+      "name": "GlobalHem",
+      "sector": "Konsumtion",
+      "blurb": "Möbel- och inredningskedja.",
+      "metrics": {
+        "pe": { "value": 17, "tone": "good", "note": "Marknadsmedel." },
+        "soliditet": { "value": "44 %", "tone": "good", "note": "Bra." },
+        "directYield": { "value": "2,8 %", "tone": "good", "note": "Stabil." },
+        "payoutRatio": { "value": "50 %", "tone": "good", "note": "Bra fördelning." },
+        "roe": { "value": "16 %", "tone": "good", "note": "Starkt." },
+        "growth3y": { "value": "+8 %/år", "tone": "good", "note": "Sund tillväxt." }
+      },
+      "twoYearOutcome": 1.22,
+      "risk": "low"
+    },
+    {
+      "id": "krisbolag",
+      "name": "Solpaneler 2020",
+      "sector": "Energi",
+      "blurb": "Tidigare börsraket, nu på SBB-likt fall.",
+      "metrics": {
+        "pe": { "value": "neg", "tone": "danger", "note": "Förlust." },
+        "soliditet": { "value": "14 %", "tone": "danger", "note": "Mycket skuld." },
+        "directYield": { "value": "0 %", "tone": "warn", "note": "Slopad." },
+        "payoutRatio": { "value": "—", "tone": "warn", "note": "Ej tillämpligt." },
+        "roe": { "value": "-31 %", "tone": "danger", "note": "Eget kapital krymper." },
+        "growth3y": { "value": "-18 %/år", "tone": "danger", "note": "Krymper snabbt." }
+      },
+      "twoYearOutcome": 0.25,
+      "risk": "high"
+    },
+    {
+      "id": "lakemedel",
+      "name": "Nordic Pharma",
+      "sector": "Hälsa",
+      "blurb": "Forskning, stabilt patentskydd.",
+      "metrics": {
+        "pe": { "value": 19, "tone": "good", "note": "Standard för hälsobolag." },
+        "soliditet": { "value": "48 %", "tone": "good", "note": "Mycket bra." },
+        "directYield": { "value": "2,4 %", "tone": "good", "note": "Modest." },
+        "payoutRatio": { "value": "40 %", "tone": "good", "note": "Reinvesterar mycket." },
+        "roe": { "value": "14 %", "tone": "good", "note": "Hyfsat." },
+        "growth3y": { "value": "+7 %/år", "tone": "good", "note": "Sund." }
+      },
+      "twoYearOutcome": 1.16,
+      "risk": "low"
+    }
+  ],
+  "metricLabels": {
+    "pe": "P/E",
+    "soliditet": "Soliditet",
+    "directYield": "Direktavkastning",
+    "payoutRatio": "Utdelningsandel",
+    "roe": "ROE",
+    "growth3y": "Tillväxt 3 år"
+  }
+}

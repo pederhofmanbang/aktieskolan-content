@@ -1,0 +1,144 @@
+{
+  "moduleId": "berget",
+  "lessonSlug": "05-risk",
+  "paths": [
+    {
+      "id": "skane",
+      "name": "Vandring i Skåne",
+      "subtitle": "Räntefonder · 0–2 % per år",
+      "maxAltitude": 200,
+      "emoji": "🌾",
+      "description": "Flack mark, blå himmel, lugna kor. Du kommer fram — men toppen är bara 200 m.",
+      "events": [
+        {
+          "id": "varlig-vind",
+          "situation": "En lätt motvind. Inget dramatiskt.",
+          "choices": [
+            { "id": "fortsatt", "label": "Gå vidare", "altitudeDelta": 50, "isOptimal": true },
+            { "id": "vila", "label": "Vila 30 minuter", "altitudeDelta": 30 }
+          ]
+        },
+        {
+          "id": "kaffe",
+          "situation": "Du passerar ett kafé. Lockande.",
+          "choices": [
+            { "id": "fortsatt", "label": "Fortsätt", "altitudeDelta": 60, "isOptimal": true },
+            { "id": "kaffe", "label": "Ta en kaffe", "altitudeDelta": 40 }
+          ]
+        },
+        {
+          "id": "tippen",
+          "situation": "Du står 20 m från toppen.",
+          "choices": [
+            { "id": "topp", "label": "Bestiga toppen", "altitudeDelta": 90, "isOptimal": true },
+            { "id": "vand", "label": "Det räcker här", "altitudeDelta": 0 }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "kebnekaise",
+      "name": "Kebnekaise",
+      "subtitle": "Globalfond · 7 % per år snitt",
+      "maxAltitude": 2100,
+      "emoji": "🏔️",
+      "description": "Riktig klättring. Vind, snö, scrambling. Toppen ligger på 2 100 m — men 1 av 5 vänder.",
+      "events": [
+        {
+          "id": "vind",
+          "situation": "Stormvarning utfärdad. Vinden är 18 m/s. Du är på 800 m.",
+          "choices": [
+            {
+              "id": "fortsatt",
+              "label": "Fortsätt — du har rätt utrustning",
+              "altitudeDelta": 400,
+              "isOptimal": true,
+              "note": "Stormar går över. Marknadens stormar också."
+            },
+            {
+              "id": "vila",
+              "label": "Vila i lägret tills det blåst över",
+              "altitudeDelta": 300,
+              "isOptimal": true,
+              "note": "Tålamod är klättrarens viktigaste muskel."
+            },
+            {
+              "id": "vand",
+              "label": "Vänd om — det är för farligt",
+              "altitudeDelta": -200,
+              "note": "Du tappar höjd. På börsen kallas det panic-sell."
+            }
+          ]
+        },
+        {
+          "id": "snolavin",
+          "situation": "Du hör ett dovt mullret. Snön rör sig i en närliggande dal.",
+          "choices": [
+            { "id": "snabb-runt", "label": "Gå en omväg runt", "altitudeDelta": 300, "isOptimal": true },
+            { "id": "rakt", "label": "Skynda rakt över", "altitudeDelta": -300, "note": "Du fastnade i ett mindre snöskred. Inte allvarligt — men du tappade höjd." },
+            { "id": "vila", "label": "Vänta tills snön stabiliseras", "altitudeDelta": 400, "isOptimal": true }
+          ]
+        },
+        {
+          "id": "topp",
+          "situation": "Du står på 1 800 m. Toppen syns. Sista 300 m är de svåraste.",
+          "choices": [
+            { "id": "fortsatt", "label": "Gå hela vägen", "altitudeDelta": 300, "isOptimal": true },
+            { "id": "stanna", "label": "Stanna här — det är gott nog", "altitudeDelta": 100 }
+          ]
+        },
+        {
+          "id": "valde-vad",
+          "situation": "På nedvägen frågar en annan vandrare: 'Vad lärde du dig?'",
+          "choices": [
+            { "id": "tid", "label": "Tid och tålamod, inte fart", "altitudeDelta": 100, "isOptimal": true },
+            { "id": "tur", "label": "Att jag har tur", "altitudeDelta": 50 }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "everest",
+      "name": "Mount Everest",
+      "subtitle": "Enskilda aktier · spridning ±50 %",
+      "maxAltitude": 8848,
+      "emoji": "🗻",
+      "description": "Fantastisk utsikt — om du klarar det. 1 av 4 vänder eller går under. Hög risk, hög utdelning.",
+      "events": [
+        {
+          "id": "icefall",
+          "situation": "Khumbu Icefall. Iskaskaderna rör sig under dina fötter.",
+          "choices": [
+            { "id": "ga", "label": "Gå snabbt över", "altitudeDelta": 1500, "isOptimal": true },
+            { "id": "stanna", "label": "Stanna och fota", "altitudeDelta": -1500, "note": "Du höll på att hamna under en iskaskad. Tappade höjd." }
+          ]
+        },
+        {
+          "id": "doodzone",
+          "situation": "Du är i 'death zone' över 8 000 m. Syret är så tunt att hjärnan kraschar. Du har 4 timmar att komma upp och ner.",
+          "choices": [
+            { "id": "fortsatt", "label": "Fortsätt mot toppen", "altitudeDelta": 800, "isOptimal": true, "note": "Du klarade det." },
+            { "id": "vand", "label": "Vänd om nu", "altitudeDelta": -1500, "note": "Du valde säkerheten. Men du missade toppen — och allt det här var för." },
+            { "id": "stanna", "label": "Vila en stund", "altitudeDelta": -3000, "note": "Att stanna i death zone är livsfarligt. Du fick frostskador och en lång nedvandring." }
+          ]
+        },
+        {
+          "id": "rope",
+          "situation": "En kö har bildats vid Hillary Step. 30 personer före dig.",
+          "choices": [
+            { "id": "vanta", "label": "Vänta i kön", "altitudeDelta": 800, "isOptimal": true },
+            { "id": "passera", "label": "Klättra förbi utan rep", "altitudeDelta": -1000, "note": "Du halkade. Tur i oturen — bara höjdtapp." }
+          ]
+        },
+        {
+          "id": "ner",
+          "situation": "Du står på toppen. Bilden tagen. Men nu ska du tillbaka.",
+          "choices": [
+            { "id": "lugn", "label": "Lugn och metodisk nedstigning", "altitudeDelta": 200, "isOptimal": true },
+            { "id": "snabb", "label": "Spurta — du orkar", "altitudeDelta": -2000, "note": "Trött + snabb = misstag. Du föll och tappade allt du gick upp." }
+          ]
+        }
+      ]
+    }
+  ]
+}

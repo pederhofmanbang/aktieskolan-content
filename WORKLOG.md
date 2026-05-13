@@ -29,6 +29,45 @@ Format per post: datum, kort rubrik, branch + PR, gjort, öppna trådar, nästa 
 
 <!-- Tidigare poster följer nedan -->
 
+## 2026-05-13 — Simulator bunt 5 — UX-omstrukturering med flikar
+
+**Branch:** `feature/simulator-bunt-5`
+**PR:** `#16` (mergad — squash)
+
+**Gjort:**
+- Refaktorerat simulator-UI:t från lång scroll-lista (17 sektioner) till
+  4-fliks-system (Portfölj / Köp & sälj / Analys / Min plan).
+- Sticky stats-bar med kassa/värde/totalt/resultat + ISK-pill.
+- Onboarding-banner på första-besöket.
+- Sub-tabs i Köp & sälj (Aktier / Fonder / Månadssparande).
+- Sökfält + sektorfilter + grupp-toggle i aktielistan (löser lektion 1-glapp).
+- Mini-orderbok per aktie med spread skalad mot handelsvolym (löser
+  lektion 2-glapp).
+- 6 expanderbara kort i Analys-fliken.
+- Allokering visar nu Sharpe-jämförelse mot 100 % globalfond.
+
+**Filer som ändrats:**
+- Nya: `Tabs.tsx`, `ExpandableCard.tsx`, `OrderBookSnippet.tsx`,
+  `StockList.tsx`, `InstrumentRow.tsx`, `PositionRow.tsx`,
+  `TransactionRow.tsx`, `OnboardingBanner.tsx`, `PortfolioTab.tsx`,
+  `TradeTab.tsx`, `AnalysisTab.tsx`, `PlanTab.tsx`.
+- Modifierade: `SimulatorView.tsx` (omskriven som tab-container),
+  alla 6 analyssektioner (lade till `embedded`-prop).
+- `package.json`: installerat `zustand` (krävdes för att fixa pre-existing
+  type-check-fel i `lib/spel/state.ts`).
+
+**Öppna trådar:**
+- `ActiveOrdersSection.tsx` är nu oanvänd död kod (kan tas bort i nästa
+  städ-runda).
+- Tekniska skulder kvar från tidigare bunkar: limit-orderfyllning i
+  tidsmaskinen, ISK-kapitalunderlag som Q-snitt.
+
+**Nästa steg:**
+- Inget akut. Eventuell polish-runda med mobil-anpassning av tabellerna,
+  borttagning av död kod, och lösning av kvarvarande tekniska skulder.
+
+---
+
 ## 2026-05-13 — Simulator bunt 4 (sista) — aktieskolan komplett
 
 **Branch:** `feature/simulator-bunt-4`

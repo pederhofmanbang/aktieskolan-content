@@ -32,6 +32,18 @@ export type MonthlyPurchase = {
   active: boolean;
 };
 
+export type MyPlan = {
+  goal: string;
+  horizonYears: number;
+  monthlyAmount: number;
+  allocationCore: number;
+  allocationSweden: number;
+  allocationSpice: number;
+  rules: Record<string, boolean>;
+  signature: string;
+  signedAt?: string;
+};
+
 export type Portfolio = {
   cash: number;
   positions: Position[];
@@ -39,6 +51,7 @@ export type Portfolio = {
   unlocks: string[];
   activeOrders: ActiveOrder[];
   monthlyPurchases: MonthlyPurchase[];
+  myPlan?: MyPlan;
 };
 
 const STORAGE_KEY = "aktieskolan_portfolio_v1";
@@ -271,6 +284,14 @@ export function removeMonthlyPurchase(p: Portfolio, id: string): Portfolio {
     ...p,
     monthlyPurchases: p.monthlyPurchases.filter((m) => m.id !== id),
   };
+}
+
+export function saveMyPlan(p: Portfolio, plan: MyPlan): Portfolio {
+  const unlocks = new Set(p.unlocks);
+  if (plan.signedAt) {
+    unlocks.add("certifikat");
+  }
+  return { ...p, myPlan: plan, unlocks: Array.from(unlocks) };
 }
 
 export function unlockFeature(p: Portfolio, key: string): Portfolio {

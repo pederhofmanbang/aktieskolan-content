@@ -1,0 +1,101 @@
+{
+  "moduleId": "ips",
+  "lessonSlug": "10-din-egen-plan",
+  "pickCount": 6,
+  "startCapital": 100000,
+  "monthlySaveDefault": 3000,
+  "years": 40,
+  "cards": [
+    {
+      "id": "manadsspar",
+      "label": "Jag månadssparar 3 000 kr på autogiro",
+      "good": true,
+      "effect": { "monthlySave": 3000 },
+      "rationale": "Autogiro tar bort beslutsfattandet. Du sparar oavsett humör."
+    },
+    {
+      "id": "saljer-aldrig",
+      "label": "Jag säljer ALDRIG vid >20 % kursfall",
+      "good": true,
+      "effect": { "crisisLoss": -0.5 },
+      "rationale": "Du missar inte återhämtningen. Statistiskt en av planets viktigaste regler."
+    },
+    {
+      "id": "rebalans",
+      "label": "Jag rebalanserar 1 gång per år",
+      "good": true,
+      "effect": { "extraReturn": 0.003 },
+      "rationale": "Auto-rebalansering tvingar dig att sälja vinnare och köpa förlorare. +0,3 % per år i snitt."
+    },
+    {
+      "id": "global",
+      "label": "Jag har 100 % globalfond",
+      "good": true,
+      "effect": { "baseReturnBoost": 0.005, "volReduction": 0.2 },
+      "rationale": "1 600 bolag, 1 köp. Världens lättaste investeringsplan."
+    },
+    {
+      "id": "isk",
+      "label": "Jag använder ISK för långsiktigt sparande",
+      "good": true,
+      "effect": { "taxEfficiency": 0.005 },
+      "rationale": "Schablonskatt i stället för 30 % kapitalvinstskatt. På 40 år är det enorma pengar."
+    },
+    {
+      "id": "samtal",
+      "label": "Jag pratar med min sambo före beslut > 50 000 kr",
+      "good": true,
+      "effect": { "impulseControl": 0.3 },
+      "rationale": "Två frontallober slår en. Stoppar 80 % av panikbeslut."
+    },
+    {
+      "id": "ny-aktie-vanta",
+      "label": "Jag köper INGEN aktie första veckan jag hört talas om den",
+      "good": true,
+      "effect": { "hypeImmunity": 0.5 },
+      "rationale": "Hype är farligt. Veckans vänta hindrar de flesta FOMO-beslut."
+    },
+    {
+      "id": "70-30",
+      "label": "Jag har 70 % global, 30 % Sverige",
+      "good": true,
+      "effect": { "baseReturnBoost": 0.002 },
+      "rationale": "Bra svensk standard. Lite hemkär exponering är rimligt."
+    },
+    {
+      "id": "tajma",
+      "label": "Jag försöker tajma marknaden",
+      "good": false,
+      "effect": { "extraReturn": -0.015 },
+      "rationale": "Statistiskt: tajming kostar 1–2 % per år i snitt. Över 40 år halverar det din slutförmögenhet."
+    },
+    {
+      "id": "media-saljer",
+      "label": "Jag säljer när media är negativ",
+      "good": false,
+      "effect": { "crisisLoss": 0.3 },
+      "rationale": "Du säljer låga, köper höga. Klassisk reptilhjärnsfälla."
+    },
+    {
+      "id": "influencer",
+      "label": "Jag följer börstips från influencers",
+      "good": false,
+      "effect": { "extraReturn": -0.02 },
+      "rationale": "Influencers betalar inte din skatt och hjälper inte med din ekonomi. De vill ha klick."
+    },
+    {
+      "id": "smabolag",
+      "label": "Jag handlar BARA småbolag",
+      "good": false,
+      "effect": { "volBoost": 0.4, "crashRisk": 0.4 },
+      "rationale": "Hög volatilitet, hög konkursrisk. Roligt — men inte en plan."
+    }
+  ],
+  "crises": [
+    { "year": 7, "label": "Dotcom-bubblan", "drop": 0.45 },
+    { "year": 13, "label": "Finanskrisen", "drop": 0.5 },
+    { "year": 25, "label": "Pandemi-krasch", "drop": 0.35 },
+    { "year": 27, "label": "Inflationskris", "drop": 0.25 },
+    { "year": 34, "label": "Fiktiv framtida kris", "drop": 0.3 }
+  ]
+}

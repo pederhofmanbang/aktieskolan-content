@@ -19,7 +19,7 @@ export const MODULES: ModuleDef[] = [
     emoji: "🚪",
     lessonSlug: "02-borsen-och-mr-market",
     estMinutes: 5,
-    status: "coming-soon",
+    status: "available",
   },
   {
     id: "lasagne",
@@ -29,7 +29,7 @@ export const MODULES: ModuleDef[] = [
     emoji: "🥘",
     lessonSlug: "03-fonder-lasagne",
     estMinutes: 8,
-    status: "coming-soon",
+    status: "available",
   },
   {
     id: "snoboll",
@@ -39,7 +39,7 @@ export const MODULES: ModuleDef[] = [
     emoji: "❄️",
     lessonSlug: "04-ranta-pa-ranta",
     estMinutes: 5,
-    status: "coming-soon",
+    status: "available",
   },
   {
     id: "berget",
@@ -49,7 +49,7 @@ export const MODULES: ModuleDef[] = [
     emoji: "⛰️",
     lessonSlug: "05-risk",
     estMinutes: 7,
-    status: "coming-soon",
+    status: "available",
   },
   {
     id: "lagdraften",
@@ -59,7 +59,7 @@ export const MODULES: ModuleDef[] = [
     emoji: "⚽",
     lessonSlug: "06-diversifiering",
     estMinutes: 7,
-    status: "coming-soon",
+    status: "available",
   },
   {
     id: "lagenheter",
@@ -69,7 +69,7 @@ export const MODULES: ModuleDef[] = [
     emoji: "🏠",
     lessonSlug: "07-isk-vs-af-vs-kf",
     estMinutes: 5,
-    status: "coming-soon",
+    status: "available",
   },
   {
     id: "bilbesiktning",
@@ -79,7 +79,7 @@ export const MODULES: ModuleDef[] = [
     emoji: "🔦",
     lessonSlug: "08-nyckeltal",
     estMinutes: 7,
-    status: "coming-soon",
+    status: "available",
   },
   {
     id: "panik",
@@ -89,7 +89,7 @@ export const MODULES: ModuleDef[] = [
     emoji: "🚨",
     lessonSlug: "09-psykologi",
     estMinutes: 4,
-    status: "coming-soon",
+    status: "available",
   },
   {
     id: "ips",
@@ -99,7 +99,7 @@ export const MODULES: ModuleDef[] = [
     emoji: "📜",
     lessonSlug: "10-din-egen-plan",
     estMinutes: 12,
-    status: "coming-soon",
+    status: "available",
   },
 ];
 

@@ -1,0 +1,100 @@
+{
+  "moduleId": "mr-market",
+  "lessonSlug": "02-borsen-och-mr-market",
+  "fairValuePerPercent": 50000,
+  "playerStartCash": 500000,
+  "playerStartShares": 80,
+  "marketStartShares": 20,
+  "days": [
+    {
+      "day": 1,
+      "mood": "neutral",
+      "kind": "buy",
+      "percentTraded": 5,
+      "pricePerPercent": 52000,
+      "speech": "Jag erbjuder dig 260 000 kr för 5 % av dina aktier. Helt rättvist, eller hur?",
+      "verdict": "fair"
+    },
+    {
+      "day": 2,
+      "mood": "manic",
+      "kind": "buy",
+      "percentTraded": 10,
+      "pricePerPercent": 85000,
+      "speech": "VAD SÄGS OM 850 000 kr för 10 % av dina aktier?? Pizzerian ÄR framtiden!",
+      "verdict": "great-to-sell"
+    },
+    {
+      "day": 3,
+      "mood": "depressed",
+      "kind": "sell",
+      "percentTraded": 5,
+      "pricePerPercent": 28000,
+      "speech": "Jag säljer 5 % av mina aktier för 140 000 kr. Snälla. Allt rasar ändå.",
+      "verdict": "great-to-buy"
+    },
+    {
+      "day": 4,
+      "mood": "neutral",
+      "kind": "buy",
+      "percentTraded": 5,
+      "pricePerPercent": 48000,
+      "speech": "240 000 kr för 5 %. Vad säger du?",
+      "verdict": "fair"
+    },
+    {
+      "day": 5,
+      "mood": "manic",
+      "kind": "sell",
+      "percentTraded": 10,
+      "pricePerPercent": 78000,
+      "speech": "Jag ÄLSKAR pizzerian! Vill du köpa 10 % av mina aktier för 780 000 kr?",
+      "verdict": "bad-to-buy"
+    },
+    {
+      "day": 6,
+      "mood": "depressed",
+      "kind": "buy",
+      "percentTraded": 10,
+      "pricePerPercent": 32000,
+      "speech": "Jag ger dig 320 000 kr för 10 %. Allt går åt skogen. Sälj nu.",
+      "verdict": "bad-to-sell"
+    },
+    {
+      "day": 7,
+      "mood": "manic",
+      "kind": "buy",
+      "percentTraded": 5,
+      "pricePerPercent": 92000,
+      "speech": "460 000 kr för 5 %!! Pizzerian ska börsnoteras, jag KÄNNER det!",
+      "verdict": "great-to-sell"
+    },
+    {
+      "day": 8,
+      "mood": "depressed",
+      "kind": "sell",
+      "percentTraded": 5,
+      "pricePerPercent": 25000,
+      "speech": "Jag säljer 5 % för 125 000 kr. Allt är kört. Jag är klar.",
+      "verdict": "great-to-buy"
+    },
+    {
+      "day": 9,
+      "mood": "neutral",
+      "kind": "sell",
+      "percentTraded": 5,
+      "pricePerPercent": 51000,
+      "speech": "5 % av mina aktier för 255 000 kr.",
+      "verdict": "fair"
+    },
+    {
+      "day": 10,
+      "mood": "manic",
+      "kind": "sell",
+      "percentTraded": 5,
+      "pricePerPercent": 88000,
+      "speech": "Sista chansen! 5 % av MINA aktier för bara 440 000 kr!! Tacka ja!",
+      "verdict": "bad-to-buy"
+    }
+  ]
+}

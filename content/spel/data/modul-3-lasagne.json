@@ -1,0 +1,24 @@
+{
+  "moduleId": "lasagne",
+  "lessonSlug": "03-fonder-lasagne",
+  "capital": 50000,
+  "holdings": [
+    { "id": "globalfond", "name": "Globalfond", "ticker": "GLOBAL", "sector": "Fond", "expectedReturn": 8, "techShock": 0.7, "rateShock": 0.85, "oilShock": 0.95 },
+    { "id": "sverigefond", "name": "Sverigefond", "ticker": "SVERIGE", "sector": "Fond", "expectedReturn": 7, "techShock": 0.75, "rateShock": 0.8, "oilShock": 0.9 },
+    { "id": "rantefond", "name": "Räntefond", "ticker": "RÄNTA", "sector": "Räntor", "expectedReturn": 2, "techShock": 1.02, "rateShock": 0.9, "oilShock": 1.0 },
+    { "id": "volvo", "name": "Volvo", "ticker": "VOLV-B", "sector": "Industri", "expectedReturn": 6, "techShock": 0.95, "rateShock": 0.75, "oilShock": 0.7 },
+    { "id": "handelsbanken", "name": "Handelsbanken", "ticker": "SHB-A", "sector": "Bank", "expectedReturn": 6, "techShock": 1.0, "rateShock": 1.1, "oilShock": 0.95 },
+    { "id": "astrazeneca", "name": "AstraZeneca", "ticker": "AZN", "sector": "Hälsa", "expectedReturn": 8, "techShock": 1.0, "rateShock": 0.95, "oilShock": 0.98 },
+    { "id": "ericsson", "name": "Ericsson", "ticker": "ERIC-B", "sector": "Tech", "expectedReturn": 5, "techShock": 0.5, "rateShock": 0.85, "oilShock": 0.95 },
+    { "id": "evolution", "name": "Evolution", "ticker": "EVO", "sector": "Spel", "expectedReturn": 12, "techShock": 0.6, "rateShock": 0.8, "oilShock": 0.95 },
+    { "id": "spotify", "name": "Spotify", "ticker": "SPOT", "sector": "Tech", "expectedReturn": 11, "techShock": 0.45, "rateShock": 0.7, "oilShock": 1.0 },
+    { "id": "ica", "name": "ICA Gruppen", "ticker": "ICA", "sector": "Livsmedel", "expectedReturn": 5, "techShock": 1.0, "rateShock": 0.95, "oilShock": 0.95 },
+    { "id": "apple", "name": "Apple", "ticker": "AAPL", "sector": "Tech", "expectedReturn": 10, "techShock": 0.55, "rateShock": 0.85, "oilShock": 1.0 },
+    { "id": "lundin", "name": "Lundin Energy", "ticker": "LUNE", "sector": "Olja", "expectedReturn": 7, "techShock": 0.95, "rateShock": 0.9, "oilShock": 0.4 }
+  ],
+  "crises": [
+    { "id": "tech", "label": "Tech-ras (2022-liknande)", "field": "techShock" },
+    { "id": "rate", "label": "Räntechock", "field": "rateShock" },
+    { "id": "oil", "label": "Oljeprischock", "field": "oilShock" }
+  ]
+}

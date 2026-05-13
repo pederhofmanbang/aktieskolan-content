@@ -16,9 +16,11 @@ import type { Instrument } from "@/lib/prices";
 export function ISKTaxSection({
   portfolio,
   instruments,
+  embedded = false,
 }: {
   portfolio: Portfolio;
   instruments: Instrument[];
+  embedded?: boolean;
 }) {
   const byTicker = new Map(instruments.map((i) => [i.ticker, i]));
   const marketValue = portfolio.positions.reduce((sum, pos) => {
@@ -34,7 +36,9 @@ export function ISKTaxSection({
 
   return (
     <section className="mt-12">
-      <h2 className="text-xl font-semibold text-neutral-900">ISK-skattevy 2026</h2>
+      {!embedded && (
+        <>
+        <h2 className="text-xl font-semibold text-neutral-900">ISK-skattevy 2026</h2>
       <p className="mt-1 text-sm leading-relaxed text-neutral-500">
         Så här räknas <strong>schablonskatten</strong> på ditt ISK 2026
         (lektion 7). På ett riktigt ISK görs detta automatiskt av banken.
@@ -47,6 +51,8 @@ export function ISKTaxSection({
         {formatPct(ISK_STATSLANERANTA_2026 * 100, 2)} + 1 procentenhet) på
         kapital över fribeloppet. Skatten på schablonintäkten är 30 %.
       </p>
+        </>
+      )}
 
       <div className="mt-4 overflow-x-auto rounded-xl border border-neutral-200 bg-white">
         <table className="w-full text-sm">

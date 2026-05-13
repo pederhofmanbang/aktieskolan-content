@@ -4,6 +4,9 @@ import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 
 import { ActiveOrdersSection } from "@/components/simulator/ActiveOrdersSection";
+import { AllocationSection } from "@/components/simulator/AllocationSection";
+import { CrashTestSection } from "@/components/simulator/CrashTestSection";
+import { ISKTaxSection } from "@/components/simulator/ISKTaxSection";
 import { MonthlySavingsSection } from "@/components/simulator/MonthlySavingsSection";
 import { TimeMachineSection } from "@/components/simulator/TimeMachineSection";
 import { cn } from "@/lib/cn";
@@ -60,13 +63,21 @@ export function SimulatorView({ instruments }: { instruments: Instrument[] }) {
     setHydrated(true);
   }, []);
 
-  // Auto-unlock tidsmaskinen — den är icke-destruktiv och alltid synlig.
+  // Auto-unlocka icke-destruktiva pedagogiska vyer — de innehåller bara
+  // projektioner och förklaringar, inga riktiga affärer.
   useEffect(() => {
     if (!hydrated) return;
-    if (!portfolio.unlocks.includes("simulator.tidsmaskin")) {
+    const autoUnlocks = [
+      "simulator.tidsmaskin",
+      "simulator.riskmatt_kraschlage",
+      "simulator.omallokering",
+      "simulator.isk_skattevy",
+    ];
+    const missing = autoUnlocks.filter((k) => !portfolio.unlocks.includes(k));
+    if (missing.length > 0) {
       const updated = {
         ...portfolio,
-        unlocks: [...portfolio.unlocks, "simulator.tidsmaskin"],
+        unlocks: [...portfolio.unlocks, ...missing],
       };
       setPortfolio(updated);
       savePortfolio(updated);
@@ -389,6 +400,12 @@ export function SimulatorView({ instruments }: { instruments: Instrument[] }) {
       </section>
 
       <TimeMachineSection portfolio={portfolio} instruments={instruments} />
+
+      <CrashTestSection portfolio={portfolio} instruments={instruments} />
+
+      <AllocationSection portfolio={portfolio} instruments={instruments} />
+
+      <ISKTaxSection portfolio={portfolio} instruments={instruments} />
 
       {recentTransactions.length > 0 && (
         <section className="mt-12">

@@ -29,6 +29,49 @@ Format per post: datum, kort rubrik, branch + PR, gjort, öppna trådar, nästa 
 
 <!-- Tidigare poster följer nedan -->
 
+## 2026-05-13 — Simulator bunt 4 (sista) — aktieskolan komplett
+
+**Branch:** `feature/simulator-bunt-4`
+**PR:** `#13` (mergad — squash)
+
+**Gjort:**
+- **Lektion 8 — Aktiescreener:** `data/fundamentals.ts` med P/E, P/S, P/B,
+  direktavkastning, soliditet och ROE för alla 16 aktier. `ScreenerSection`
+  med filter, default Large Cap-snittet, resultattabell.
+- **Lektion 9 — Stresstest:** `StressTestSection` med rapportras −15 %,
+  motiveringsalgoritm som vägrar säljordrar med panik-ord och godkänner
+  fundamenta-baserade motiveringar.
+- **Lektion 10 — Min plan & certifikat:** Komplett IPS-formulär i
+  `MyPlanSection` med mål, horisont, månadssparande, allokering (måste
+  summa 100 %), 6 obligatoriska regler, underskrift. Vid signering visas
+  formaterad certifikat-vy som kan skrivas ut / sparas som PDF via
+  `window.print()`. `Portfolio.myPlan` + `saveMyPlan()` i lib/portfolio.ts.
+
+**Filer som ändrats:**
+- `data/fundamentals.ts` (ny)
+- `lib/prices.ts` — exposes fundamentals på Instrument
+- `lib/portfolio.ts` — MyPlan-typ + saveMyPlan
+- `components/simulator/ScreenerSection.tsx` (ny)
+- `components/simulator/StressTestSection.tsx` (ny)
+- `components/simulator/MyPlanSection.tsx` (ny)
+- `components/simulator/SimulatorView.tsx` — integration + auto-unlock
+
+**Resultat — alla 10 simulator-funktioner på plats.** Aktieskolan-cykeln
+är komplett från första lektionen om vad en aktie är till sista lektionen
+med signerad investeringspolicy.
+
+**Tekniska skulder kvar:**
+- Limit-orderfyllning i tidsmaskinen (limit-ordrar är passiva även när
+  tiden rullas framåt).
+- ISK-kapitalunderlag använder nuvärdet, inte Q1/Q2/Q3/Q4-snittet som
+  banken beräknar på riktigt.
+
+**Nästa steg:**
+- Eventuell polish-runda: limit-orderfyllning i tidsmaskinen, riktig
+  Q-snittsberäkning för ISK, mobilanpassning av tabellerna.
+
+---
+
 ## 2026-05-13 — Simulator bunt 2 + 3 sammanmergade
 
 **Branch:** `feature/simulator-bunt-3`

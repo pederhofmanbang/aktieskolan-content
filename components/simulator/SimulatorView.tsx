@@ -8,6 +8,9 @@ import { AllocationSection } from "@/components/simulator/AllocationSection";
 import { CrashTestSection } from "@/components/simulator/CrashTestSection";
 import { ISKTaxSection } from "@/components/simulator/ISKTaxSection";
 import { MonthlySavingsSection } from "@/components/simulator/MonthlySavingsSection";
+import { MyPlanSection } from "@/components/simulator/MyPlanSection";
+import { ScreenerSection } from "@/components/simulator/ScreenerSection";
+import { StressTestSection } from "@/components/simulator/StressTestSection";
 import { TimeMachineSection } from "@/components/simulator/TimeMachineSection";
 import { cn } from "@/lib/cn";
 import {
@@ -26,9 +29,11 @@ import {
   placeLimitOrder,
   removeMonthlyPurchase,
   resetPortfolio,
+  saveMyPlan,
   savePortfolio,
   sell,
   toggleMonthlyPurchase,
+  type MyPlan,
   type Portfolio,
   type Transaction,
 } from "@/lib/portfolio";
@@ -72,6 +77,8 @@ export function SimulatorView({ instruments }: { instruments: Instrument[] }) {
       "simulator.riskmatt_kraschlage",
       "simulator.omallokering",
       "simulator.isk_skattevy",
+      "simulator.screener",
+      "simulator.stresstest",
     ];
     const missing = autoUnlocks.filter((k) => !portfolio.unlocks.includes(k));
     if (missing.length > 0) {
@@ -84,6 +91,12 @@ export function SimulatorView({ instruments }: { instruments: Instrument[] }) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hydrated]);
+
+  const handleSaveMyPlan = (plan: MyPlan) => {
+    const updated = saveMyPlan(portfolio, plan);
+    setPortfolio(updated);
+    savePortfolio(updated);
+  };
 
   const instrumentByTicker = useMemo(
     () => Object.fromEntries(instruments.map((i) => [i.ticker, i])),
@@ -406,6 +419,12 @@ export function SimulatorView({ instruments }: { instruments: Instrument[] }) {
       <AllocationSection portfolio={portfolio} instruments={instruments} />
 
       <ISKTaxSection portfolio={portfolio} instruments={instruments} />
+
+      <ScreenerSection stocks={stocks} />
+
+      <StressTestSection portfolio={portfolio} instruments={instruments} />
+
+      <MyPlanSection portfolio={portfolio} onSave={handleSaveMyPlan} />
 
       {recentTransactions.length > 0 && (
         <section className="mt-12">

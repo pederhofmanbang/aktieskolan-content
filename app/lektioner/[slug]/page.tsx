@@ -6,6 +6,7 @@ import { allLessons } from "contentlayer/generated";
 import { LessonTabs } from "@/components/lessons/LessonTabs";
 import { lessonFlashcards } from "@/data/lesson-flashcards";
 import { lessonMedia } from "@/data/lesson-media";
+import { MODULES } from "@/lib/spel/modules";
 
 type Params = { slug: string };
 
@@ -74,6 +75,39 @@ export default function LessonPage({ params }: { params: Params }) {
         flashcards={lessonFlashcards[lesson.slug]}
         code={lesson.body.code}
       />
+
+      {(() => {
+        const spelModule = MODULES.find(
+          (m) => m.lessonSlug === lesson.slug && m.status === "available",
+        );
+        if (!spelModule) return null;
+        return (
+          <Link
+            href={`/spel/${spelModule.id}`}
+            className="group mt-10 flex items-center justify-between gap-4 rounded-2xl border border-[#eadcc1] bg-[#f5ebd7] p-6 transition-all hover:-translate-y-0.5 hover:shadow-md sm:p-8"
+          >
+            <div className="flex items-center gap-4">
+              <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-white text-3xl shadow-sm">
+                {spelModule.emoji}
+              </div>
+              <div className="min-w-0">
+                <div className="text-[10px] font-semibold uppercase tracking-wider text-[#a51f1f]">
+                  Spel · {spelModule.estMinutes} min
+                </div>
+                <div className="mt-0.5 text-xl font-bold tracking-tight text-neutral-900">
+                  Spela {spelModule.title.toLowerCase()}
+                </div>
+                <div className="mt-1 text-sm text-neutral-700">
+                  {spelModule.subtitle}
+                </div>
+              </div>
+            </div>
+            <div className="text-2xl text-[#d62828] transition-transform group-hover:translate-x-1">
+              →
+            </div>
+          </Link>
+        );
+      })()}
 
       <nav className="mt-12">
         {next ? (

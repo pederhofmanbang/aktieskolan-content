@@ -1,0 +1,97 @@
+.spel-root {
+  --spel-bg: #f5ebd7;
+  --spel-bg-card: #ffffff;
+  --spel-ink: #1a1816;
+  --spel-ink-muted: #6b6358;
+  --spel-red: #d62828;
+  --spel-red-dark: #a51f1f;
+  --spel-gold: #e9b949;
+  --spel-gold-dark: #c8941f;
+  --spel-mint: #4a9d7f;
+  --spel-mint-dark: #2f7d62;
+  --spel-blue: #3f7cac;
+  --spel-warn: #c8941f;
+
+  background-color: var(--spel-bg);
+  color: var(--spel-ink);
+  min-height: 100vh;
+  font-feature-settings: "ss01" on, "cv11" on;
+}
+
+.spel-root .spel-card {
+  background: var(--spel-bg-card);
+  border-radius: 1.25rem;
+  box-shadow: 0 1px 0 rgba(26, 24, 22, 0.04), 0 8px 24px -12px rgba(26, 24, 22, 0.12);
+}
+
+.spel-root .spel-btn-primary {
+  background: var(--spel-red);
+  color: white;
+  border-radius: 9999px;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+  transition: background-color 150ms;
+}
+.spel-root .spel-btn-primary:hover:not(:disabled) {
+  background: var(--spel-red-dark);
+}
+.spel-root .spel-btn-primary:disabled {
+  background: #c5beb3;
+  cursor: not-allowed;
+}
+
+.spel-root .spel-btn-ghost {
+  background: transparent;
+  color: var(--spel-ink-muted);
+  border-radius: 9999px;
+  padding: 0.5rem 1rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  transition: color 150ms;
+}
+.spel-root .spel-btn-ghost:hover {
+  color: var(--spel-ink);
+}
+
+.spel-root .spel-choice {
+  background: var(--spel-bg-card);
+  border: 1.5px solid #eadcc1;
+  border-radius: 1rem;
+  padding: 1rem 1.25rem;
+  text-align: left;
+  width: 100%;
+  transition:
+    border-color 150ms,
+    transform 150ms,
+    background-color 150ms;
+  font-size: 0.95rem;
+}
+.spel-root .spel-choice:hover:not(:disabled) {
+  border-color: var(--spel-red);
+  transform: translateY(-1px);
+  background: #fffaf0;
+}
+.spel-root .spel-choice:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+.spel-root .spel-choice.spel-choice-picked {
+  border-color: var(--spel-mint);
+  background: #f0f9f4;
+}
+
+@keyframes spel-rise {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.spel-root .spel-rise {
+  animation: spel-rise 400ms ease-out;
+}

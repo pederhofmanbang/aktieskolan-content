@@ -26,6 +26,33 @@ export default function LektionerPage() {
           Vardera 5–10 minuter.
         </p>
       </header>
+
+      <Link
+        href="/spel/pizzan"
+        className="group mb-8 flex items-center justify-between gap-4 rounded-2xl border border-[#eadcc1] bg-[#f5ebd7] p-5 transition-all hover:-translate-y-0.5 hover:shadow-md sm:p-6"
+      >
+        <div className="flex items-center gap-4">
+          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white text-2xl shadow-sm">
+            🍕
+          </div>
+          <div className="min-w-0">
+            <div className="text-[10px] font-semibold uppercase tracking-wider text-[#a51f1f]">
+              Spelmodulen · Akt 1
+            </div>
+            <div className="mt-0.5 text-lg font-bold tracking-tight text-neutral-900">
+              Dela pizzan
+            </div>
+            <div className="mt-0.5 text-sm text-neutral-700">
+              Starta din pizzeria med 50 000 kr. Sex beslut som ändrar ditt
+              ägande. Knyter an till lektion 1.
+            </div>
+          </div>
+        </div>
+        <div className="hidden text-2xl text-[#d62828] transition-transform group-hover:translate-x-1 sm:block">
+          →
+        </div>
+      </Link>
+
       <ol className="space-y-4">
         {lessons.map((lesson) => (
           <li key={lesson.slug}>

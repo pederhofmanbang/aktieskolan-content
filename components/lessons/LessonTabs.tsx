@@ -6,7 +6,6 @@ import { cn } from "@/lib/cn";
 import type { LessonMedia } from "@/data/lesson-media";
 import type { Flashcard } from "@/data/lesson-flashcards";
 import { Flashcards } from "./Flashcards";
-import { Lesson1Game } from "./games/Lesson1Game";
 import { MDXContent } from "./MDXContent";
 import {
   mdxComponentsQuizOnly,
@@ -18,7 +17,6 @@ type TabId =
   | "film"
   | "podcast"
   | "presentation"
-  | "spel"
   | "flashcards"
   | "quiz"
   | "langre-quiz";
@@ -28,20 +26,18 @@ const TABS: { id: TabId; label: string }[] = [
   { id: "film", label: "Film" },
   { id: "podcast", label: "Podcast" },
   { id: "presentation", label: "Presentation" },
-  { id: "spel", label: "Spel" },
   { id: "flashcards", label: "Flashcards" },
   { id: "quiz", label: "Quiz" },
   { id: "langre-quiz", label: "Längre quiz" },
 ];
 
 type Props = {
-  slug: string;
   media: LessonMedia;
   flashcards?: Flashcard[];
   code: string;
 };
 
-export function LessonTabs({ slug, media, flashcards, code }: Props) {
+export function LessonTabs({ media, flashcards, code }: Props) {
   const [active, setActive] = useState<TabId>("las");
 
   return (
@@ -181,14 +177,6 @@ export function LessonTabs({ slug, media, flashcards, code }: Props) {
             />
           ) : (
             <ComingSoon label="Presentationen för den här lektionen kommer snart." />
-          )}
-        </TabPanel>
-
-        <TabPanel id="spel" active={active}>
-          {slug === "01-vad-ar-en-aktie" ? (
-            <Lesson1Game />
-          ) : (
-            <ComingSoon label="Spelet för den här lektionen kommer snart." />
           )}
         </TabPanel>
 

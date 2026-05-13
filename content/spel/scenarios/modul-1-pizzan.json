@@ -1,0 +1,238 @@
+{
+  "moduleId": "pizzan",
+  "lessonSlug": "01-vad-ar-en-aktie",
+  "scenarios": [
+    {
+      "id": "1.1-startkapital",
+      "title": "Startkapitalet",
+      "situation": "Det är våren 2026. Du är 25 år, jobbar som servitör och har sparat 50 000 kr. Dina ögon faller på en ledig lokal i Hammarby Sjöstad — perfekt för en pizzeria. Du räknar: du behöver 200 000 kr för ugn, kyl, hyra och löner första månaderna. Hur löser du det?",
+      "speaker": { "emoji": "💭", "name": "Du själv" },
+      "choices": [
+        {
+          "id": "banklan",
+          "label": "Ta banklån på 200 000 kr (6 % ränta)",
+          "effects": [
+            { "field": "capital", "delta": 200000 },
+            { "field": "debt", "delta": 200000 },
+            { "field": "monthlyCost", "delta": 1000 }
+          ],
+          "outcome": "Du behåller 100 % av bolaget — och 100 % av risken. Banken vill ha 1 000 kr/månad i räntor.",
+          "pedagogicalNote": "Lån späder inte ut ditt ägande, men varje månad äter räntan din vinst. Banken bär ingen risk — bara du.",
+          "lessonLink": { "lessonSlug": "01-vad-ar-en-aktie", "label": "Vad är en aktie?" }
+        },
+        {
+          "id": "bror-lukas",
+          "label": "Sälj 40 % av bolaget till bror Lukas för 150 000 kr",
+          "effects": [
+            { "field": "capital", "delta": 150000 },
+            { "field": "ownership", "delta": -40 },
+            { "field": "voteShare", "delta": -40 }
+          ],
+          "outcome": "Du har 150 000 kr i kassan + dina egna 50 000. Inga räntor. Men Lukas äger 40 % av bolaget — och han kommer ha åsikter.",
+          "pedagogicalNote": "När någon köper aktier får hen en del av framtida vinster OCH en röst i besluten. Lukas värderade ditt bolag till 150 000 / 40 % = 375 000 kr.",
+          "lessonLink": { "lessonSlug": "01-vad-ar-en-aktie", "label": "Vad du får som aktieägare" }
+        },
+        {
+          "id": "spara-mer",
+          "label": "Spara 6 månader till — då har jag det själv",
+          "effects": [{ "field": "time", "delta": 6 }],
+          "outcome": "Du sparar 6 månader till. Lokalen hyrs ut till någon annan. Pizzerian förblir en dröm.",
+          "pedagogicalNote": "Att vara försiktig är inte fel — men i affärer kostar väntan också. Tid är kapital."
+        }
+      ]
+    },
+    {
+      "id": "1.2-faster-inger",
+      "title": "Faster Inger knackar på",
+      "situation": "Din faster Inger har hört om dina planer. Hon vill köpa 10 % av bolaget för 25 000 kr. 'Du värderar bolaget till 250 000 kr då. Det är väl rimligt?' Du räknar: med din lokal, dina kontakter och planen för Hammarby Sjöstad är bolaget värt åtminstone 350 000 kr om ett år. Är 250 000 kr en rättvis värdering?",
+      "speaker": { "emoji": "👵", "name": "Faster Inger" },
+      "choices": [
+        {
+          "id": "accept-billig",
+          "label": "Acceptera — pengar är pengar",
+          "effects": [
+            { "field": "capital", "delta": 25000 },
+            { "field": "ownership", "delta": -10 },
+            { "field": "voteShare", "delta": -10 }
+          ],
+          "outcome": "Inger får 10 % av ditt bolag för 25 000 kr. Du har sålt billigt — bolaget är värt mer. Hon kommer få 10 % av ALLA framtida utdelningar.",
+          "pedagogicalNote": "När du säljer aktier till underpris ger du bort framtida värde. Värderingen idag bestämmer vad varje procent kostar — för alltid."
+        },
+        {
+          "id": "motbud",
+          "label": "Erbjud henne 10 % för 35 000 kr istället",
+          "effects": [
+            { "field": "capital", "delta": 35000 },
+            { "field": "ownership", "delta": -10 },
+            { "field": "voteShare", "delta": -10 }
+          ],
+          "outcome": "Inger funderar — och säger ja. Du fick 10 000 kr mer för samma andel.",
+          "pedagogicalNote": "En aktieemission har alltid två sidor: säljarens värdering vs köparens. Att förhandla värderingen är inte oartigt — det är basic.",
+          "isOptimal": true
+        },
+        {
+          "id": "tacka-nej",
+          "label": "Tacka nej — jag behöver inte pengarna",
+          "effects": [],
+          "outcome": "Inger blir lite besviken men förstår. Du behåller hela ditt ägande.",
+          "pedagogicalNote": "Att inte ta in pengar är ett legitimt val — men då måste du växa långsammare."
+        }
+      ]
+    },
+    {
+      "id": "1.3-pizzaugnen",
+      "title": "Pizzaugnen",
+      "situation": "Du står hos ugnsleverantören. Två val ligger framför dig: en begagnad italiensk Marra Forni för 90 000 kr — perfekt, men dyr. Eller en koreansk standardugn för 35 000 kr — funkar, men pizzan blir 10 % sämre och kunderna märker det.",
+      "speaker": { "emoji": "🔥", "name": "Ugnsleverantören" },
+      "choices": [
+        {
+          "id": "marra-forni",
+          "label": "Marra Forni (90 000 kr)",
+          "effects": [
+            { "field": "capital", "delta": -90000 },
+            { "field": "monthlyRevenue", "delta": 5000 }
+          ],
+          "outcome": "Den italienska ugnen ger varm, krispig botten. Kunderna kommer tillbaka. +5 000 kr/mån i intäkter framöver.",
+          "pedagogicalNote": "Kvalitetsinvesteringar kostar mer nu men ger mer i framtiden. Tänk på vad du köper för ditt kapital — det är dina ägares pengar.",
+          "isOptimal": true
+        },
+        {
+          "id": "koreansk",
+          "label": "Koreansk standardugn (35 000 kr)",
+          "effects": [
+            { "field": "capital", "delta": -35000 },
+            { "field": "monthlyRevenue", "delta": 2000 }
+          ],
+          "outcome": "Pizzan blir OK men inte minnesvärd. Endast +2 000 kr/mån.",
+          "pedagogicalNote": "Att spara på fel ställe i en lågmarginalbransch är farligt. Snålhet bedrar visheten."
+        }
+      ]
+    },
+    {
+      "id": "1.4-a-vs-b-aktier",
+      "title": "A-aktier vs B-aktier",
+      "situation": "En lokal affärsman erbjuder 100 000 kr för 30 % av bolaget. Du tänker säga ja. Men då säger han: 'Förresten — gör dem till B-aktier utan rösträtt. Jag bryr mig bara om utdelningen.' Du minns från lektion 1: B-aktier ger SAMMA utdelning som A-aktier, men ingen röststyrka. Du skulle behålla 100 % av rösterna men bara behålla en del av framtida utdelningar.",
+      "speaker": { "emoji": "🕴️", "name": "Affärsmannen" },
+      "choices": [
+        {
+          "id": "b-aktier",
+          "label": "Bra deal — A-aktier för mig, B-aktier för honom",
+          "effects": [
+            { "field": "capital", "delta": 100000 },
+            { "field": "ownership", "delta": -30 }
+          ],
+          "outcome": "Affärsmannen får 30 % av framtida utdelningar — men noll inflytande över bolaget. Du behåller alla röster.",
+          "pedagogicalNote": "Det här är exakt poängen med A/B-strukturen: tillgång till kapital utan att tappa kontroll. H&M, Investor och många svenska bolag använder samma trick.",
+          "lessonLink": { "lessonSlug": "01-vad-ar-en-aktie", "label": "A- och B-aktier" },
+          "isOptimal": true
+        },
+        {
+          "id": "vanliga-aktier",
+          "label": "Nej, vi gör vanliga aktier (lika röst som utdelning)",
+          "effects": [
+            { "field": "capital", "delta": 100000 },
+            { "field": "ownership", "delta": -30 },
+            { "field": "voteShare", "delta": -30 }
+          ],
+          "outcome": "Affärsmannen får 30 % av allt — inklusive 30 % av rösterna på bolagsstämman.",
+          "pedagogicalNote": "Du gav bort både utdelning och kontroll. Om du behåller över 51 % är du fortfarande huvudägare, men din röst räknas inte längre ensam."
+        },
+        {
+          "id": "tacka-nej",
+          "label": "Tacka nej",
+          "effects": [],
+          "outcome": "Affärsmannen rycker på axlarna och går.",
+          "pedagogicalNote": "Inget tvång att ta in kapital. Men frågan är: kommer du att ha råd att växa utan det?"
+        }
+      ]
+    },
+    {
+      "id": "1.5-forsta-krisen",
+      "title": "Första krisen",
+      "situation": "Det är vecka 14. Det har regnat i 12 dagar i sträck. Försäljningen är 40 % lägre än normalt. Dina kostnader rullar på som vanligt. Kassan blöder.",
+      "speaker": { "emoji": "🌧️", "name": "Verkligheten" },
+      "choices": [
+        {
+          "id": "stand-firm",
+          "label": "Kör som vanligt — det här går över",
+          "effects": [{ "field": "capital", "delta": -20000 }],
+          "outcome": "Du står ut. Vädret vänder. Kunderna kommer tillbaka. Du tappade 20 000 kr — men inte din själ.",
+          "pedagogicalNote": "Tålamod är aktieägarens viktigaste muskel. Korta nedgångar är normala. Långsiktiga ägare överlever dem.",
+          "isOptimal": true
+        },
+        {
+          "id": "sank-priser",
+          "label": "Sänk priser för att locka kunder",
+          "effects": [
+            { "field": "capital", "delta": -10000 },
+            { "field": "monthlyRevenue", "delta": -2000 }
+          ],
+          "outcome": "Kunderna kommer tillbaka men förväntar sig nu det lägre priset. Marginalerna äts upp framöver.",
+          "pedagogicalNote": "Prissänkning som panic-respons är farligt. Det är svårt att höja priser igen."
+        },
+        {
+          "id": "sparka-personal",
+          "label": "Sparka en anställd för att rädda kassan",
+          "effects": [
+            { "field": "monthlyCost", "delta": -25000 },
+            { "field": "monthlyRevenue", "delta": -4000 }
+          ],
+          "outcome": "Du sänker kostnaderna men servicekvaliteten droppar. Kunderna märker.",
+          "pedagogicalNote": "I kris är det lätt att skära det som syns på siffror men inte effekten. Personal är ofta värd mer än löneposten."
+        },
+        {
+          "id": "nytt-lan",
+          "label": "Ta ett nytt lån på 50 000 kr",
+          "effects": [
+            { "field": "capital", "delta": 50000 },
+            { "field": "debt", "delta": 50000 },
+            { "field": "monthlyCost", "delta": 300 }
+          ],
+          "outcome": "Du har mer kassa nu. Och mer skuld. Räntorna fortsätter rulla.",
+          "pedagogicalNote": "Att låna sig ur en tillfällig kris kan funka. Att låna sig ur en strukturell kris förstör bolag."
+        }
+      ]
+    },
+    {
+      "id": "1.6-vinsten",
+      "title": "Vinsten",
+      "situation": "Sex månader har gått. Pizzerian går stabilt med 30 000 kr/månad i vinst efter alla kostnader. Du sitter med 180 000 kr i kassan. Tre människor har skjutit in pengar i bolaget. Vad gör du med vinsten?",
+      "speaker": { "emoji": "💰", "name": "Kassan" },
+      "choices": [
+        {
+          "id": "lon",
+          "label": "Ta ut allt som lön till mig själv",
+          "effects": [{ "field": "capital", "delta": -180000 }],
+          "outcome": "Du har 180 000 kr extra på ditt personliga konto. Men dina delägare? De fick inget.",
+          "pedagogicalNote": "Som majoritetsägare och VD kan du ta ut lön — men det undanhåller utdelning från minoritetsägare. Det är legalt men inte etiskt långsiktigt."
+        },
+        {
+          "id": "aterinvestera",
+          "label": "Återinvestera i pizzerian (renovera, marknadsför)",
+          "effects": [
+            { "field": "capital", "delta": -100000 },
+            { "field": "monthlyRevenue", "delta": 8000 }
+          ],
+          "outcome": "Renoveringen gav fart. Sociala medier hjälpte. Intäkterna stiger med 8 000 kr/månad.",
+          "pedagogicalNote": "Återinvestering är när du som ägare väljer tillväxt över utdelning. Det är samma val som börsnoterade bolag gör varje kvartal."
+        },
+        {
+          "id": "spara",
+          "label": "Spara — kanske öppna en till pizzeria om ett år",
+          "effects": [],
+          "outcome": "Kassan står kvar. Du börjar planera för Akt 2 — kedjan.",
+          "pedagogicalNote": "Tålamod + sparat kapital = optionalitet. Du kan agera när rätt tillfälle dyker upp.",
+          "isOptimal": true,
+          "lessonLink": { "lessonSlug": "03-fonder-lasagne", "label": "Diversifiering kommer i lektion 3" }
+        },
+        {
+          "id": "utdelning",
+          "label": "Dela ut proportionellt till alla ägare",
+          "effects": [{ "field": "capital", "delta": -120000 }],
+          "outcome": "Alla ägare får sin del. Inger är glad. Lukas är glad. Du också. Men kassan är tunnare.",
+          "pedagogicalNote": "Utdelning belönar dina ägare nu. Men varje krona som delas ut är en krona som inte växer i bolaget."
+        }
+      ]
+    }
+  ]
+}

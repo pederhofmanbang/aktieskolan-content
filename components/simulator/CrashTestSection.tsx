@@ -11,9 +11,11 @@ import type { Instrument } from "@/lib/prices";
 export function CrashTestSection({
   portfolio,
   instruments,
+  embedded = false,
 }: {
   portfolio: Portfolio;
   instruments: Instrument[];
+  embedded?: boolean;
 }) {
   const [scenarioId, setScenarioId] = useState<string>(CRASH_SCENARIOS[1].id);
   const scenario = useMemo(
@@ -49,13 +51,17 @@ export function CrashTestSection({
 
   return (
     <section className="mt-12">
-      <h2 className="text-xl font-semibold text-neutral-900">Krasch-läge</h2>
+      {!embedded && (
+        <>
+        <h2 className="text-xl font-semibold text-neutral-900">Krasch-läge</h2>
       <p className="mt-1 text-sm leading-relaxed text-neutral-500">
         Applicera en historisk börskrasch på din nuvarande portfölj (lektion 5).
         Pedagogiken: <strong>de som sålde på botten blev fattigare</strong>. De
         som satt kvar (eller köpte mer) fick tillbaka allt — och mer därtill.
         Kassan rör sig inte i scenariot, bara investerat värde.
       </p>
+        </>
+      )}
 
       {!hasPositions && (
         <p className="mt-3 rounded-xl border border-neutral-200 bg-neutral-50 px-4 py-3 text-sm text-neutral-600">

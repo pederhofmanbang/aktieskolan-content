@@ -24,7 +24,13 @@ const DEFAULT_FILTER: ScreenerFilter = {
   roeMin: 10,
 };
 
-export function ScreenerSection({ stocks }: { stocks: Instrument[] }) {
+export function ScreenerSection({
+  stocks,
+  embedded = false,
+}: {
+  stocks: Instrument[];
+  embedded?: boolean;
+}) {
   const [filter, setFilter] = useState<ScreenerFilter>(DEFAULT_FILTER);
 
   const results = useMemo(() => {
@@ -48,7 +54,9 @@ export function ScreenerSection({ stocks }: { stocks: Instrument[] }) {
 
   return (
     <section className="mt-12">
-      <h2 className="text-xl font-semibold text-neutral-900">Aktiescreener</h2>
+      {!embedded && (
+        <>
+        <h2 className="text-xl font-semibold text-neutral-900">Aktiescreener</h2>
       <p className="mt-1 text-sm leading-relaxed text-neutral-500">
         Filtrera de 16 aktierna efter <strong>fundamentala nyckeltal</strong>{" "}
         (lektion 8). Använd den för att <em>sortera bort uppenbart dåliga val</em>,
@@ -56,6 +64,8 @@ export function ScreenerSection({ stocks }: { stocks: Instrument[] }) {
         de säger inget om framtiden. Defaultfilter visar Large Cap-snittet:
         P/E 10–20, direktavkastning 2–5 %, soliditet &gt; 30 %, ROE &gt; 10 %.
       </p>
+        </>
+      )}
 
       <div className="mt-4 rounded-xl border border-neutral-200 bg-white p-4">
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">

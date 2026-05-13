@@ -10,22 +10,44 @@ import { formatKr, formatPct } from "@/lib/format";
 import type { Portfolio } from "@/lib/portfolio";
 import type { Instrument } from "@/lib/prices";
 
+// Sharpe-värde för en hypotetisk 100 %-globalfond-portfölj (samma totalvärde).
+function idealCoreSharpe(totalMarketValue: number): number {
+  if (totalMarketValue <= 0) return 0;
+  return portfolioSharpe({
+    totalMarketValue,
+    byCategory: {
+      "kärna": totalMarketValue,
+      sverige: 0,
+      krydda: 0,
+    },
+    pctCore: 100,
+    pctSverige: 0,
+    pctKrydda: 0,
+  });
+}
+
 export function AllocationSection({
   portfolio,
   instruments,
+  embedded = false,
 }: {
   portfolio: Portfolio;
   instruments: Instrument[];
+  embedded?: boolean;
 }) {
   const breakdown = breakdownAllocation(portfolio, instruments);
   const sharpe = portfolioSharpe(breakdown);
+  const idealSharpe = idealCoreSharpe(breakdown.totalMarketValue);
+  const sharpeGap = idealSharpe - sharpe;
   const hint = rebalanceHint(breakdown);
 
   const hasPositions = breakdown.totalMarketValue > 0;
 
   return (
     <section className="mt-12">
-      <h2 className="text-xl font-semibold text-neutral-900">
+      {!embedded && (
+        <>
+        <h2 className="text-xl font-semibold text-neutral-900">
         Allokering & Sharpe
       </h2>
       <p className="mt-1 text-sm leading-relaxed text-neutral-500">
@@ -35,6 +57,8 @@ export function AllocationSection({
         <strong> Sharpe-kvoten</strong> visar avkastning per enhet risk —
         högre är bättre. För en ung sparare är 70–100 % kärna ett rimligt mål.
       </p>
+        </>
+      )}
 
       {!hasPositions && (
         <p className="mt-3 rounded-xl border border-neutral-200 bg-neutral-50 px-4 py-3 text-sm text-neutral-600">
@@ -90,16 +114,29 @@ export function AllocationSection({
             </div>
           </div>
 
-          <div className="mt-4 grid grid-cols-2 gap-4 rounded-2xl border border-neutral-200 bg-white p-6">
+          <div className="mt-4 grid grid-cols-1 gap-4 rounded-2xl border border-neutral-200 bg-white p-6 sm:grid-cols-3">
             <div>
               <div className="text-xs uppercase tracking-wider text-neutral-500">
-                Sharpe-kvot (approximation)
+                Sharpe nu
               </div>
               <div className="mt-1 text-2xl font-bold tabular-nums text-neutral-900">
                 {sharpe.toFixed(2)}
               </div>
               <div className="mt-1 text-xs text-neutral-500">
                 {sharpeLabel(sharpe)}
+              </div>
+            </div>
+            <div>
+              <div className="text-xs uppercase tracking-wider text-neutral-500">
+                Vid 100 % globalfond
+              </div>
+              <div className="mt-1 text-2xl font-bold tabular-nums text-primary-dark">
+                {idealSharpe.toFixed(2)}
+              </div>
+              <div className="mt-1 text-xs text-neutral-500">
+                {sharpeGap > 0.01
+                  ? `Du kan höja Sharpe med ${sharpeGap.toFixed(2)} genom att flytta allt till en bred globalfond`
+                  : "Du ligger nära idealet"}
               </div>
             </div>
             <div>

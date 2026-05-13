@@ -18,9 +18,11 @@ const RETURNS = [
 export function TimeMachineSection({
   portfolio,
   instruments,
+  embedded = false,
 }: {
   portfolio: Portfolio;
   instruments: Instrument[];
+  embedded?: boolean;
 }) {
   const [years, setYears] = useState<number>(10);
   const [annualReturn, setAnnualReturn] = useState<number>(0.07);
@@ -47,7 +49,9 @@ export function TimeMachineSection({
 
   return (
     <section className="mt-12">
-      <h2 className="text-xl font-semibold text-neutral-900">Tidsmaskinen</h2>
+      {!embedded && (
+        <>
+        <h2 className="text-xl font-semibold text-neutral-900">Tidsmaskinen</h2>
       <p className="mt-1 text-sm leading-relaxed text-neutral-500">
         Rulla portföljen framåt och se vad <strong>ränta-på-ränta</strong> gör
         med pengarna över tid (lektion 4). Projektionen är{" "}
@@ -55,6 +59,8 @@ export function TimeMachineSection({
         utan börssvängningar. Verkligheten är skakigare, men snittet över
         decennier ligger nära den här kurvan.
       </p>
+        </>
+      )}
 
       {!hasPositions && (
         <p className="mt-3 rounded-xl border border-neutral-200 bg-neutral-50 px-4 py-3 text-sm text-neutral-600">

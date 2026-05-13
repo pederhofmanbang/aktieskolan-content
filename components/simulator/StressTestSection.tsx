@@ -74,9 +74,11 @@ function evaluateReason(reason: string): { verdict: Verdict; hit?: string } {
 export function StressTestSection({
   portfolio,
   instruments,
+  embedded = false,
 }: {
   portfolio: Portfolio;
   instruments: Instrument[];
+  embedded?: boolean;
 }) {
   const byTicker = useMemo(
     () => new Map(instruments.map((i) => [i.ticker, i])),
@@ -118,7 +120,9 @@ export function StressTestSection({
 
   return (
     <section className="mt-12">
-      <h2 className="text-xl font-semibold text-neutral-900">Stresstest</h2>
+      {!embedded && (
+        <>
+        <h2 className="text-xl font-semibold text-neutral-900">Stresstest</h2>
       <p className="mt-1 text-sm leading-relaxed text-neutral-500">
         Träna på att <strong>inte sälja på fel ställe</strong> (lektion 9). Vi
         simulerar ett rapportras på {formatPct(SHOCK_PCT * 100, 0)} på en av
@@ -127,6 +131,8 @@ export function StressTestSection({
         enda giltiga säljanledningen är att bolagets <em>verksamhet</em> har
         försämrats fundamentalt.
       </p>
+        </>
+      )}
 
       {!hasStocks && (
         <p className="mt-3 rounded-xl border border-neutral-200 bg-neutral-50 px-4 py-3 text-sm text-neutral-600">

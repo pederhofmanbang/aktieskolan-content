@@ -14,18 +14,45 @@ export type Transaction = {
   total: number;
 };
 
+export type ActiveOrder = {
+  id: string;
+  ts: string;
+  ticker: string;
+  side: "buy";
+  limitPrice: number;
+  amount: number;
+};
+
+export type MonthlyPurchase = {
+  id: string;
+  ts: string;
+  ticker: string;
+  amount: number;
+  dayOfMonth: number;
+  active: boolean;
+};
+
 export type Portfolio = {
   cash: number;
   positions: Position[];
   transactions: Transaction[];
   unlocks: string[];
+  activeOrders: ActiveOrder[];
+  monthlyPurchases: MonthlyPurchase[];
 };
 
 const STORAGE_KEY = "aktieskolan_portfolio_v1";
 const INITIAL_CASH = 100_000;
 
 export function initialPortfolio(): Portfolio {
-  return { cash: INITIAL_CASH, positions: [], transactions: [], unlocks: [] };
+  return {
+    cash: INITIAL_CASH,
+    positions: [],
+    transactions: [],
+    unlocks: [],
+    activeOrders: [],
+    monthlyPurchases: [],
+  };
 }
 
 export function loadPortfolio(): Portfolio {
@@ -33,7 +60,13 @@ export function loadPortfolio(): Portfolio {
   try {
     const raw = window.localStorage.getItem(STORAGE_KEY);
     if (!raw) return initialPortfolio();
-    return { ...initialPortfolio(), ...JSON.parse(raw) };
+    const parsed = JSON.parse(raw);
+    return {
+      ...initialPortfolio(),
+      ...parsed,
+      activeOrders: parsed.activeOrders ?? [],
+      monthlyPurchases: parsed.monthlyPurchases ?? [],
+    };
   } catch {
     return initialPortfolio();
   }
@@ -55,6 +88,12 @@ function roundOre(n: number): number {
   return Math.round(n * 100) / 100;
 }
 
+function newId(): string {
+  return typeof crypto !== "undefined" && crypto.randomUUID
+    ? crypto.randomUUID()
+    : `${Date.now()}-${Math.random()}`;
+}
+
 function newTransaction(args: {
   ticker: string;
   side: "buy" | "sell";
@@ -62,14 +101,7 @@ function newTransaction(args: {
   price: number;
   total: number;
 }): Transaction {
-  return {
-    id:
-      typeof crypto !== "undefined" && crypto.randomUUID
-        ? crypto.randomUUID()
-        : `${Date.now()}-${Math.random()}`,
-    ts: new Date().toISOString(),
-    ...args,
-  };
+  return { id: newId(), ts: new Date().toISOString(), ...args };
 }
 
 export function buy(
@@ -108,6 +140,7 @@ export function buy(
   unlocks.add("simulator.kop_aktie");
 
   return {
+    ...p,
     cash: roundOre(p.cash - total),
     positions,
     transactions: [tx, ...p.transactions],
@@ -158,6 +191,91 @@ export function sell(
     positions,
     transactions: [tx, ...p.transactions],
   };
+}
+
+export function placeLimitOrder(
+  p: Portfolio,
+  args: { ticker: string; limitPrice: number; amount: number },
+): Portfolio {
+  if (args.limitPrice <= 0) throw new Error("Limit-pris måste vara större än 0");
+  if (args.amount <= 0) throw new Error("Belopp måste vara större än 0");
+  if (args.amount > p.cash) {
+    throw new Error("Inte tillräckligt med kassa för att täcka ordern");
+  }
+
+  const order: ActiveOrder = {
+    id: newId(),
+    ts: new Date().toISOString(),
+    ticker: args.ticker,
+    side: "buy",
+    limitPrice: args.limitPrice,
+    amount: args.amount,
+  };
+
+  const unlocks = new Set(p.unlocks);
+  unlocks.add("simulator.limitorder");
+
+  return {
+    ...p,
+    activeOrders: [...p.activeOrders, order],
+    unlocks: Array.from(unlocks),
+  };
+}
+
+export function cancelLimitOrder(p: Portfolio, id: string): Portfolio {
+  return {
+    ...p,
+    activeOrders: p.activeOrders.filter((o) => o.id !== id),
+  };
+}
+
+export function addMonthlyPurchase(
+  p: Portfolio,
+  args: { ticker: string; amount: number; dayOfMonth: number },
+): Portfolio {
+  if (args.amount <= 0) throw new Error("Belopp måste vara större än 0");
+  if (args.dayOfMonth < 1 || args.dayOfMonth > 28) {
+    throw new Error("Dag måste vara mellan 1 och 28");
+  }
+
+  const mp: MonthlyPurchase = {
+    id: newId(),
+    ts: new Date().toISOString(),
+    ticker: args.ticker,
+    amount: args.amount,
+    dayOfMonth: args.dayOfMonth,
+    active: true,
+  };
+
+  const unlocks = new Set(p.unlocks);
+  unlocks.add("simulator.fondkop_manadssparande");
+
+  return {
+    ...p,
+    monthlyPurchases: [...p.monthlyPurchases, mp],
+    unlocks: Array.from(unlocks),
+  };
+}
+
+export function toggleMonthlyPurchase(p: Portfolio, id: string): Portfolio {
+  return {
+    ...p,
+    monthlyPurchases: p.monthlyPurchases.map((m) =>
+      m.id === id ? { ...m, active: !m.active } : m,
+    ),
+  };
+}
+
+export function removeMonthlyPurchase(p: Portfolio, id: string): Portfolio {
+  return {
+    ...p,
+    monthlyPurchases: p.monthlyPurchases.filter((m) => m.id !== id),
+  };
+}
+
+export function unlockFeature(p: Portfolio, key: string): Portfolio {
+  if (p.unlocks.includes(key)) return p;
+  return { ...p, unlocks: [...p.unlocks, key] };
 }
 
 export function hasUnlock(p: Portfolio, key: string): boolean {

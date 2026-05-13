@@ -3,6 +3,9 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 
+import { ActiveOrdersSection } from "@/components/simulator/ActiveOrdersSection";
+import { MonthlySavingsSection } from "@/components/simulator/MonthlySavingsSection";
+import { TimeMachineSection } from "@/components/simulator/TimeMachineSection";
 import { cn } from "@/lib/cn";
 import {
   formatKr,
@@ -12,12 +15,17 @@ import {
   formatVolume,
 } from "@/lib/format";
 import {
+  addMonthlyPurchase,
   buy,
+  cancelLimitOrder,
   initialPortfolio,
   loadPortfolio,
+  placeLimitOrder,
+  removeMonthlyPurchase,
   resetPortfolio,
   savePortfolio,
   sell,
+  toggleMonthlyPurchase,
   type Portfolio,
   type Transaction,
 } from "@/lib/portfolio";
@@ -40,6 +48,8 @@ const UNLOCK_LABELS: Record<string, { label: string; lesson: number }> = {
 
 const UNLOCK_ORDER = Object.keys(UNLOCK_LABELS);
 
+type ActionResult = { ok: true } | { ok: false; reason: string };
+
 export function SimulatorView({ instruments }: { instruments: Instrument[] }) {
   const [portfolio, setPortfolio] = useState<Portfolio>(initialPortfolio);
   const [hydrated, setHydrated] = useState(false);
@@ -49,6 +59,20 @@ export function SimulatorView({ instruments }: { instruments: Instrument[] }) {
     setPortfolio(loadPortfolio());
     setHydrated(true);
   }, []);
+
+  // Auto-unlock tidsmaskinen — den är icke-destruktiv och alltid synlig.
+  useEffect(() => {
+    if (!hydrated) return;
+    if (!portfolio.unlocks.includes("simulator.tidsmaskin")) {
+      const updated = {
+        ...portfolio,
+        unlocks: [...portfolio.unlocks, "simulator.tidsmaskin"],
+      };
+      setPortfolio(updated);
+      savePortfolio(updated);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hydrated]);
 
   const instrumentByTicker = useMemo(
     () => Object.fromEntries(instruments.map((i) => [i.ticker, i])),
@@ -65,10 +89,7 @@ export function SimulatorView({ instruments }: { instruments: Instrument[] }) {
   const totalPLPct = totalCost > 0 ? (totalPL / totalCost) * 100 : 0;
   const fribeloppKvar = Math.max(0, ISK_FRIBELOPP_2026 - totalValue);
 
-  const handleBuy = (
-    ticker: string,
-    sek: number,
-  ): { ok: true } | { ok: false; reason: string } => {
+  const handleBuy = (ticker: string, sek: number): ActionResult => {
     setError(null);
     const inst = instrumentByTicker[ticker];
     if (!inst) return { ok: false, reason: "Okänt instrument" };
@@ -79,12 +100,16 @@ export function SimulatorView({ instruments }: { instruments: Instrument[] }) {
       return { ok: false, reason: "Inte tillräckligt med kassa" };
     }
     const shares =
-      inst.type === "fund" ? sek / inst.currentPrice : Math.floor(sek / inst.currentPrice);
+      inst.type === "fund"
+        ? sek / inst.currentPrice
+        : Math.floor(sek / inst.currentPrice);
     if (shares < (inst.type === "fund" ? 1e-6 : 1)) {
       return {
         ok: false,
         reason:
-          inst.type === "fund" ? "Beloppet är för litet" : "För litet belopp för 1 aktie",
+          inst.type === "fund"
+            ? "Beloppet är för litet"
+            : "För litet belopp för 1 aktie",
       };
     }
     try {
@@ -97,8 +122,66 @@ export function SimulatorView({ instruments }: { instruments: Instrument[] }) {
       savePortfolio(updated);
       return { ok: true };
     } catch (e) {
-      return { ok: false, reason: e instanceof Error ? e.message : "Något gick fel" };
+      return {
+        ok: false,
+        reason: e instanceof Error ? e.message : "Något gick fel",
+      };
     }
+  };
+
+  const handlePlaceLimit = (args: {
+    ticker: string;
+    limitPrice: number;
+    amount: number;
+  }): ActionResult => {
+    setError(null);
+    try {
+      const updated = placeLimitOrder(portfolio, args);
+      setPortfolio(updated);
+      savePortfolio(updated);
+      return { ok: true };
+    } catch (e) {
+      return {
+        ok: false,
+        reason: e instanceof Error ? e.message : "Något gick fel",
+      };
+    }
+  };
+
+  const handleCancelOrder = (id: string) => {
+    const updated = cancelLimitOrder(portfolio, id);
+    setPortfolio(updated);
+    savePortfolio(updated);
+  };
+
+  const handleAddMonthly = (args: {
+    ticker: string;
+    amount: number;
+    dayOfMonth: number;
+  }): ActionResult => {
+    try {
+      const updated = addMonthlyPurchase(portfolio, args);
+      setPortfolio(updated);
+      savePortfolio(updated);
+      return { ok: true };
+    } catch (e) {
+      return {
+        ok: false,
+        reason: e instanceof Error ? e.message : "Något gick fel",
+      };
+    }
+  };
+
+  const handleToggleMonthly = (id: string) => {
+    const updated = toggleMonthlyPurchase(portfolio, id);
+    setPortfolio(updated);
+    savePortfolio(updated);
+  };
+
+  const handleRemoveMonthly = (id: string) => {
+    const updated = removeMonthlyPurchase(portfolio, id);
+    setPortfolio(updated);
+    savePortfolio(updated);
   };
 
   const handleSell = (ticker: string, shares: number) => {
@@ -243,6 +326,20 @@ export function SimulatorView({ instruments }: { instruments: Instrument[] }) {
         </section>
       )}
 
+      <ActiveOrdersSection
+        orders={portfolio.activeOrders}
+        instrumentByTicker={instrumentByTicker}
+        onCancel={handleCancelOrder}
+      />
+
+      <MonthlySavingsSection
+        monthlies={portfolio.monthlyPurchases}
+        funds={funds}
+        onAdd={handleAddMonthly}
+        onToggle={handleToggleMonthly}
+        onRemove={handleRemoveMonthly}
+      />
+
       <section className="mt-12">
         <h2 className="text-xl font-semibold text-neutral-900">Köp aktier</h2>
         <p className="mt-1 text-sm leading-relaxed text-neutral-500">
@@ -250,9 +347,9 @@ export function SimulatorView({ instruments }: { instruments: Instrument[] }) {
           i kr, eller använd snabbvalen (10 / 25 / 50 % av din kassa) för att
           öva på <strong>positionsstorlek</strong>.{" "}
           <span className="block sm:inline">
-            <strong>Handelsvolym</strong> visar hur många aktier som byter ägare
-            en typisk dag — låg volym = svårare att handla snabbt och större
-            spread.
+            Aktier handlas i orderbok — du kan välja{" "}
+            <strong>marknadsorder</strong> (köp nu till bästa pris) eller{" "}
+            <strong>limitorder</strong> (köp endast om priset når ditt maxpris).
           </span>
         </p>
         <ul className="mt-4 space-y-2">
@@ -262,7 +359,9 @@ export function SimulatorView({ instruments }: { instruments: Instrument[] }) {
               instrument={inst}
               cash={portfolio.cash}
               onBuy={handleBuy}
+              onPlaceLimit={handlePlaceLimit}
               setError={setError}
+              allowLimit
             />
           ))}
         </ul>
@@ -282,11 +381,14 @@ export function SimulatorView({ instruments }: { instruments: Instrument[] }) {
               instrument={inst}
               cash={portfolio.cash}
               onBuy={handleBuy}
+              onPlaceLimit={handlePlaceLimit}
               setError={setError}
             />
           ))}
         </ul>
       </section>
+
+      <TimeMachineSection portfolio={portfolio} instruments={instruments} />
 
       {recentTransactions.length > 0 && (
         <section className="mt-12">
@@ -378,41 +480,85 @@ function Stat({
   );
 }
 
-type BuyResult = { ok: true } | { ok: false; reason: string };
-
 function InstrumentRow({
   instrument,
   cash,
   onBuy,
+  onPlaceLimit,
   setError,
+  allowLimit = false,
 }: {
   instrument: Instrument;
   cash: number;
-  onBuy: (ticker: string, sek: number) => BuyResult;
+  onBuy: (ticker: string, sek: number) => ActionResult;
+  onPlaceLimit: (args: {
+    ticker: string;
+    limitPrice: number;
+    amount: number;
+  }) => ActionResult;
   setError: (msg: string | null) => void;
+  allowLimit?: boolean;
 }) {
+  const [orderType, setOrderType] = useState<"market" | "limit">("market");
   const [amountText, setAmountText] = useState<string>("");
+  const [limitPriceText, setLimitPriceText] = useState<string>("");
+
   const amount = Number(amountText.replace(/\s/g, "").replace(",", "."));
+  const limitPrice = Number(
+    limitPriceText.replace(/\s/g, "").replace(",", "."),
+  );
   const isFund = instrument.type === "fund";
+  const effectivePrice =
+    orderType === "limit" && limitPrice > 0
+      ? limitPrice
+      : instrument.currentPrice;
   const sharesRaw =
-    Number.isFinite(amount) && amount > 0 ? amount / instrument.currentPrice : 0;
+    Number.isFinite(amount) && amount > 0 ? amount / effectivePrice : 0;
   const shares = isFund ? sharesRaw : Math.floor(sharesRaw);
-  const total = shares * instrument.currentPrice;
+  const total = shares * effectivePrice;
   const minShares = isFund ? 1e-6 : 1;
-  const canBuy = shares >= minShares && total <= cash + 0.005 && total > 0;
+
+  const canMarket =
+    orderType === "market" &&
+    shares >= minShares &&
+    total <= cash + 0.005 &&
+    total > 0;
+  const canLimit =
+    orderType === "limit" &&
+    allowLimit &&
+    Number.isFinite(amount) &&
+    amount > 0 &&
+    amount <= cash + 0.005 &&
+    Number.isFinite(limitPrice) &&
+    limitPrice > 0;
 
   const handlePercent = (pct: number) => {
     const value = Math.floor(cash * pct);
     setAmountText(String(value));
   };
 
-  const handleBuyClick = () => {
-    const result = onBuy(instrument.ticker, amount);
-    if (result.ok) {
-      setAmountText("");
-      setError(null);
+  const handleAction = () => {
+    if (orderType === "market") {
+      const result = onBuy(instrument.ticker, amount);
+      if (result.ok) {
+        setAmountText("");
+        setError(null);
+      } else {
+        setError(result.reason);
+      }
     } else {
-      setError(result.reason);
+      const result = onPlaceLimit({
+        ticker: instrument.ticker,
+        limitPrice,
+        amount,
+      });
+      if (result.ok) {
+        setAmountText("");
+        setLimitPriceText("");
+        setError(null);
+      } else {
+        setError(result.reason);
+      }
     }
   };
 
@@ -439,6 +585,24 @@ function InstrumentRow({
           <div className="text-xs text-neutral-400">{instrument.asOf}</div>
         </div>
       </div>
+
+      {allowLimit && (
+        <div className="mt-3 flex flex-wrap gap-1 text-xs">
+          <OrderTypeButton
+            active={orderType === "market"}
+            onClick={() => setOrderType("market")}
+            label="Marknadsorder"
+            hint="köp nu till aktuell kurs"
+          />
+          <OrderTypeButton
+            active={orderType === "limit"}
+            onClick={() => setOrderType("limit")}
+            label="Limitorder"
+            hint="köp bara om priset når mitt maxpris"
+          />
+        </div>
+      )}
+
       <div className="mt-3 flex flex-wrap items-center gap-2">
         <label className="flex items-center gap-2 text-sm text-neutral-600">
           <input
@@ -454,25 +618,44 @@ function InstrumentRow({
           />
           kr
         </label>
-        <div className="flex gap-1">
-          {[0.1, 0.25, 0.5].map((p) => {
-            const pctLabel = `${Math.round(p * 100)} %`;
-            const krValue = Math.floor(cash * p);
-            return (
-              <button
-                key={p}
-                type="button"
-                onClick={() => handlePercent(p)}
-                disabled={cash <= 0}
-                title={`${pctLabel} av din kassa = ${formatKr(krValue)}`}
-                className="rounded-md border border-neutral-200 px-2 py-1 text-xs tabular-nums text-neutral-600 transition-colors hover:border-neutral-400 hover:text-neutral-900 disabled:cursor-not-allowed disabled:opacity-40"
-              >
-                {formatKr(krValue)}
-                <span className="ml-1 text-neutral-400">({pctLabel})</span>
-              </button>
-            );
-          })}
-        </div>
+        {orderType === "limit" && (
+          <label className="flex items-center gap-2 text-sm text-neutral-600">
+            <span className="text-neutral-500">max</span>
+            <input
+              type="text"
+              inputMode="decimal"
+              placeholder={instrument.currentPrice.toFixed(2)}
+              value={limitPriceText}
+              onChange={(e) =>
+                setLimitPriceText(e.target.value.replace(/[^\d ,.]/g, ""))
+              }
+              className="w-24 rounded-lg border border-neutral-200 px-2 py-1 text-sm tabular-nums focus:border-primary focus:outline-none"
+              aria-label={`Limit-pris för ${instrument.name}`}
+            />
+            kr/aktie
+          </label>
+        )}
+        {orderType === "market" && (
+          <div className="flex gap-1">
+            {[0.1, 0.25, 0.5].map((p) => {
+              const pctLabel = `${Math.round(p * 100)} %`;
+              const krValue = Math.floor(cash * p);
+              return (
+                <button
+                  key={p}
+                  type="button"
+                  onClick={() => handlePercent(p)}
+                  disabled={cash <= 0}
+                  title={`${pctLabel} av din kassa = ${formatKr(krValue)}`}
+                  className="rounded-md border border-neutral-200 px-2 py-1 text-xs tabular-nums text-neutral-600 transition-colors hover:border-neutral-400 hover:text-neutral-900 disabled:cursor-not-allowed disabled:opacity-40"
+                >
+                  {formatKr(krValue)}
+                  <span className="ml-1 text-neutral-400">({pctLabel})</span>
+                </button>
+              );
+            })}
+          </div>
+        )}
         <span className="text-sm text-neutral-500">
           {shares > 0 ? (
             <>
@@ -484,14 +667,43 @@ function InstrumentRow({
         </span>
         <button
           type="button"
-          disabled={!canBuy}
-          onClick={handleBuyClick}
+          disabled={orderType === "market" ? !canMarket : !canLimit}
+          onClick={handleAction}
           className="ml-auto rounded-full bg-primary px-5 py-1.5 text-sm font-semibold text-white transition-colors hover:bg-primary-dark disabled:cursor-not-allowed disabled:bg-neutral-300"
         >
-          Köp
+          {orderType === "market" ? "Köp" : "Lägg limitorder"}
         </button>
       </div>
     </li>
+  );
+}
+
+function OrderTypeButton({
+  active,
+  onClick,
+  label,
+  hint,
+}: {
+  active: boolean;
+  onClick: () => void;
+  label: string;
+  hint: string;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      title={hint}
+      className={cn(
+        "rounded-md border px-3 py-1 transition-colors",
+        active
+          ? "border-primary bg-primary/10 text-primary-dark"
+          : "border-neutral-200 text-neutral-600 hover:border-neutral-400",
+      )}
+    >
+      <span className="font-medium">{label}</span>{" "}
+      <span className="text-neutral-400">— {hint}</span>
+    </button>
   );
 }
 
@@ -515,7 +727,8 @@ function PositionRow({
   const gav = totalCost / shares;
 
   const sellAmount = Number(sellText.replace(/\s/g, "").replace(",", "."));
-  const sellShares = Number.isFinite(sellAmount) && sellAmount > 0 ? sellAmount : 0;
+  const sellShares =
+    Number.isFinite(sellAmount) && sellAmount > 0 ? sellAmount : 0;
   const sellValid = sellShares > 0 && sellShares <= shares + 1e-6;
 
   const handleSellAll = () => {
@@ -588,7 +801,9 @@ function PositionRow({
             className="rounded-full bg-neutral-900 px-4 py-1 text-xs font-semibold text-white transition-colors hover:bg-neutral-700 disabled:cursor-not-allowed disabled:bg-neutral-300"
           >
             Sälj{" "}
-            {sellShares > 0 ? formatKr(sellShares * instrument.currentPrice) : ""}
+            {sellShares > 0
+              ? formatKr(sellShares * instrument.currentPrice)
+              : ""}
           </button>
           <button
             type="button"

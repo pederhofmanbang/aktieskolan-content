@@ -29,6 +29,43 @@ Format per post: datum, kort rubrik, branch + PR, gjort, öppna trådar, nästa 
 
 <!-- Tidigare poster följer nedan -->
 
+## 2026-05-14 — Bunt 7 — Pedagogisk koppling lektion ↔ simulator
+
+**Branch:** `feature/simulator-bunt-7`
+**PR:** `#20` (mergad — squash)
+
+**Gjort:**
+- `lib/lessonProgress.ts` — localStorage-state för completed lessons
+- `components/lessons/LessonActions.tsx` — "Markera som läst"-knapp +
+  djuplänk till simulator-funktion per lektion
+- `lib/lessonSimulatorLinks.ts` — mappning lektion → simulator-djuplänk
+- SimulatorView läser `?tab=&sub=&expand=` query-params
+- AnalysisTab + TradeTab tar `initialExpand` / `initialSub` props
+- `data/companies.ts` — bolagsbeskrivningar för 20 instrument
+- InstrumentRow får "i"-knapp som visar bolagsinfo
+- Term-tooltips applicerade på Sharpe, drawdown, schablonskatt, fribelopp,
+  P/E, direktavkastning, soliditet
+- `components/simulator/ProgressIndicator.tsx` — "X/10 lektioner" + progress-bar
+- Soft-block: limit-toggle döljs tills lektion 2 är markerad läst
+- PlanTab visar banner "läs lektion 10 först" tills lektion 10 är markerad
+- localStorage-storage-event lyssnas så progress synkas mellan flikar
+
+**Filer som ändrats:**
+- Nya: `LessonActions`, `ProgressIndicator`, `lessonProgress.ts`,
+  `lessonSimulatorLinks.ts`, `companies.ts`
+- Modifierade: `app/lektioner/[slug]/page.tsx`, `SimulatorView`, `TradeTab`,
+  `StockList`, `InstrumentRow`, `AnalysisTab`, `PlanTab`, `MyPlanSection`,
+  4 analyssektioner (Term-applikationer)
+
+**Slutsats:** Aktieskolan har nu en faktisk pedagogisk progression. Lektioner
+markeras klara, simulatorn lyssnar på progress, och varje lektion har en
+direkt-länk till sin motsvarande simulator-funktion. Termer förklaras
+överallt de syns. Inga blockerande lås — bara mjuk vägledning.
+
+**Inga öppna trådar.** Simulatorn + lektioner är nu en helhet.
+
+---
+
 ## 2026-05-14 — Simulator bunt 6 — UX-polering (10 punkter)
 
 **Branch:** `feature/simulator-bunt-6`

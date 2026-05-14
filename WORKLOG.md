@@ -29,6 +29,33 @@ Format per post: datum, kort rubrik, branch + PR, gjort, öppna trådar, nästa 
 
 <!-- Tidigare poster följer nedan -->
 
+## 2026-05-14 — Bunt 8 — Städning + pedagogisk konsekvens
+
+**Branch:** `feature/simulator-bunt-8`
+**PR:** `#21` (mergad — squash)
+
+**Gjort:** 5 små fixar för att tata mellan lektionernas instruktioner och simulatorns faktiska UI.
+
+1. Pizzan-promotion borttagen från `/lektioner` (redan synligt på startsida + lektion 1)
+2. "Mitt kris-svar"-fält i Krasch-läget — sparas i `Portfolio.crisisPledge`
+3. 5 %-knapp i Köp & sälj snabbval (lektion 8 ber om "max 5 %")
+4. "24 timmars paus"-text i Stresstests vägrad-meddelande
+5. "+1 000 XP"-badge i signerat certifikat
+
+**Filer som ändrats:**
+- `app/lektioner/page.tsx` (pizzan-link borttagen)
+- `lib/portfolio.ts` (`crisisPledge` + `saveCrisisPledge`)
+- `components/simulator/CrashTestSection.tsx` (kris-svar-form)
+- `components/simulator/AnalysisTab.tsx` (passar `onSavePledge`)
+- `components/simulator/SimulatorView.tsx` (handler)
+- `components/simulator/InstrumentRow.tsx` (5 %-knapp)
+- `components/simulator/StressTestSection.tsx` (24h-text)
+- `components/simulator/MyPlanSection.tsx` (XP-badge)
+
+**Inga öppna trådar.** Simulator + lektioner + spel är nu konsekventa.
+
+---
+
 ## 2026-05-14 — Bunt 7 — Pedagogisk koppling lektion ↔ simulator
 
 **Branch:** `feature/simulator-bunt-7`

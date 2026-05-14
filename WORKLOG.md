@@ -29,6 +29,32 @@ Format per post: datum, kort rubrik, branch + PR, gjort, öppna trådar, nästa 
 
 <!-- Tidigare poster följer nedan -->
 
+## 2026-05-15 — Bunt 10 — Landningssida + lektion-flikar omstrukturerade
+
+**Branch:** `feature/content-bunt-10`
+**PR:** `#23` (mergad — squash)
+
+**Gjort:**
+- Startsidan: "Börja här" → "Lektioner". Ny "Simulator"-knapp som tredje
+  primärknapp bredvid Lektioner och Spela. Emoji-prefix på alla tre.
+- LessonTabs: "Läs" → "Lektionstext". Spel-fliken borttagen helt
+  (Lesson1Game-inbäddningen, TabPanel + TabId). Slug-prop borttagen från
+  LessonTabs (användes inte längre).
+- Flashcards: egna kort för lektion 1 borttagna. Alla flashcards kommer
+  nu från NotebookLM via `lesson-media.ts`.
+- `lesson-media.ts` har nu placeholder-struktur för alla 10 lektioner
+  redo för Peder att fylla i NotebookLM-URL:er.
+
+**Verifierat:**
+- Simulator-djuplänkar per lektion matchar rätt funktion.
+- Spel-länkar per lektion matchar rätt modul.
+
+**Öppna trådar:**
+- Peder fyller i NotebookLM-URL:er för lektion 2–10 i `lesson-media.ts`
+  när de är klara.
+
+---
+
 ## 2026-05-15 — Bunt 9 — Faktarättelser i lektion 1, 2, 4
 
 **Branch:** `feature/content-bunt-9`

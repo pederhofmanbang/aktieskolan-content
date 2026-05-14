@@ -227,7 +227,7 @@ export function InstrumentRow({
         )}
         {orderType === "market" && (
           <div className="flex gap-1">
-            {[0.1, 0.25, 0.5].map((p) => {
+            {[0.05, 0.1, 0.25, 0.5].map((p) => {
               const pctLabel = `${Math.round(p * 100)} %`;
               const krValue = Math.floor(cash * p);
               return (

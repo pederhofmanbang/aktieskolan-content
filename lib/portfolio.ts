@@ -52,6 +52,7 @@ export type Portfolio = {
   activeOrders: ActiveOrder[];
   monthlyPurchases: MonthlyPurchase[];
   myPlan?: MyPlan;
+  crisisPledge?: string;
 };
 
 const STORAGE_KEY = "aktieskolan_portfolio_v1";
@@ -284,6 +285,10 @@ export function removeMonthlyPurchase(p: Portfolio, id: string): Portfolio {
     ...p,
     monthlyPurchases: p.monthlyPurchases.filter((m) => m.id !== id),
   };
+}
+
+export function saveCrisisPledge(p: Portfolio, pledge: string): Portfolio {
+  return { ...p, crisisPledge: pledge };
 }
 
 export function saveMyPlan(p: Portfolio, plan: MyPlan): Portfolio {

@@ -381,6 +381,9 @@ function CertificateView({
             Aktieskolans 10 lektioner och skrivit en egen investeringspolicy
             den {signedDate}.
           </p>
+          <div className="mt-4 inline-flex items-center gap-2 rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold text-amber-800">
+            <span aria-hidden="true">⭐</span> + 1 000 XP intjänade
+          </div>
         </div>
 
         <div className="mt-6 grid grid-cols-1 gap-4 border-t border-neutral-200 pt-6 sm:grid-cols-2">

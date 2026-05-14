@@ -29,6 +29,36 @@ Format per post: datum, kort rubrik, branch + PR, gjort, öppna trådar, nästa 
 
 <!-- Tidigare poster följer nedan -->
 
+## 2026-05-15 — Bunt 9 — Faktarättelser i lektion 1, 2, 4
+
+**Branch:** `feature/content-bunt-9`
+**PR:** `#22` (mergad — squash)
+
+**Gjort:** Tre identifierade sakfel + ett upptäckt under arbetet rättade.
+
+1. **Lektion 1:** Evolution byttes mot Stillfront i listan över "tillväxtbolag
+   utan utdelning". Evolution har utdelningspolicy som ger ut 50 % av vinsten.
+2. **Lektion 2:** Dymmelonsdag togs bort från halvdagslistan — den är inte
+   halvdag på Stockholmsbörsen. Skärtorsdag är dock halvdag, midsommarafton
+   är helt stängt. Listan uppdaterad.
+3. **Lektion 4:** Ränta-på-ränta-tabellen rättad. Siffrorna motsvarade ca 8 %
+   avkastning trots att texten sa 7 %. Ny tabell vid konsekvent 7 % månadlig
+   sammansättning (500/1000/2000/5000 → 1,52/3,04/6,08/15,2 milj).
+4. **Bonus:** Anna-vs-Erik-exemplet hade också internt inkonsistenta siffror.
+   Anna landar nu matematiskt korrekt på 1,4 milj och Erik på 1,22 milj —
+   vilket gör den pedagogiska poängen STARKARE: Anna vinner trots tredjedel
+   av insatsen.
+
+**Filer som ändrats:**
+- `content/lessons/01-vad-ar-en-aktie.mdx`
+- `content/lessons/02-borsen-och-mr-market.mdx`
+- `content/lessons/04-ranta-pa-ranta.mdx`
+
+**Notera:** Användarens videos/presentationer kan fortfarande ha de gamla
+siffrorna. Denna PR uppdaterar bara textinnehållet.
+
+---
+
 ## 2026-05-14 — Bunt 8 — Städning + pedagogisk konsekvens
 
 **Branch:** `feature/simulator-bunt-8`

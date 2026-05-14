@@ -25,6 +25,18 @@ export function formatShares(n: number, isFund: boolean): string {
   return `${Math.round(n).toLocaleString("sv-SE")} st`;
 }
 
+export function formatKrCompact(n: number): string {
+  const abs = Math.abs(n);
+  const sign = n < 0 ? "-" : "";
+  if (abs >= 1_000_000) {
+    return `${sign}${(abs / 1_000_000).toLocaleString("sv-SE", { maximumFractionDigits: 1 })} Mkr`;
+  }
+  if (abs >= 1_000) {
+    return `${sign}${(abs / 1_000).toLocaleString("sv-SE", { maximumFractionDigits: 1 })} k`;
+  }
+  return `${sign}${Math.round(abs).toLocaleString("sv-SE")}`;
+}
+
 export function formatVolume(n: number): string {
   if (n >= 1_000_000) {
     return `${(n / 1_000_000).toLocaleString("sv-SE", {

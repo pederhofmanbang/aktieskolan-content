@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 
+import { Sparkline } from "@/components/simulator/Sparkline";
+import { Term } from "@/components/simulator/Term";
 import { cn } from "@/lib/cn";
 import {
   formatKr,
@@ -9,7 +11,7 @@ import {
   formatShares,
   formatSignedKr,
 } from "@/lib/format";
-import type { Instrument } from "@/lib/prices";
+import { recentPrices, type Instrument } from "@/lib/prices";
 
 export function PositionRow({
   instrument,
@@ -54,10 +56,15 @@ export function PositionRow({
         <div>
           <div className="font-semibold text-neutral-900">{instrument.name}</div>
           <div className="text-sm text-neutral-500">
-            {formatShares(shares, isFund)} · GAV {formatKr(gav, 2)}
+            {formatShares(shares, isFund)} · <Term termKey="gav">GAV</Term>{" "}
+            {formatKr(gav, 2)}
           </div>
         </div>
         <div className="flex items-center gap-3">
+          <Sparkline
+            data={recentPrices(instrument.ticker, 60)}
+            className="hidden sm:block"
+          />
           <div className="text-right">
             <div className="font-semibold tabular-nums text-neutral-900">
               {formatKr(value)}

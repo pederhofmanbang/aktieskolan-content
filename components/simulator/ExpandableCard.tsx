@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState, type ReactNode } from "react";
 
 import { cn } from "@/lib/cn";
@@ -9,6 +10,7 @@ export function ExpandableCard({
   subtitle,
   icon,
   badge,
+  lessonHref,
   defaultOpen = false,
   children,
 }: {
@@ -16,6 +18,7 @@ export function ExpandableCard({
   subtitle?: string;
   icon?: string;
   badge?: string;
+  lessonHref?: string;
   defaultOpen?: boolean;
   children: ReactNode;
 }) {
@@ -59,7 +62,17 @@ export function ExpandableCard({
         </div>
       </button>
       {open && (
-        <div className="border-t border-neutral-100 px-5 py-5">{children}</div>
+        <div className="border-t border-neutral-100 px-5 py-5">
+          {lessonHref && (
+            <Link
+              href={lessonHref}
+              className="mb-3 inline-flex items-center gap-1 text-xs font-medium text-primary-dark hover:text-primary"
+            >
+              ← Läs lektionen som introducerar det här
+            </Link>
+          )}
+          {children}
+        </div>
       )}
     </div>
   );

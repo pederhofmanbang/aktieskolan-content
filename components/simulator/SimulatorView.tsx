@@ -4,13 +4,20 @@ import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 
 import { AnalysisTab } from "@/components/simulator/AnalysisTab";
+import { NextStepHint } from "@/components/simulator/NextStepHint";
 import { OnboardingBanner } from "@/components/simulator/OnboardingBanner";
 import { PlanTab } from "@/components/simulator/PlanTab";
 import { PortfolioTab } from "@/components/simulator/PortfolioTab";
 import { Tabs, type TabDef } from "@/components/simulator/Tabs";
+import { Term } from "@/components/simulator/Term";
 import { TradeTab } from "@/components/simulator/TradeTab";
 import { cn } from "@/lib/cn";
-import { formatKr, formatPct, formatSignedKr } from "@/lib/format";
+import {
+  formatKr,
+  formatKrCompact,
+  formatPct,
+  formatSignedKr,
+} from "@/lib/format";
 import {
   addMonthlyPurchase,
   buy,
@@ -247,10 +254,10 @@ export function SimulatorView({ instruments }: { instruments: Instrument[] }) {
       badge: ordersBadge,
     },
     { id: "trade", label: "Köp & sälj", icon: "🛒" },
-    { id: "analysis", label: "Analys", icon: "🔬" },
+    { id: "analysis", label: "Verktyg", icon: "🔬" },
     {
       id: "plan",
-      label: "Min plan",
+      label: "Min sparplan",
       icon: "📜",
       badge: portfolio.myPlan?.signedAt ? "✓" : undefined,
     },
@@ -279,21 +286,39 @@ export function SimulatorView({ instruments }: { instruments: Instrument[] }) {
           Simulator
         </h1>
         <p className="mt-2 text-sm text-neutral-600">
-          Simulerat <strong>ISK (Investeringssparkonto)</strong> med 100 000 kr
-          i låtsaspengar. Sparas lokalt — påverkar inga riktiga pengar.
+          Simulerat <Term termKey="isk"><strong>ISK</strong></Term> med 100 000
+          kr i låtsaspengar. Sparas lokalt — påverkar inga riktiga pengar.
         </p>
       </header>
 
       <div className="sticky top-0 z-10 -mx-6 mt-6 border-b border-neutral-200 bg-white/95 px-6 py-3 backdrop-blur supports-[backdrop-filter]:bg-white/80">
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-5 sm:items-center">
-          <Stat label="Kassa" value={formatKr(portfolio.cash)} />
-          <Stat label="Investerat" value={formatKr(marketValue)} />
-          <Stat label="Totalt" value={formatKr(totalValue)} emphasis />
+          <Stat
+            label="Kassa"
+            value={formatKr(portfolio.cash)}
+            compactValue={`${formatKrCompact(portfolio.cash)} kr`}
+          />
+          <Stat
+            label="Investerat"
+            value={formatKr(marketValue)}
+            compactValue={`${formatKrCompact(marketValue)} kr`}
+          />
+          <Stat
+            label="Totalt"
+            value={formatKr(totalValue)}
+            compactValue={`${formatKrCompact(totalValue)} kr`}
+            emphasis
+          />
           <Stat
             label="Resultat"
             value={
               totalCost > 0
                 ? `${formatSignedKr(totalPL)} (${formatPct(totalPLPct, 1)})`
+                : "—"
+            }
+            compactValue={
+              totalCost > 0
+                ? `${totalPL >= 0 ? "+" : ""}${formatKrCompact(totalPL)} kr`
                 : "—"
             }
             tone={
@@ -315,6 +340,13 @@ export function SimulatorView({ instruments }: { instruments: Instrument[] }) {
             setActiveTab("trade");
             dismissOnboarding();
           }}
+        />
+      )}
+
+      {!showOnboarding && (
+        <NextStepHint
+          portfolio={portfolio}
+          onAction={(tab) => setActiveTab(tab)}
         />
       )}
 
@@ -372,11 +404,13 @@ export function SimulatorView({ instruments }: { instruments: Instrument[] }) {
 function Stat({
   label,
   value,
+  compactValue,
   emphasis,
   tone = "neutral",
 }: {
   label: string;
   value: string;
+  compactValue?: string;
   emphasis?: boolean;
   tone?: "neutral" | "positive" | "negative";
 }) {
@@ -394,7 +428,8 @@ function Stat({
           tone === "neutral" && "text-neutral-900",
         )}
       >
-        {value}
+        <span className="sm:hidden">{compactValue ?? value}</span>
+        <span className="hidden sm:inline">{value}</span>
       </div>
     </div>
   );

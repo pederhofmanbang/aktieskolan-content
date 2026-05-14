@@ -233,15 +233,33 @@ function PlanForm({
             onChange={(v) => updateNum("allocationSpice", v)}
           />
         </div>
-        <p
-          className={cn(
-            "mt-2 text-xs",
-            allocationOk ? "text-neutral-500" : "text-red-600",
+        <div className="mt-2 flex flex-wrap items-center gap-3">
+          <p
+            className={cn(
+              "text-xs",
+              allocationOk ? "text-neutral-500" : "text-red-600",
+            )}
+          >
+            Summa: {allocationSum.toFixed(0)} %{" "}
+            {allocationOk ? "(ok)" : "— måste bli exakt 100 %"}
+          </p>
+          {!allocationOk && (
+            <button
+              type="button"
+              onClick={() => {
+                const diff = 100 - allocationSum;
+                updateNum(
+                  "allocationCore",
+                  String(Math.round(plan.allocationCore + diff)),
+                );
+              }}
+              className="rounded-full border border-neutral-200 px-3 py-1 text-xs text-neutral-700 transition-colors hover:border-neutral-400"
+              title="Justerar globalfonds-andelen så summan blir 100 %"
+            >
+              Balansera till 100 %
+            </button>
           )}
-        >
-          Summa: {allocationSum.toFixed(0)} %{" "}
-          {allocationOk ? "(ok)" : "— måste bli exakt 100 %"}
-        </p>
+        </div>
       </Field>
 
       <Field
@@ -329,6 +347,29 @@ function CertificateView({
 
   return (
     <div className="mt-4 space-y-6">
+      <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-neutral-200 bg-neutral-50 px-4 py-3 text-sm print:hidden">
+        <span className="text-neutral-700">
+          Din plan är <strong>signerad</strong>. Den är låst tills du klickar
+          Redigera nedan eller härintill.
+        </span>
+        <div className="flex gap-2">
+          <button
+            type="button"
+            onClick={onEdit}
+            className="rounded-full border border-neutral-300 bg-white px-4 py-1.5 text-xs font-medium text-neutral-700 transition-colors hover:border-neutral-500"
+          >
+            Redigera planen
+          </button>
+          <button
+            type="button"
+            onClick={onPrint}
+            className="rounded-full bg-primary px-4 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-primary-dark"
+          >
+            Skriv ut / spara PDF
+          </button>
+        </div>
+      </div>
+
       <div className="rounded-2xl border-2 border-primary/40 bg-gradient-to-br from-primary/5 via-white to-white p-8 print:border-black">
         <div className="text-center">
           <div className="text-xs uppercase tracking-widest text-neutral-500">

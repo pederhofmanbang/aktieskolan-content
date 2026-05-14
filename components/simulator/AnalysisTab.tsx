@@ -16,11 +16,16 @@ export function AnalysisTab({
   portfolio,
   instruments,
   stocks,
+  initialExpand,
 }: {
   portfolio: Portfolio;
   instruments: Instrument[];
   stocks: Instrument[];
+  initialExpand?: string;
 }) {
+  const openByDefault = (id: string) =>
+    initialExpand ? id === initialExpand : id === "tidsmaskin";
+
   return (
     <div className="space-y-8 py-2">
       <p className="text-sm text-neutral-500">
@@ -40,7 +45,7 @@ export function AnalysisTab({
             icon="⏩"
             badge="Lektion 4"
             lessonHref="/lektioner/04-ranta-pa-ranta"
-            defaultOpen
+            defaultOpen={openByDefault("tidsmaskin")}
           >
             <TimeMachineSection
               portfolio={portfolio}
@@ -60,6 +65,7 @@ export function AnalysisTab({
             icon="📉"
             badge="Lektion 5"
             lessonHref="/lektioner/05-risk"
+            defaultOpen={openByDefault("crash")}
           >
             <CrashTestSection
               portfolio={portfolio}
@@ -79,6 +85,7 @@ export function AnalysisTab({
             icon="🥧"
             badge="Lektion 6"
             lessonHref="/lektioner/06-diversifiering"
+            defaultOpen={openByDefault("allocation")}
           >
             <AllocationSection
               portfolio={portfolio}
@@ -105,6 +112,7 @@ export function AnalysisTab({
             icon="🧾"
             badge="Lektion 7"
             lessonHref="/lektioner/07-isk-vs-af-vs-kf"
+            defaultOpen={openByDefault("isk")}
           >
             <ISKTaxSection
               portfolio={portfolio}
@@ -124,6 +132,7 @@ export function AnalysisTab({
             icon="🔎"
             badge="Lektion 8"
             lessonHref="/lektioner/08-nyckeltal"
+            defaultOpen={openByDefault("screener")}
           >
             <ScreenerSection stocks={stocks} embedded />
             <SpelLinkRow
@@ -139,6 +148,7 @@ export function AnalysisTab({
             icon="🧠"
             badge="Lektion 9"
             lessonHref="/lektioner/09-psykologi"
+            defaultOpen={openByDefault("stresstest")}
           >
             <StressTestSection
               portfolio={portfolio}

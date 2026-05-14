@@ -8,9 +8,15 @@ import { NextStepHint } from "@/components/simulator/NextStepHint";
 import { OnboardingBanner } from "@/components/simulator/OnboardingBanner";
 import { PlanTab } from "@/components/simulator/PlanTab";
 import { PortfolioTab } from "@/components/simulator/PortfolioTab";
+import { ProgressIndicator } from "@/components/simulator/ProgressIndicator";
 import { Tabs, type TabDef } from "@/components/simulator/Tabs";
 import { Term } from "@/components/simulator/Term";
 import { TradeTab } from "@/components/simulator/TradeTab";
+import {
+  isComplete,
+  loadProgress,
+  type LessonProgress,
+} from "@/lib/lessonProgress";
 import { cn } from "@/lib/cn";
 import {
   formatKr,
@@ -47,15 +53,37 @@ export function SimulatorView({ instruments }: { instruments: Instrument[] }) {
   const [error, setError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<string>("portfolio");
   const [onboardingDismissed, setOnboardingDismissed] = useState<boolean>(true);
+  const [initialSub, setInitialSub] = useState<string | undefined>();
+  const [initialExpand, setInitialExpand] = useState<string | undefined>();
+  const [lessonProgress, setLessonProgress] = useState<LessonProgress>({
+    completed: [],
+  });
 
   useEffect(() => {
     setPortfolio(loadPortfolio());
+    setLessonProgress(loadProgress());
+    setHydrated(true);
     if (typeof window !== "undefined") {
       setOnboardingDismissed(
         window.localStorage.getItem(ONBOARDING_KEY) === "1",
       );
+      const params = new URLSearchParams(window.location.search);
+      const tab = params.get("tab");
+      if (tab && ["portfolio", "trade", "analysis", "plan"].includes(tab)) {
+        setActiveTab(tab);
+      }
+      const sub = params.get("sub");
+      if (sub) setInitialSub(sub);
+      const expand = params.get("expand");
+      if (expand) setInitialExpand(expand);
+      const handler = (e: StorageEvent) => {
+        if (e.key === "aktieskolan_lesson_progress_v1") {
+          setLessonProgress(loadProgress());
+        }
+      };
+      window.addEventListener("storage", handler);
+      return () => window.removeEventListener("storage", handler);
     }
-    setHydrated(true);
   }, []);
 
   // Auto-unlocka icke-destruktiva pedagogiska vyer.
@@ -289,6 +317,9 @@ export function SimulatorView({ instruments }: { instruments: Instrument[] }) {
           Simulerat <Term termKey="isk"><strong>ISK</strong></Term> med 100 000
           kr i låtsaspengar. Sparas lokalt — påverkar inga riktiga pengar.
         </p>
+        <div className="mt-4 max-w-sm">
+          <ProgressIndicator progress={lessonProgress} />
+        </div>
       </header>
 
       <div className="sticky top-0 z-10 -mx-6 mt-6 border-b border-neutral-200 bg-white/95 px-6 py-3 backdrop-blur supports-[backdrop-filter]:bg-white/80">
@@ -384,6 +415,11 @@ export function SimulatorView({ instruments }: { instruments: Instrument[] }) {
             onToggleMonthly={handleToggleMonthly}
             onRemoveMonthly={handleRemoveMonthly}
             setError={setError}
+            initialSub={initialSub}
+            allowLimitOrder={isComplete(
+              lessonProgress,
+              "02-borsen-och-mr-market",
+            )}
           />
         )}
         {activeTab === "analysis" && (
@@ -391,10 +427,15 @@ export function SimulatorView({ instruments }: { instruments: Instrument[] }) {
             portfolio={portfolio}
             instruments={instruments}
             stocks={stocks}
+            initialExpand={initialExpand}
           />
         )}
         {activeTab === "plan" && (
-          <PlanTab portfolio={portfolio} onSave={handleSaveMyPlan} />
+          <PlanTab
+            portfolio={portfolio}
+            onSave={handleSaveMyPlan}
+            lesson10Read={isComplete(lessonProgress, "10-din-egen-plan")}
+          />
         )}
       </div>
     </main>

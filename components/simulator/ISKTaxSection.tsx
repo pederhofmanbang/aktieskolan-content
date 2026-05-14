@@ -1,5 +1,6 @@
 "use client";
 
+import { Term } from "@/components/simulator/Term";
 import { cn } from "@/lib/cn";
 import { formatKr, formatPct } from "@/lib/format";
 import {
@@ -73,6 +74,7 @@ export function ISKTaxSection({
               step="2. Minus fribeloppet"
               value={`− ${formatKr(isk.fribelopp)}`}
               note="2026 års fribelopp per person (höjt från 150 000 kr 2025)"
+              term="fribelopp"
             />
             <Row
               step="3. Skattegrund"
@@ -89,6 +91,7 @@ export function ISKTaxSection({
               step="5. Schablonskatt"
               value={`× 30 % = ${formatKr(Math.round(isk.schablonskatt))}`}
               note={`Effektivt ${formatPct(isk.skattRate * 100, 3)} av kapitalet över fribeloppet`}
+              term="schablonskatt"
               highlight
             />
           </tbody>
@@ -156,15 +159,22 @@ function Row({
   value,
   note,
   highlight,
+  term,
 }: {
   step: string;
   value: string;
   note: string;
   highlight?: boolean;
+  term?: "schablonskatt" | "fribelopp";
 }) {
+  const stepNode = term ? (
+    <Term termKey={term}>{step}</Term>
+  ) : (
+    step
+  );
   return (
     <tr className={highlight ? "bg-primary/5" : undefined}>
-      <td className="px-4 py-2 text-neutral-700">{step}</td>
+      <td className="px-4 py-2 text-neutral-700">{stepNode}</td>
       <td className={cn("px-4 py-2 tabular-nums", highlight ? "font-semibold text-neutral-900" : "text-neutral-900")}>{value}</td>
       <td className="px-4 py-2 text-xs text-neutral-500">{note}</td>
     </tr>

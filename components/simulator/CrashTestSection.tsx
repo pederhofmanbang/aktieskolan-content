@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 
+import { Term } from "@/components/simulator/Term";
 import { cn } from "@/lib/cn";
 import { CRASH_SCENARIOS, simulateCrash } from "@/lib/crashScenarios";
 import { formatKr, formatPct, formatSignedKr } from "@/lib/format";
@@ -93,7 +94,8 @@ export function CrashTestSection({
           <strong>{scenario.name}</strong> ({scenario.year}): {scenario.description}
         </div>
         <div className="mt-2 text-xs text-neutral-500">
-          Max drawdown {formatPct(scenario.drawdown * 100, 0)} · botten efter{" "}
+          Max <Term termKey="drawdown">drawdown</Term>{" "}
+          {formatPct(scenario.drawdown * 100, 0)} · botten efter{" "}
           {scenario.durationMonths} månader · återhämtning under{" "}
           {scenario.recoveryMonths} månader.
         </div>

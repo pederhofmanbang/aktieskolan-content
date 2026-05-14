@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 
+import { Term } from "@/components/simulator/Term";
 import { cn } from "@/lib/cn";
 import { formatKr, formatPct } from "@/lib/format";
 import type { Instrument } from "@/lib/prices";
@@ -70,7 +71,7 @@ export function ScreenerSection({
       <div className="mt-4 rounded-xl border border-neutral-200 bg-white p-4">
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
           <RangeFilter
-            label="P/E"
+            label={<Term termKey="pe">P/E</Term>}
             hint="pris / vinst per aktie"
             min={filter.peMin}
             max={filter.peMax}
@@ -78,7 +79,7 @@ export function ScreenerSection({
             onMaxChange={(v) => update("peMax", v)}
           />
           <RangeFilter
-            label="Direktavkastning"
+            label={<Term termKey="direktavkastning">Direktavkastning</Term>}
             hint="årlig utdelning / kurs"
             suffix=" %"
             min={filter.yieldMin}
@@ -87,7 +88,7 @@ export function ScreenerSection({
             onMaxChange={(v) => update("yieldMax", v)}
           />
           <SingleFilter
-            label="Soliditet ≥"
+            label={<><Term termKey="soliditet">Soliditet</Term> ≥</>}
             hint="eget kapital / tillgångar"
             suffix=" %"
             value={filter.solidityMin}
@@ -191,7 +192,7 @@ function RangeFilter({
   onMaxChange,
   suffix = "",
 }: {
-  label: string;
+  label: React.ReactNode;
   hint: string;
   min: number;
   max: number;
@@ -232,7 +233,7 @@ function SingleFilter({
   onChange,
   suffix = "",
 }: {
-  label: string;
+  label: React.ReactNode;
   hint: string;
   value: number;
   onChange: (v: string) => void;

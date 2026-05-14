@@ -29,6 +29,8 @@ export function TradeTab({
   onToggleMonthly,
   onRemoveMonthly,
   setError,
+  initialSub,
+  allowLimitOrder = true,
 }: {
   cash: number;
   stocks: Instrument[];
@@ -48,8 +50,14 @@ export function TradeTab({
   onToggleMonthly: (id: string) => void;
   onRemoveMonthly: (id: string) => void;
   setError: (msg: string | null) => void;
+  initialSub?: string;
+  allowLimitOrder?: boolean;
 }) {
-  const [sub, setSub] = useState<string>("stocks");
+  const [sub, setSub] = useState<string>(
+    initialSub && ["stocks", "funds", "monthly"].includes(initialSub)
+      ? initialSub
+      : "stocks",
+  );
 
   return (
     <div className="py-2">
@@ -70,6 +78,13 @@ export function TradeTab({
               Klicka på <em>Visa orderbok</em> för att se köpare och säljare
               just nu.
             </p>
+            {!allowLimitOrder && (
+              <p className="mt-3 rounded-xl border border-neutral-200 bg-neutral-50 px-4 py-3 text-xs text-neutral-600">
+                💡 <strong>Limitorder visas efter lektion 2.</strong> När du
+                markerat lektion 2 som läst kan du välja mellan marknadsorder
+                och limitorder.
+              </p>
+            )}
             <div className="mt-4">
               <StockList
                 stocks={stocks}
@@ -77,6 +92,7 @@ export function TradeTab({
                 onBuy={onBuy}
                 onPlaceLimit={onPlaceLimit}
                 setError={setError}
+                allowLimit={allowLimitOrder}
               />
             </div>
           </section>

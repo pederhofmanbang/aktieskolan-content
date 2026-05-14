@@ -1,5 +1,6 @@
 "use client";
 
+import { Term } from "@/components/simulator/Term";
 import {
   breakdownAllocation,
   portfolioSharpe,
@@ -117,7 +118,7 @@ export function AllocationSection({
           <div className="mt-4 grid grid-cols-1 gap-4 rounded-2xl border border-neutral-200 bg-white p-6 sm:grid-cols-3">
             <div>
               <div className="text-xs uppercase tracking-wider text-neutral-500">
-                Sharpe nu
+                <Term termKey="sharpe">Sharpe</Term> nu
               </div>
               <div className="mt-1 text-2xl font-bold tabular-nums text-neutral-900">
                 {sharpe.toFixed(2)}

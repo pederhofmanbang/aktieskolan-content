@@ -59,4 +59,14 @@ export function getInstrument(ticker: string): Instrument | null {
   return r ? toInstrument(r) : null;
 }
 
+/**
+ * Senaste N stängningskurser för ett instrument. Användbart för
+ * sparkline-grafer per innehav.
+ */
+export function recentPrices(ticker: string, days: number): number[] {
+  const r = raw.instruments[ticker];
+  if (!r) return [];
+  return r.prices.slice(-days).map((p) => p.close);
+}
+
 export const dataLastUpdated = raw.lastUpdated;

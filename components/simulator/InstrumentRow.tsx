@@ -11,6 +11,7 @@ import {
   formatVolume,
 } from "@/lib/format";
 import type { Instrument } from "@/lib/prices";
+import { sectorColors } from "@/lib/sectors";
 
 export type ActionResult = { ok: true } | { ok: false; reason: string };
 
@@ -101,10 +102,22 @@ export function InstrumentRow({
     <li className="rounded-xl border border-neutral-200 bg-white p-4 transition-colors hover:border-neutral-300">
       <div className="flex items-start justify-between gap-4">
         <div className="min-w-0">
-          <div className="font-semibold text-neutral-900">{instrument.name}</div>
+          <div className="flex items-center gap-2">
+            <span className="font-semibold text-neutral-900">
+              {instrument.name}
+            </span>
+            <span
+              className={cn(
+                "rounded-full px-2 py-0.5 text-[10px] font-medium",
+                sectorColors(instrument.sector).bg,
+                sectorColors(instrument.sector).text,
+              )}
+            >
+              {instrument.sector ?? "Fond"}
+            </span>
+          </div>
           <div className="text-xs text-neutral-500">
-            {instrument.sector ?? "Fond"} · ticker{" "}
-            {instrument.ticker.replace(".ST", "")}
+            ticker {instrument.ticker.replace(".ST", "")}
             {instrument.fee != null && (
               <> · årlig avgift {formatPct(instrument.fee * 100, 2)}</>
             )}

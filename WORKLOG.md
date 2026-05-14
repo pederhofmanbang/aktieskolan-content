@@ -29,6 +29,43 @@ Format per post: datum, kort rubrik, branch + PR, gjort, öppna trådar, nästa 
 
 <!-- Tidigare poster följer nedan -->
 
+## 2026-05-14 — Simulator bunt 6 — UX-polering (10 punkter)
+
+**Branch:** `feature/simulator-bunt-6`
+**PR:** `#19` (mergad — squash)
+
+**Gjort:**
+- Tab-omdöp: "Analys" → "Verktyg", "Min plan" → "Min sparplan"
+- Sektor-färgkodning som badges på aktier (`lib/sectors.ts`)
+- "Balansera till 100 %"-knapp i IPS-form
+- Redigera-knapp synlig direkt i certifikatvyn
+- Mobil-komprimering med `formatKrCompact` (100 k kr istället för 100 000)
+- Spel-länkar från varje analyskort till motsvarande spel-modul
+- Gruppering av Analys-kort i "Förstå risk" + "Strategier & planering"
+- `lessonHref`-prop på ExpandableCard med "← Läs lektionen"-länk
+- Term-tooltips (`components/simulator/Term.tsx`) — 11 termer definierade
+  (GAV, ISK, schablonskatt, fribelopp, Sharpe, drawdown, spread, P/E,
+  direktavkastning, soliditet, IPS), applicerade på GAV och ISK
+- NextStepHint — dynamisk banner baserad på portfolio-state
+- Sparkline per innehav (60d historik) bredvid värde i PositionRow
+
+**Filer som ändrats:**
+- Nya: `Term.tsx`, `Sparkline.tsx`, `NextStepHint.tsx`, `lib/sectors.ts`
+- Modifierade: `SimulatorView`, `AnalysisTab`, `ExpandableCard`,
+  `InstrumentRow`, `PositionRow`, `MyPlanSection`, `lib/format.ts`,
+  `lib/prices.ts` (lade till `recentPrices`)
+
+**Skjuts till bunt 7:**
+- Aktie-detaljvy modal med stor graf + nyckeltal + köp-form
+- Sökfält i toppmenyn (sticky) som hoppar till Köp & sälj
+- Aktivitets-flik (samlar ordrar, affärer, månadsspar-status)
+- Gradvis unlock baserat på lektion-läst-state
+
+**Nästa steg:**
+- Bunt 7 vid behov, eller polish/bugfixar baserat på faktisk användning.
+
+---
+
 ## 2026-05-13 — Simulator bunt 5 — UX-omstrukturering med flikar
 
 **Branch:** `feature/simulator-bunt-5`

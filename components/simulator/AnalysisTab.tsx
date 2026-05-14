@@ -17,11 +17,13 @@ export function AnalysisTab({
   instruments,
   stocks,
   initialExpand,
+  onSavePledge,
 }: {
   portfolio: Portfolio;
   instruments: Instrument[];
   stocks: Instrument[];
   initialExpand?: string;
+  onSavePledge?: (text: string) => void;
 }) {
   const openByDefault = (id: string) =>
     initialExpand ? id === initialExpand : id === "tidsmaskin";
@@ -70,6 +72,7 @@ export function AnalysisTab({
             <CrashTestSection
               portfolio={portfolio}
               instruments={instruments}
+              onSavePledge={onSavePledge}
               embedded
             />
             <SpelLinkRow

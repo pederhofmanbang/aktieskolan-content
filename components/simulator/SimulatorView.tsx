@@ -33,6 +33,7 @@ import {
   placeLimitOrder,
   removeMonthlyPurchase,
   resetPortfolio,
+  saveCrisisPledge,
   saveMyPlan,
   savePortfolio,
   sell,
@@ -245,6 +246,12 @@ export function SimulatorView({ instruments }: { instruments: Instrument[] }) {
     savePortfolio(updated);
   };
 
+  const handleSavePledge = (text: string) => {
+    const updated = saveCrisisPledge(portfolio, text);
+    setPortfolio(updated);
+    savePortfolio(updated);
+  };
+
   const handleReset = () => {
     if (!window.confirm("Nollställ portföljen? All historik försvinner.")) return;
     setPortfolio(resetPortfolio());
@@ -428,6 +435,7 @@ export function SimulatorView({ instruments }: { instruments: Instrument[] }) {
             instruments={instruments}
             stocks={stocks}
             initialExpand={initialExpand}
+            onSavePledge={handleSavePledge}
           />
         )}
         {activeTab === "plan" && (

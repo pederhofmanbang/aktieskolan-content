@@ -12,13 +12,19 @@ import type { Instrument } from "@/lib/prices";
 export function CrashTestSection({
   portfolio,
   instruments,
+  onSavePledge,
   embedded = false,
 }: {
   portfolio: Portfolio;
   instruments: Instrument[];
+  onSavePledge?: (text: string) => void;
   embedded?: boolean;
 }) {
   const [scenarioId, setScenarioId] = useState<string>(CRASH_SCENARIOS[1].id);
+  const [pledgeDraft, setPledgeDraft] = useState<string>(
+    portfolio.crisisPledge ?? "",
+  );
+  const [pledgeSaved, setPledgeSaved] = useState<boolean>(false);
   const scenario = useMemo(
     () => CRASH_SCENARIOS.find((s) => s.id === scenarioId) ?? CRASH_SCENARIOS[1],
     [scenarioId],
@@ -178,6 +184,48 @@ export function CrashTestSection({
           </p>
         </>
       )}
+
+      <div className="mt-6 rounded-xl border border-neutral-200 bg-white p-4">
+        <div className="text-sm font-semibold text-neutral-900">
+          Mitt kris-svar
+        </div>
+        <p className="mt-1 text-xs text-neutral-500">
+          Skriv ner nu (när du är lugn) vad du tänker göra när det smäller på
+          riktigt. Den här meningen blir din inre regel. Sparas tillsammans
+          med din portfölj.
+        </p>
+        <textarea
+          value={pledgeDraft}
+          onChange={(e) => {
+            setPledgeDraft(e.target.value);
+            setPledgeSaved(false);
+          }}
+          rows={2}
+          placeholder="När börsen är -30 % kommer jag att…"
+          className="mt-2 w-full rounded-lg border border-neutral-200 px-3 py-2 text-sm text-neutral-900 focus:border-primary focus:outline-none"
+        />
+        <div className="mt-2 flex items-center gap-3">
+          <button
+            type="button"
+            disabled={!onSavePledge || pledgeDraft.trim().length === 0}
+            onClick={() => {
+              onSavePledge?.(pledgeDraft.trim());
+              setPledgeSaved(true);
+            }}
+            className="rounded-full bg-primary px-4 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-primary-dark disabled:cursor-not-allowed disabled:bg-neutral-300"
+          >
+            Spara mitt kris-svar
+          </button>
+          {pledgeSaved && (
+            <span className="text-xs text-primary-dark">✓ Sparat</span>
+          )}
+          {!pledgeSaved && portfolio.crisisPledge && (
+            <span className="text-xs text-neutral-500">
+              Du har redan ett sparat svar — ändringen ovan ersätter det.
+            </span>
+          )}
+        </div>
+      </div>
     </section>
   );
 }

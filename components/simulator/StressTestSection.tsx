@@ -220,11 +220,15 @@ export function StressTestSection({
                 </p>
               )}
               {verdict === "blocked" && (
-                <p className="text-sm text-red-700">
-                  ✗ Vägrad. Din motivering innehåller {hitKeyword ? `"${hitKeyword}"` : "panik-signaler"} —
-                  det är reptilhjärnan som pratar. Vänta 24 timmar och skriv om
-                  motiveringen baserad på <em>bolagets verksamhet</em>.
-                </p>
+                <div className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">
+                  <strong>✗ Vägrad — 24 timmars paus.</strong> Din motivering
+                  innehåller{" "}
+                  {hitKeyword ? `"${hitKeyword}"` : "panik-signaler"} — det är
+                  reptilhjärnan som pratar. På ett riktigt konto skulle ordern
+                  frysas i 24 timmar. Skriv om motiveringen baserad på{" "}
+                  <em>bolagets verksamhet</em> (vinst, ledning, konkurrens) —
+                  inte kursen eller dina känslor.
+                </div>
               )}
               {verdict === "weak" && (
                 <p className="text-sm text-amber-700">

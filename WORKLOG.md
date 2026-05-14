@@ -29,6 +29,27 @@ Format per post: datum, kort rubrik, branch + PR, gjort, öppna trådar, nästa 
 
 <!-- Tidigare poster följer nedan -->
 
+## 2026-05-15 — Bunt 11 — 200 flashcards + 70 nya quizfrågor
+
+**Branch:** `feature/content-bunt-11`
+**PR:** `#24` (mergad — squash)
+
+**Gjort:**
+- 200 flashcards i `data/lesson-flashcards.ts` (20 per lektion). Täcker
+  huvudbegrepp, räkneövningar och historiska fakta från varje manuskript.
+- 70 nya quizfrågor i lektion-MDX-filerna (7 per lektion, alla 10 lektioner).
+  Behåller de 3 befintliga och lägger till 7 nya. Totalt 10 frågor per lektion.
+- Alla frågor har 4 svarsalternativ + förklaring vid fel svar.
+- Räkneövningar inkluderade (P/E, regel-72, ränta-på-ränta, ISK-skatt).
+- Konsekvent med faktarättelserna i bunt 9 (Stillfront, Anna vinner Erik,
+  ~15 milj vid 7 %).
+
+**Filer som ändrats:**
+- `data/lesson-flashcards.ts` (komplett omskrivning, 200 kort)
+- Alla 10 MDX-lektioner i `content/lessons/` (utvidgad Quiz-sektion)
+
+---
+
 ## 2026-05-15 — Bunt 10 — Landningssida + lektion-flikar omstrukturerade
 
 **Branch:** `feature/content-bunt-10`

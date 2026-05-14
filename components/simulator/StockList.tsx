@@ -15,6 +15,7 @@ export function StockList({
   onBuy,
   onPlaceLimit,
   setError,
+  allowLimit = true,
 }: {
   stocks: Instrument[];
   cash: number;
@@ -25,6 +26,7 @@ export function StockList({
     amount: number;
   }) => ActionResult;
   setError: (msg: string | null) => void;
+  allowLimit?: boolean;
 }) {
   const [search, setSearch] = useState<string>("");
   const [sector, setSector] = useState<string>("Alla");
@@ -124,7 +126,7 @@ export function StockList({
                     onBuy={onBuy}
                     onPlaceLimit={onPlaceLimit}
                     setError={setError}
-                    allowLimit
+                    allowLimit={allowLimit}
                   />
                 ))}
               </ul>
@@ -141,7 +143,7 @@ export function StockList({
               onBuy={onBuy}
               onPlaceLimit={onPlaceLimit}
               setError={setError}
-              allowLimit
+              allowLimit={allowLimit}
             />
           ))}
         </ul>

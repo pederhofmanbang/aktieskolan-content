@@ -4,6 +4,7 @@ import { useState } from "react";
 
 import { OrderBookSnippet } from "@/components/simulator/OrderBookSnippet";
 import { cn } from "@/lib/cn";
+import { COMPANY_INFO } from "@/data/companies";
 import {
   formatKr,
   formatPct,
@@ -38,6 +39,8 @@ export function InstrumentRow({
   const [amountText, setAmountText] = useState<string>("");
   const [limitPriceText, setLimitPriceText] = useState<string>("");
   const [showOrderBook, setShowOrderBook] = useState<boolean>(false);
+  const [showInfo, setShowInfo] = useState<boolean>(false);
+  const info = COMPANY_INFO[instrument.ticker];
 
   const amount = Number(amountText.replace(/\s/g, "").replace(",", "."));
   const limitPrice = Number(
@@ -126,13 +129,35 @@ export function InstrumentRow({
             )}
           </div>
         </div>
-        <div className="text-right">
-          <div className="font-semibold tabular-nums text-neutral-900">
-            {formatKr(instrument.currentPrice, 2)}
+        <div className="flex items-start gap-2">
+          {info && (
+            <button
+              type="button"
+              onClick={() => setShowInfo((v) => !v)}
+              title="Om bolaget"
+              aria-label="Visa information om bolaget"
+              className="rounded-full border border-neutral-200 px-2 py-0.5 text-xs text-neutral-500 transition-colors hover:border-neutral-400 hover:text-neutral-800"
+            >
+              {showInfo ? "Stäng" : "i"}
+            </button>
+          )}
+          <div className="text-right">
+            <div className="font-semibold tabular-nums text-neutral-900">
+              {formatKr(instrument.currentPrice, 2)}
+            </div>
+            <div className="text-xs text-neutral-400">{instrument.asOf}</div>
           </div>
-          <div className="text-xs text-neutral-400">{instrument.asOf}</div>
         </div>
       </div>
+
+      {showInfo && info && (
+        <div className="mt-3 rounded-lg border border-neutral-200 bg-neutral-50 p-3 text-xs leading-relaxed text-neutral-700">
+          <p>{info.description}</p>
+          <p className="mt-2 text-neutral-600">
+            <strong>Pedagogisk poäng:</strong> {info.why}
+          </p>
+        </div>
+      )}
 
       {allowLimit && (
         <div className="mt-3 flex flex-wrap items-center gap-1 text-xs">

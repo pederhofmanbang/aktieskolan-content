@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { allLessons } from "contentlayer/generated";
 
+import { LessonActions } from "@/components/lessons/LessonActions";
 import { LessonTabs } from "@/components/lessons/LessonTabs";
 import { lessonFlashcards } from "@/data/lesson-flashcards";
 import { lessonMedia } from "@/data/lesson-media";
@@ -75,6 +76,8 @@ export default function LessonPage({ params }: { params: Params }) {
         flashcards={lessonFlashcards[lesson.slug]}
         code={lesson.body.code}
       />
+
+      <LessonActions slug={lesson.slug} />
 
       {(() => {
         const spelModule = MODULES.find(

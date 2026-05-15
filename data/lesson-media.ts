@@ -31,6 +31,8 @@ export const lessonMedia: Record<string, LessonMedia> = {
       "https://www.youtube.com/embed/IRfCZRoq414?rel=0",
       "https://app.heygen.com/embeds/a1b5bcfecd414a24a97ccd3da43ffce4",
     ],
+    podcastAudioUrl:
+      "https://xnz9pjud9djlrctb.public.blob.vercel-storage.com/Fr%C3%A5n_konsument_till_del%C3%A4gare_i_vardagen%20%281%29.m4a",
     podcastSourceUrl:
       "https://notebooklm.google.com/notebook/6475ad27-279b-4c71-a85c-d4d0480029ea/artifact/bc6468ef-fe55-4acf-b821-88a6caefb097",
     presentationPdfUrl: "/pdfs/Real_World_Ownership.pdf",

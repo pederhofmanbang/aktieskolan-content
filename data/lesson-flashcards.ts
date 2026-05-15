@@ -175,6 +175,18 @@ export const lessonFlashcards: Record<string, Flashcard[]> = {
       front: "Vad är 'regel-of-thumb' för nybörjare gällande börslistor?",
       back: "Börja på Large Cap. Mer transparent, mer omsatt, längre historik genom kriser.",
     },
+    {
+      front: "Vad är courtage?",
+      back: "Avgift som banken/mäklaren tar för att utföra din aktie-order. Hos Avanza/Nordnet: 1–9 kr mini, 39 kr standard, ~99 kr cap på stora ordrar.",
+    },
+    {
+      front: "Vad kostar det att köpa fonder och månadssparande hos Avanza/Nordnet?",
+      back: "0 kr courtage. Bara fondens årliga avgift dras automatiskt över tid.",
+    },
+    {
+      front: "Du köper aktier för 1 000 kr med 39 kr i courtage. Hur stor andel åt avgiften?",
+      back: "3,9 %. Aktien måste stiga 3,9 % bara för att kompensera courtaget. Använd mini-courtage för små köp.",
+    },
   ],
 
   "03-fonder-lasagne": [

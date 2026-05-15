@@ -85,6 +85,12 @@ export function TradeTab({
                 och limitorder.
               </p>
             )}
+            <p className="mt-3 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-xs leading-relaxed text-amber-900">
+              💡 <strong>I verkligheten kostar aktieköp courtage:</strong>{" "}
+              1–9 kr för små ordrar (under ~15&nbsp;000 kr) och 39 kr för större
+              ordrar hos Avanza/Nordnet. Plus spread (osynlig kostnad). Vi
+              förenklar i simulatorn och tar inget courtage.
+            </p>
             <div className="mt-4">
               <StockList
                 stocks={stocks}
@@ -107,6 +113,12 @@ export function TradeTab({
               Fonder köps i kr-belopp — du får ofta del av en andel (t.ex.{" "}
               <span className="tabular-nums">3,4521</span> andelar). Pedagogisk
               10-årshistorik (riktiga avgifter, syntetisk kursutveckling).
+            </p>
+            <p className="mt-3 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-xs leading-relaxed text-emerald-900">
+              💡 <strong>Fonder är oftast gratis att köpa</strong> hos
+              Avanza/Nordnet — inget courtage på vare sig engångsköp eller
+              månadssparande. Den löpande kostnaden är fondens årliga avgift
+              (visas per rad nedan).
             </p>
             <ul className="mt-4 space-y-2">
               {funds.map((inst) => (

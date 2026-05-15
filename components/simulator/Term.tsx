@@ -62,6 +62,13 @@ export const TERM_DEFS: Record<string, TermDef> = {
     lessonSlug: "02-borsen-och-mr-market",
     lessonLabel: "Lektion 2",
   },
+  courtage: {
+    short: "Courtage",
+    description:
+      "Avgift som banken/mäklaren tar för att utföra en aktie-order. Avanza/Nordnet 2026: 1–9 kr för små ordrar (under ~15 000 kr), 39 kr standard, 0,25 % över 50 000 kr (cap ~99 kr). Fonder och månadssparande är oftast gratis.",
+    lessonSlug: "02-borsen-och-mr-market",
+    lessonLabel: "Lektion 2",
+  },
   pe: {
     short: "P/E-tal",
     description:

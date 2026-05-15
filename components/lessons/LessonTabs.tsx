@@ -79,15 +79,26 @@ export function LessonTabs({ media, flashcards, code }: Props) {
         </TabPanel>
 
         <TabPanel id="film" active={active}>
-          {media.filmEmbedUrl ? (
-            <div className="relative w-full overflow-hidden rounded-2xl bg-neutral-900 aspect-video">
-              <iframe
-                src={media.filmEmbedUrl}
-                title="Lektionsfilm"
-                allow="encrypted-media; fullscreen;"
-                allowFullScreen
-                className="absolute inset-0 h-full w-full border-0"
-              />
+          {media.filmEmbedUrls && media.filmEmbedUrls.length > 0 ? (
+            <div className="space-y-6">
+              {media.filmEmbedUrls.map((url, i) => (
+                <div
+                  key={url}
+                  className="relative w-full overflow-hidden rounded-2xl bg-neutral-900 aspect-video"
+                >
+                  <iframe
+                    src={url}
+                    title={
+                      media.filmEmbedUrls!.length > 1
+                        ? `Lektionsfilm ${i + 1}`
+                        : "Lektionsfilm"
+                    }
+                    allow="encrypted-media; fullscreen;"
+                    allowFullScreen
+                    className="absolute inset-0 h-full w-full border-0"
+                  />
+                </div>
+              ))}
             </div>
           ) : (
             <ComingSoon label="Filmen för den här lektionen kommer snart." />

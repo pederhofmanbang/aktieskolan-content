@@ -1,5 +1,9 @@
 export type LessonMedia = {
-  filmEmbedUrl?: string;
+  /**
+   * En eller flera embed-URL:er till lektionsfilmer. Visas i Film-fliken,
+   * staplade ovanför varandra om det är fler än en.
+   */
+  filmEmbedUrls?: string[];
   podcastAudioUrl?: string;
   podcastSourceUrl?: string;
   presentationPdfUrl?: string;
@@ -10,18 +14,23 @@ export type LessonMedia = {
 
 /**
  * Mediakällor per lektion. När fältet är tomt visas "Kommer snart" i
- * lektion-tab:en. Fyll i NotebookLM-URL:er i fälten nedan när de är klara.
+ * lektion-tab:en.
  *
  * Film-URL:er pekar mot Peders YouTube-playlist
  * https://www.youtube.com/playlist?list=PL4RcHBLLdLTPbxK4Bzz6RTyGI2mL1VnTk
  * Embed-format: https://www.youtube.com/embed/<VIDEO_ID>?rel=0
+ *
+ * Lektion 1 har två filmer: YouTube-versionen + den ursprungliga Heygen-versionen.
  *
  * Presentations-PDF:er ligger i /public/pdfs/. Mellanslag i filnamnen
  * måste URL-kodas som %20 i path-strängen.
  */
 export const lessonMedia: Record<string, LessonMedia> = {
   "01-vad-ar-en-aktie": {
-    filmEmbedUrl: "https://www.youtube.com/embed/IRfCZRoq414?rel=0",
+    filmEmbedUrls: [
+      "https://www.youtube.com/embed/IRfCZRoq414?rel=0",
+      "https://app.heygen.com/embeds/a1b5bcfecd414a24a97ccd3da43ffce4",
+    ],
     podcastSourceUrl:
       "https://notebooklm.google.com/notebook/6475ad27-279b-4c71-a85c-d4d0480029ea/artifact/bc6468ef-fe55-4acf-b821-88a6caefb097",
     presentationPdfUrl: "/pdfs/Real_World_Ownership.pdf",
@@ -33,39 +42,39 @@ export const lessonMedia: Record<string, LessonMedia> = {
       "https://notebooklm.google.com/notebook/6475ad27-279b-4c71-a85c-d4d0480029ea/artifact/e33f5f7b-f9ab-43a9-8003-3d4781f8c839",
   },
   "02-borsen-och-mr-market": {
-    filmEmbedUrl: "https://www.youtube.com/embed/ltP5X9c6OJg?rel=0",
+    filmEmbedUrls: ["https://www.youtube.com/embed/ltP5X9c6OJg?rel=0"],
     presentationPdfUrl: "/pdfs/2%20Mastering_Market_Mechanics.pdf",
   },
   "03-fonder-lasagne": {
-    filmEmbedUrl: "https://www.youtube.com/embed/iILt78lI45Q?rel=0",
+    filmEmbedUrls: ["https://www.youtube.com/embed/iILt78lI45Q?rel=0"],
     presentationPdfUrl: "/pdfs/3%20The_Investor_Menu.pdf",
   },
   "04-ranta-pa-ranta": {
-    filmEmbedUrl: "https://www.youtube.com/embed/ukcvU2baUY0?rel=0",
+    filmEmbedUrls: ["https://www.youtube.com/embed/ukcvU2baUY0?rel=0"],
     presentationPdfUrl: "/pdfs/4%20The_Snowball_Effect.pdf",
   },
   "05-risk": {
-    filmEmbedUrl: "https://www.youtube.com/embed/L8cwInccahk?rel=0",
+    filmEmbedUrls: ["https://www.youtube.com/embed/L8cwInccahk?rel=0"],
     presentationPdfUrl: "/pdfs/5%20The_Price_of_Return.pdf",
   },
   "06-diversifiering": {
-    filmEmbedUrl: "https://www.youtube.com/embed/znM-ddCPaYM?rel=0",
+    filmEmbedUrls: ["https://www.youtube.com/embed/znM-ddCPaYM?rel=0"],
     presentationPdfUrl: "/pdfs/6%20Diversification_Blueprint.pdf",
   },
   "07-isk-vs-af-vs-kf": {
-    filmEmbedUrl: "https://www.youtube.com/embed/u0lNbVdWlZ8?rel=0",
+    filmEmbedUrls: ["https://www.youtube.com/embed/u0lNbVdWlZ8?rel=0"],
     presentationPdfUrl: "/pdfs/7%20The_Wealth_Blueprint.pdf",
   },
   "08-nyckeltal": {
-    filmEmbedUrl: "https://www.youtube.com/embed/xskTpLmnr4Y?rel=0",
+    filmEmbedUrls: ["https://www.youtube.com/embed/xskTpLmnr4Y?rel=0"],
     presentationPdfUrl: "/pdfs/8%20Mastering_Stock_Metrics.pdf",
   },
   "09-psykologi": {
-    filmEmbedUrl: "https://www.youtube.com/embed/C9RH1Oi7o6A?rel=0",
+    filmEmbedUrls: ["https://www.youtube.com/embed/C9RH1Oi7o6A?rel=0"],
     presentationPdfUrl: "/pdfs/9%20Mind_Over_Instinct.pdf",
   },
   "10-din-egen-plan": {
-    filmEmbedUrl: "https://www.youtube.com/embed/a3RoLtD81Wk?rel=0",
+    filmEmbedUrls: ["https://www.youtube.com/embed/a3RoLtD81Wk?rel=0"],
     // PDF för lektion 10 saknas ännu — lägg till i /public/pdfs/ när den är klar
   },
 };

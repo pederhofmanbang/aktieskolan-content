@@ -1,5 +1,6 @@
 "use client";
 
+import { DidYouKnow } from "@/components/simulator/DidYouKnow";
 import { PositionRow } from "@/components/simulator/PositionRow";
 import { TransactionRow } from "@/components/simulator/TransactionRow";
 import { cn } from "@/lib/cn";
@@ -37,6 +38,8 @@ export function PortfolioTab({
 
   return (
     <div className="space-y-12 py-2">
+      <DidYouKnow />
+
       <section>
         <h2 className="text-xl font-semibold text-neutral-900">Min portfölj</h2>
         <p className="mt-1 text-sm text-neutral-500">
@@ -46,8 +49,9 @@ export function PortfolioTab({
         </p>
         {portfolio.positions.length === 0 ? (
           <EmptyState>
-            Du äger inget ännu. Gå till fliken <strong>Köp &amp; sälj</strong>{" "}
-            och börja med exempelvis Investor B (lektion 1).
+            Ingen pizza-bit än 🍕 — gå till fliken{" "}
+            <strong>Köp &amp; sälj</strong> och starta din pizzeria med
+            exempelvis Investor B (lektion 1).
           </EmptyState>
         ) : (
           <ul className="mt-4 space-y-2">
@@ -77,8 +81,9 @@ export function PortfolioTab({
         </p>
         {portfolio.activeOrders.length === 0 ? (
           <EmptyState>
-            Inga väntande limit-ordrar. Lägg en på fliken{" "}
-            <strong>Köp &amp; sälj</strong> (lektion 2).
+            Inga väntande limit-ordrar — Mr Market har inte sänkt sig till dina
+            priser ännu. Lägg en på fliken <strong>Köp &amp; sälj</strong>{" "}
+            (lektion 2).
           </EmptyState>
         ) : (
           <ul className="mt-4 space-y-2">
@@ -148,7 +153,10 @@ export function PortfolioTab({
           Senaste affärer
         </h2>
         {recentTransactions.length === 0 ? (
-          <EmptyState>Inga affärer än. Gör ditt första köp så syns det här.</EmptyState>
+          <EmptyState>
+            Inga affärer än — tidigare-du har inte gjort något. Klart! Gör
+            ditt första köp så syns det här.
+          </EmptyState>
         ) : (
           <>
             <p className="mt-1 text-sm text-neutral-500">

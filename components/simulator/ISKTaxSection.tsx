@@ -1,5 +1,6 @@
 "use client";
 
+import { Speech } from "@/components/simulator/Speech";
 import { Term } from "@/components/simulator/Term";
 import { cn } from "@/lib/cn";
 import { formatKr, formatPct } from "@/lib/format";
@@ -141,6 +142,22 @@ export function ISKTaxSection({
           </div>
         </div>
       </div>
+
+      {savings > 0 && (
+        <Speech character="wallenberg" className="mt-4">
+          {formatKr(Math.round(savings))} sparat per år bara genom kontotyp.
+          Det är så generationer bygger förmögenhet — inte genom geniala
+          aktieval, utan genom att aldrig betala skatt i onödan. ISK är
+          Sveriges bästa skattetekniska uppfinning sedan investmentbolagen.
+        </Speech>
+      )}
+      {savings <= 0 && realizedGain === 0 && (
+        <Speech character="wallenberg" className="mt-4">
+          Just nu har du ingen vinst att skatta på — då vinner AF
+          temporärt. Men så fort portföljen tar fart är ISK obetvivlat bättre
+          på lång sikt. Tålamod.
+        </Speech>
+      )}
 
       <p className="mt-4 text-xs leading-relaxed text-neutral-500">
         <strong>Brytpunkt:</strong> ISK är billigare än AF när pengarna växer

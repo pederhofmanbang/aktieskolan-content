@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 
+import { Speech } from "@/components/simulator/Speech";
 import { cn } from "@/lib/cn";
 import { formatKr, formatPct, formatSignedKr } from "@/lib/format";
 import type { Portfolio } from "@/lib/portfolio";
@@ -238,6 +239,21 @@ export function StressTestSection({
                 </p>
               )}
             </div>
+            {verdict === "blocked" && (
+              <Speech character="buffett" className="mt-4">
+                &quot;Var rädd när andra är giriga, och girig när andra är
+                rädda.&quot; Det är just nu — när det skriker i kroppen — som
+                de bästa köpen görs av någon annan. Andas. Vänta 24 timmar.
+              </Speech>
+            )}
+            {verdict === "accepted" && (
+              <Speech character="buffett" className="mt-4">
+                Bra. Du säljer på fundamenten, inte på rädsla. Det är så
+                rationella investerare gör. Men dubbelkolla att du inte
+                rationaliserar i efterhand — verksamheten ska faktiskt ha
+                försämrats.
+              </Speech>
+            )}
           </div>
         </>
       )}

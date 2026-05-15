@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 
+import { Speech } from "@/components/simulator/Speech";
 import { cn } from "@/lib/cn";
 import { formatKr, formatPct } from "@/lib/format";
 import type { Portfolio } from "@/lib/portfolio";
@@ -208,6 +209,21 @@ export function TimeMachineSection({
             </tbody>
           </table>
         </div>
+      )}
+
+      {years >= 30 && (
+        <Speech character="anna-snowball" className="mt-4">
+          Snöbollen rullar fett nu! Vid {years} år har ränta-på-ränta gjort
+          mer än hälften av jobbet — pengarna föder sina egna pengar. Det här
+          är därför Buffett tjänade 99 % av sin förmögenhet efter 50.
+        </Speech>
+      )}
+      {years <= 5 && (
+        <Speech character="anna-snowball" className="mt-4">
+          {years} år är kort. På den här tidshorisonten är det främst dina
+          insättningar som syns — snöbollen har inte hunnit få fart. Rulla
+          fram till 20–30 år och se vad som händer.
+        </Speech>
       )}
 
       <p className="mt-3 text-xs text-neutral-500">

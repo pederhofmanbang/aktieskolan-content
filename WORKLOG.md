@@ -29,6 +29,47 @@ Format per post: datum, kort rubrik, branch + PR, gjort, öppna trådar, nästa 
 
 <!-- Tidigare poster följer nedan -->
 
+## 2026-05-15 — Bunt 16 — Personlighet och pedagogisk humor i simulatorn
+
+**Branch:** `feature/simulator-bunt-16-personlighet`
+**PR:** `#30` (mergad — squash)
+
+**Gjort:**
+- Ny `Speech.tsx`: pratbubblor från sex karaktärer (Mr Market manic/neutral/
+  depressed, Buffett, Anna snöbollen, familjen Wallenberg). Färgkodat per
+  karaktär.
+- Ny `Celebration.tsx`: 3,5 s konfetti-overlay vid milstolpar. Visas en gång
+  per typ (sparas i `aktieskolan_celebrations_seen_v1` i localStorage).
+- Ny `DidYouKnow.tsx`: 15 roterande fakta-kort ("Visste du?"). Knapp för att
+  byta fakta. Visas överst i Portfölj-fliken.
+- PortfolioTab: tre lekfullare tomma states (pizza-bit emoji, Mr Market har
+  inte sänkt sig, tidigare-du gjorde inget).
+- OrderBookSnippet: Mr Market kommenterar spreaden — manic vid tight spread
+  (storbolag), depressed vid vid spread (småbolag).
+- StressTestSection: Buffett-citat när motivering blockas ("Var rädd när
+  andra är giriga…") och vid accepterad motivering.
+- TimeMachineSection: Anna kommenterar vid 30+ års horisont och vid korta
+  5-års horisonter.
+- ISKTaxSection: Wallenberg pratar när ISK-fördelen är positiv.
+- SimulatorView: Celebration triggas vid första köp, första månadssparande
+  och signerad IPS — en gång per typ.
+
+**Filer som ändrats:**
+- Nya: `components/simulator/{Speech,Celebration,DidYouKnow}.tsx`
+- Modifierat: `components/simulator/{SimulatorView,PortfolioTab,
+  OrderBookSnippet,StressTestSection,TimeMachineSection,ISKTaxSection}.tsx`
+
+**Verifierat:**
+- `npx tsc --noEmit` rent
+- `npx next lint` inga nya warnings
+- `npm run build` 27 sidor genereras
+
+**Nästa steg:**
+- Bunt 17 (sparas): coach-mode med persistent Mr Market, streaks/badges,
+  mini-quizzar inbakade.
+
+---
+
 ## 2026-05-15 — Bunt 11 — 200 flashcards + 70 nya quizfrågor
 
 **Branch:** `feature/content-bunt-11`

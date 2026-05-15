@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 
 import { AnalysisTab } from "@/components/simulator/AnalysisTab";
+import { Celebration } from "@/components/simulator/Celebration";
 import { NextStepHint } from "@/components/simulator/NextStepHint";
 import { OnboardingBanner } from "@/components/simulator/OnboardingBanner";
 import { PlanTab } from "@/components/simulator/PlanTab";
@@ -45,6 +46,36 @@ import type { Instrument } from "@/lib/prices";
 
 const ISK_FRIBELOPP_2026 = 300_000;
 const ONBOARDING_KEY = "aktieskolan_onboarding_dismissed_v1";
+const CELEBRATIONS_KEY = "aktieskolan_celebrations_seen_v1";
+
+type CelebrationKey = "first-buy" | "first-monthly" | "signed-plan";
+
+type CelebrationDef = {
+  key: CelebrationKey;
+  title: string;
+  message: string;
+};
+
+const CELEBRATIONS: Record<CelebrationKey, CelebrationDef> = {
+  "first-buy": {
+    key: "first-buy",
+    title: "Första köpet i lådan! 🎉",
+    message:
+      "Du är officiellt aktieägare. Pizzan har sin första bit — nu rullar snöbollen.",
+  },
+  "first-monthly": {
+    key: "first-monthly",
+    title: "Månadssparande på plats!",
+    message:
+      "Autopiloten är igång. Det här är hemligheten bakom långsiktig förmögenhet — inte aktietips.",
+  },
+  "signed-plan": {
+    key: "signed-plan",
+    title: "Din IPS är signerad!",
+    message:
+      "Du har skrivit ditt eget kontrakt. När Mr Market bryter ihop nästa gång — läs detta.",
+  },
+};
 
 type ActionResult = { ok: true } | { ok: false; reason: string };
 
@@ -59,6 +90,10 @@ export function SimulatorView({ instruments }: { instruments: Instrument[] }) {
   const [lessonProgress, setLessonProgress] = useState<LessonProgress>({
     completed: [],
   });
+  const [seenCelebrations, setSeenCelebrations] = useState<CelebrationKey[]>([]);
+  const [activeCelebration, setActiveCelebration] = useState<CelebrationDef | null>(
+    null,
+  );
 
   useEffect(() => {
     setPortfolio(loadPortfolio());
@@ -68,6 +103,15 @@ export function SimulatorView({ instruments }: { instruments: Instrument[] }) {
       setOnboardingDismissed(
         window.localStorage.getItem(ONBOARDING_KEY) === "1",
       );
+      try {
+        const raw = window.localStorage.getItem(CELEBRATIONS_KEY);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          if (Array.isArray(parsed)) setSeenCelebrations(parsed);
+        }
+      } catch {
+        // ignore corrupt state
+      }
       const params = new URLSearchParams(window.location.search);
       const tab = params.get("tab");
       if (tab && ["portfolio", "trade", "analysis", "plan"].includes(tab)) {
@@ -86,6 +130,29 @@ export function SimulatorView({ instruments }: { instruments: Instrument[] }) {
       return () => window.removeEventListener("storage", handler);
     }
   }, []);
+
+  // Trigga celebrations vid milstolpar (en gång per typ).
+  useEffect(() => {
+    if (!hydrated) return;
+    const fire = (key: CelebrationKey) => {
+      if (seenCelebrations.includes(key)) return;
+      setActiveCelebration(CELEBRATIONS[key]);
+      const next = [...seenCelebrations, key];
+      setSeenCelebrations(next);
+      if (typeof window !== "undefined") {
+        window.localStorage.setItem(CELEBRATIONS_KEY, JSON.stringify(next));
+      }
+    };
+    if (portfolio.positions.length > 0) fire("first-buy");
+    if (portfolio.monthlyPurchases.length > 0) fire("first-monthly");
+    if (portfolio.myPlan?.signedAt) fire("signed-plan");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    hydrated,
+    portfolio.positions.length,
+    portfolio.monthlyPurchases.length,
+    portfolio.myPlan?.signedAt,
+  ]);
 
   // Auto-unlocka icke-destruktiva pedagogiska vyer.
   useEffect(() => {
@@ -300,6 +367,12 @@ export function SimulatorView({ instruments }: { instruments: Instrument[] }) {
 
   return (
     <main className="mx-auto max-w-5xl px-6 py-8 sm:py-10">
+      <Celebration
+        show={activeCelebration !== null}
+        title={activeCelebration?.title ?? ""}
+        message={activeCelebration?.message ?? ""}
+        onDone={() => setActiveCelebration(null)}
+      />
       <div className="flex items-center justify-between">
         <Link
           href="/lektioner"

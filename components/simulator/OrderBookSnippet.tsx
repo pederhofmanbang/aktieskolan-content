@@ -1,5 +1,6 @@
 "use client";
 
+import { Speech, type Character } from "@/components/simulator/Speech";
 import { cn } from "@/lib/cn";
 import { formatKr } from "@/lib/format";
 
@@ -29,6 +30,7 @@ export function OrderBookSnippet({
   }));
 
   const spreadKr = asks[0].price - bids[0].price;
+  const mood = marketMood(spreadPct);
 
   return (
     <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-3 text-xs">
@@ -68,8 +70,33 @@ export function OrderBookSnippet({
           ))}
         </div>
       </div>
+      <Speech character={mood.character} className="mt-3">
+        {mood.quote}
+      </Speech>
     </div>
   );
+}
+
+function marketMood(spreadPct: number): { character: Character; quote: string } {
+  if (spreadPct >= 0.015) {
+    return {
+      character: "mr-market-depressed",
+      quote:
+        "Ingen vill köpa det här just nu… spreaden är vid. Du betalar dyrt för att komma in och får billigt om du vill ut. Småbolag, säger jag bara.",
+    };
+  }
+  if (spreadPct <= 0.002) {
+    return {
+      character: "mr-market-manic",
+      quote:
+        "Massor av kö på båda sidor — spreaden är minimal! Likvid aktie. Du kan handla för 100 000 kr utan att flytta priset.",
+    };
+  }
+  return {
+    character: "mr-market-neutral",
+    quote:
+      "Normal spread för storbolag — ~0,5 %. Du tappar inte mycket på att handla nu, men kvitto­hubbet kostar alltid något.",
+  };
 }
 
 function BookRow({

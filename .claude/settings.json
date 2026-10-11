@@ -4,14 +4,9 @@
       {
         "hooks": [
           {
-            "type": "http",
-            "url": "https://voice-hub.peder-hofman-bang.workers.dev/hook",
-            "timeout": 5,
-            "headers": {
-              "Authorization": "Bearer $VOICE_HUB_TOKEN",
-              "X-Remote-Session": "$CLAUDE_CODE_REMOTE_SESSION_ID"
-            },
-            "allowedEnvVars": ["VOICE_HUB_TOKEN", "CLAUDE_CODE_REMOTE_SESSION_ID"]
+            "type": "command",
+            "command": "curl -s -m 5 -X POST -H \"content-type: application/json\" -H \"Authorization: Bearer $VOICE_HUB_TOKEN\" -H \"X-Remote-Session: $CLAUDE_CODE_REMOTE_SESSION_ID\" --data-binary @- https://voice-hub.peder-hofman-bang.workers.dev/hook || true",
+            "timeout": 10
           }
         ]
       }

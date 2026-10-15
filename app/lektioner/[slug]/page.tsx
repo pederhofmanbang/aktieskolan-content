@@ -71,6 +71,7 @@ export default function LessonPage({ params }: { params: Params }) {
       </aside>
 
       <LessonTabs
+        slug={lesson.slug}
         media={lessonMedia[lesson.slug] ?? {}}
         flashcards={lessonFlashcards[lesson.slug]}
         code={lesson.body.code}
